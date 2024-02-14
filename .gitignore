@@ -175,5 +175,5 @@ cython_debug/
 #.idea/
 
 .DS_Store
-poetry.lock
+./poetry.lock
 outputs/*
