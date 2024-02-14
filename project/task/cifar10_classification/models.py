@@ -2,9 +2,9 @@
 
 from torch import nn, Tensor
 
-
-from project.types.common import IsolatedRNG
 from torchvision.models import resnet18
+from project.utils.utils import lazy_config_wrapper
+from project.types.common import NetGen
 
 
 class Net(nn.Module):
@@ -33,17 +33,4 @@ class Net(nn.Module):
         return self.model(x)
 
 
-def get_net(_config: dict, rng_tuple: IsolatedRNG) -> nn.Module:
-    """Return a model instance.
-
-    Args:
-    config: A dictionary with the model configuration.
-    rng_tuple: The random number generator state for the training.
-        Use if you need seeded random behavior
-
-    Returns
-    -------
-    nn.Module
-        A PyTorch model.
-    """
-    return Net(pretrained=False)
+get_net: NetGen = lazy_config_wrapper(Net)
