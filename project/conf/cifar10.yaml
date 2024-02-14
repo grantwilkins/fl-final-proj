@@ -47,7 +47,7 @@ debug_clients:
   one: true
 
 # If to automatically resume wandb runs
-wandb_resume: true
+wandb_resume: false
 
 # The id of the wandb run to resume
 # If null and wandb_resume, tries to detect
