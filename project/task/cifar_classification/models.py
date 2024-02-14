@@ -3,12 +3,18 @@
 from torch import nn
 
 from project.types.common import IsolatedRNG
+from torchvision.models import resnet18
 
 
 class Net(nn.Module):
     """A PyTorch model."""
 
-    # TODO: define your model here
+    def __init__(self, pretrained: bool = False, **kwargs):
+        super(Net, self).__init__()
+        self.model = resnet18(pretrained=pretrained, **kwargs)
+
+    def forward(self, x):
+        return self.model(x)
 
 
 def get_net(_config: dict, rng_tuple: IsolatedRNG) -> nn.Module:
@@ -24,4 +30,4 @@ def get_net(_config: dict, rng_tuple: IsolatedRNG) -> nn.Module:
     nn.Module
         A PyTorch model.
     """
-    return Net()
+    return Net(pretrained=False)
