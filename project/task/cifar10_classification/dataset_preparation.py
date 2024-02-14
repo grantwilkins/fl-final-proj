@@ -229,7 +229,7 @@ def _sort_by_class(
         The sorted training dataset.
     """
     class_counts = np.bincount(trainset.targets)
-    idxs = trainset.targets.argsort()  # sort targets in ascending order
+    idxs = torch.Tensor(trainset.targets).argsort()  # sort targets in ascending order
 
     tmp = []  # create subset of smallest class
     tmp_targets = []  # same for targets
@@ -246,7 +246,7 @@ def _sort_by_class(
             ),
         )  # add rest of classes
         tmp_targets.append(
-            trainset.targets[idxs[start : int(count + start)]],
+            torch.Tensor(trainset.targets)[idxs[start : int(count + start)]],
         )
         start += count
     sorted_dataset = cast(
