@@ -19,6 +19,7 @@ from project.task.default.train_test import (
 from project.types.common import IsolatedRNG
 
 from gauss_newton import GNA
+from tqdm import tqdm
 
 
 class TrainConfig(BaseModel):
@@ -94,7 +95,7 @@ def train(  # pylint: disable=too-many-arguments
     for _ in range(config.epochs):
         final_epoch_per_sample_loss = 0.0
         num_correct = 0
-        for data, target in trainloader:
+        for data, target in tqdm(trainloader):
             data, target = (
                 data.to(
                     config.device,
