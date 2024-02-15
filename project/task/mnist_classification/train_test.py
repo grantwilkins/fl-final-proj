@@ -107,7 +107,7 @@ def train(  # pylint: disable=too-many-arguments
             final_epoch_per_sample_loss += loss.item()
             num_correct += (output.max(1)[1] == target).clone().detach().sum().item()
             loss.backward()
-            optimizer.step()
+            optimizer.step(data)
 
     return len(cast(Sized, trainloader.dataset)), {
         "train_loss": final_epoch_per_sample_loss
