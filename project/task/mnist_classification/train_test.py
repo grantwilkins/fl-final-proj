@@ -18,6 +18,8 @@ from project.task.default.train_test import (
 )
 from project.types.common import IsolatedRNG
 
+from gauss_newton import GNA
+
 
 class TrainConfig(BaseModel):
     """Training configuration, allows '.' member access and static checking.
@@ -80,11 +82,12 @@ def train(  # pylint: disable=too-many-arguments
     net.train()
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(
-        net.parameters(),
-        lr=config.learning_rate,
-        weight_decay=0.001,
-    )
+    optimizer = GNA(net.parameters(), lr=config.learning_rate)
+    # optimizer = torch.optim.SGD(
+    #     net.parameters(),
+    #     lr=config.learning_rate,
+    #     weight_decay=0.001,
+    # )
 
     final_epoch_per_sample_loss = 0.0
     num_correct = 0
