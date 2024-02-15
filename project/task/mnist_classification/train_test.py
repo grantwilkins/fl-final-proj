@@ -82,7 +82,7 @@ def train(  # pylint: disable=too-many-arguments
     net.train()
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = GNA(net.parameters(), lr=config.learning_rate)
+    optimizer = GNA(net.parameters(), lr=config.learning_rate, model=net)
     # optimizer = torch.optim.SGD(
     #     net.parameters(),
     #     lr=config.learning_rate,
