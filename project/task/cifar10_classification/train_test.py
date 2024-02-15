@@ -255,7 +255,7 @@ def get_on_fit_config_fn(fit_config: dict) -> OnFitConfigFN:
     ClientConfig(**fit_config)
 
     def fit_config_fn(server_round: int) -> dict:
-        """MNIST on_fit_config_fn.
+        """CIFAR10 on_fit_config_fn.
 
         Parameters
         ----------

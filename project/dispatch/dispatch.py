@@ -14,6 +14,12 @@ from project.task.default.dispatch import dispatch_train as dispatch_default_tra
 from project.task.mnist_classification.dispatch import (
     dispatch_config as dispatch_mnist_config,
 )
+from project.task.cifar10_classification.dispatch import (
+    dispatch_data as dispatch_cifar10_data,
+)
+from project.task.cifar10_classification.dispatch import (
+    dispatch_train as dispatch_cifar10_train,
+)
 from project.task.mnist_classification.dispatch import (
     dispatch_data as dispatch_mnist_data,
 )
@@ -44,6 +50,7 @@ def dispatch_train(cfg: DictConfig) -> TrainStructure:
     # Create the list of task dispatches to try
     task_train_functions: list[Callable[[DictConfig], TrainStructure | None]] = [
         dispatch_default_train,
+        dispatch_cifar10_train,
         dispatch_mnist_train,
     ]
 
@@ -80,6 +87,7 @@ def dispatch_data(cfg: DictConfig) -> DataStructure:
     task_data_dependent_functions: list[
         Callable[[DictConfig], DataStructure | None]
     ] = [
+        dispatch_cifar10_data,
         dispatch_mnist_data,
         dispatch_default_data,
     ]

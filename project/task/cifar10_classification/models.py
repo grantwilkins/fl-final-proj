@@ -1,6 +1,7 @@
 """Define our models, and training and eval functions."""
 
-from torch import nn, Tensor
+import torch
+from torch import nn
 
 from torchvision.models import resnet18
 from project.utils.utils import lazy_config_wrapper
@@ -10,16 +11,16 @@ from project.types.common import NetGen
 class Net(nn.Module):
     """A PyTorch model."""
 
-    def __init__(self, pretrained: bool = False) -> None:
+    def __init__(self, num_classes: int = 10) -> None:
         """Initialize the model.
 
         Args:
-        pretrained: Whether to use a pretrained model.
+        num_classes: How many classes in the subsequent model.
         """
         super().__init__()
-        self.model = resnet18(pretrained=pretrained)
+        self.model = resnet18(num_classes=num_classes)
 
-    def forward(self, x: Tensor) -> Tensor:
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass of the model.
 
         Args:

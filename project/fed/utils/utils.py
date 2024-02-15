@@ -4,7 +4,7 @@ import json
 import random
 import logging
 import struct
-from collections import OrderedDict, defaultdict
+from collections import defaultdict
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any, cast
@@ -58,14 +58,21 @@ def generic_set_parameters(
     -------
     None
     """
-    params_dict = zip(
-        net.state_dict().keys(),
-        parameters,
-        strict=True,
-    )
-    state_dict = OrderedDict(
-        {k: torch.Tensor(v if not to_copy else v.copy()) for k, v in params_dict},
-    )
+    params_dict = dict(zip(net.state_dict().keys(), parameters, strict=False))
+
+    # Create a new state dictionary
+    state_dict = {}
+    for k, v in net.state_dict().items():
+        if k in params_dict:
+            # If the parameter is a scalar, ensure it remains a scalar
+            if torch.is_tensor(v) and v.dim() == 0:
+                state_dict[k] = torch.tensor(params_dict[k])
+            else:
+                state_dict[k] = torch.Tensor(params_dict[k])
+        else:
+            # If the key is not in params_dict, keep the current state dictionary entry
+            state_dict[k] = v
+
     net.load_state_dict(state_dict, strict=True)
 
 
