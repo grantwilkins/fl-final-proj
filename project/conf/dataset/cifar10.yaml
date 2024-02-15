@@ -1,11 +1,11 @@
 ---
 # Where to store data
-dataset_dir: /Users/grantwilkins/fl-final-proj/project/task/cifar10_classification/data/cifar10/data
+dataset_dir: ./data/cifar10/data
 
 # Folder of client folders
 # indexed by id, containing train and test
 # data in .pt format
-partition_dir: /Users/grantwilkins/fl-final-proj/project/task/cifar10_classification/data/cifar10/partition
+partition_dir: ./data/cifar10/partition
 
 # How many clients to create
 num_clients: 10
