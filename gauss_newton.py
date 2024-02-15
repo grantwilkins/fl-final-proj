@@ -27,20 +27,15 @@ class GNA(Optimizer):
             :class:`dict` s. Specifies what Tensors should be optimized.
         lr: (float): learning rate
         model: (nn.Module): NN.
-        hessian_approx: (bool): whether to use approx for 2nd order deriv
     """
 
-    def __init__(
-        self, params: ParamsT, lr: float, model: nn.Module, hessian_approx: bool = True
-    ) -> None:
+    def __init__(self, params: ParamsT, lr: float, model: nn.Module) -> None:
         if lr is not None and lr < MIN_LEARNING_RATE:
             raise ValueError(f"Invalid learning rate: {lr}")
 
         defaults = {"lr": lr}
 
         super().__init__(params, defaults)
-
-        self.hessian_approx = hessian_approx
 
         self._model = model
         self._params = self.param_groups[0]["params"]
