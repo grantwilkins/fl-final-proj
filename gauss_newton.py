@@ -9,6 +9,8 @@ from torch.optim.optimizer import Optimizer
 from typing import Any, TypeAlias
 from collections.abc import Callable, Iterable
 
+from project.utils.utils import obtain_device
+
 from distutils.version import LooseVersion
 
 if LooseVersion(torch.__version__) >= LooseVersion("2.0.0"):
@@ -149,7 +151,11 @@ class GNA(Optimizer):
             diag_vec = h.diagonal() + torch.finfo(h.dtype).eps * 1
             h.as_strided([h.size(0)], [h.size(0) + 1]).copy_(diag_vec)
 
-            h_i = h.to(device="cpu").pinverse().to(device="mps", dtype=torch.float32)
+            h_i = (
+                h.to(device="cpu")
+                .pinverse()
+                .to(device=obtain_device(), dtype=torch.float32)
+            )
             if h_i.shape[-1] == d_p.flatten().shape[0]:
                 d2_p = h_i.matmul(d_p.flatten()).reshape(d_p_list[i].shape)
                 param.add_(d2_p, alpha=-lr)
