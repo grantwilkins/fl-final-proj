@@ -5,9 +5,9 @@ import torch
 from torch import Tensor
 from torch import nn
 from torch.func import jacrev as jacobian
-from torch.optim.optimizer import Optimizer, ParamsT
-from typing import Any
-from collections.abc import Callable
+from torch.optim.optimizer import Optimizer
+from typing import Any, TypeAlias
+from collections.abc import Callable, Iterable
 
 from distutils.version import LooseVersion
 
@@ -17,6 +17,7 @@ else:
     pass
 
 MIN_LEARNING_RATE = 0.0
+ParamsT: TypeAlias = Iterable[torch.Tensor] | Iterable[dict[str, Any]]
 
 
 class GNA(Optimizer):
