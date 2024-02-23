@@ -18,7 +18,6 @@ from project.task.default.train_test import (
 )
 from project.types.common import IsolatedRNG
 
-from gauss_newton import GNA
 from tqdm import tqdm
 from functorch.experimental import replace_all_batch_norm_modules_
 
@@ -85,12 +84,12 @@ def train(  # pylint: disable=too-many-arguments
     net.train()
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = GNA(net.parameters(), lr=config.learning_rate, model=net)
-    # optimizer = torch.optim.SGD(
-    #     net.parameters(),
-    #     lr=config.learning_rate,
-    #     weight_decay=0.001,
-    # )
+    # optimizer = GNA(net.parameters(), lr=config.learning_rate, model=net)
+    optimizer = torch.optim.SGD(
+        net.parameters(),
+        lr=config.learning_rate,
+        weight_decay=0.001,
+    )
 
     final_epoch_per_sample_loss = 0.0
     num_correct = 0
@@ -110,7 +109,8 @@ def train(  # pylint: disable=too-many-arguments
             final_epoch_per_sample_loss += loss.item()
             num_correct += (output.max(1)[1] == target).clone().detach().sum().item()
             loss.backward()
-            optimizer.step(data)
+            optimizer.step()
+            # optimizer.step(data)
 
     return len(cast(Sized, trainloader.dataset)), {
         "train_loss": final_epoch_per_sample_loss
