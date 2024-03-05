@@ -66,4 +66,4 @@ poetry run pre-commit install
 
 
 # Command to run all pre-commit hooks
-poetry run pre-commit run --all-files --hook-stage push
+poetry run pre-commit run --hook-stage push

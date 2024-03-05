@@ -19,9 +19,25 @@ from project.task.default.train_test import (
 from project.types.common import IsolatedRNG
 
 from tqdm import tqdm
-from functorch.experimental import replace_all_batch_norm_modules_
 
-from gauss_newton import GNA
+from gauss_newton import DGN
+
+# from gauss_newton import BDGN
+# from cg_newton import CGN
+
+from backpack_local import extend, backpack
+from backpack_local.extensions import DiagGGNExact
+
+# from backpack_local.extensions import KFLR, GGNMP
+
+STEP_SIZE = 0.05
+DAMPING = 1.0
+
+# LR = 0.1
+# DAMPING = 1e-2
+# CG_TOL = 0.1
+# CG_ATOL = 1e-6
+# CG_MAX_ITER = 20
 
 
 class TrainConfig(BaseModel):
@@ -81,12 +97,28 @@ def train(  # pylint: disable=too-many-arguments
     config: TrainConfig = TrainConfig(**_config)
     del _config
 
-    replace_all_batch_norm_modules_(net)
-    net.to(config.device)
-    net.train()
+    criterion = nn.CrossEntropyLoss().to(config.device)
+    extend(criterion)
 
-    criterion = nn.CrossEntropyLoss()
-    optimizer = GNA(net.parameters(), lr=config.learning_rate, model=net)
+    # replace_all_batch_norm_modules_(net)
+    net.to(config.device)
+    # net.train()
+    net.eval()
+    net = extend(net, use_converter=True)
+    # net.print_readable()
+    # extend(net)
+    optimizer = DGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
+    # optimizer = BDGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
+    # optimizer = CGN(
+    #     net.parameters(),
+    #     GGNMP(),
+    #     lr=LR,
+    #     damping=DAMPING,
+    #     maxiter=CG_MAX_ITER,
+    #     tol=CG_TOL,
+    #     atol=CG_ATOL,
+    # )
+    # optimizer = GNA(net.parameters(), lr=config.learning_rate, model=net)
     # optimizer = torch.optim.SGD(
     #     net.parameters(),
     #     lr=config.learning_rate,
@@ -110,9 +142,10 @@ def train(  # pylint: disable=too-many-arguments
             loss = criterion(output, target)
             final_epoch_per_sample_loss += loss.item()
             num_correct += (output.max(1)[1] == target).clone().detach().sum().item()
-            loss.backward()
-            # optimizer.step()
-            optimizer.step(data)
+            with backpack(DiagGGNExact()):
+                loss.backward()
+            optimizer.step()
+            # optimizer.step(data)
 
     return len(cast(Sized, trainloader.dataset)), {
         "train_loss": final_epoch_per_sample_loss

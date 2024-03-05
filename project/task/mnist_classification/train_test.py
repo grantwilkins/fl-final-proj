@@ -18,8 +18,15 @@ from project.task.default.train_test import (
 )
 from project.types.common import IsolatedRNG
 
-from gauss_newton import GNA
+
 from tqdm import tqdm
+from backpack_local import backpack, extend
+from backpack_local.extensions import DiagGGNExact
+
+from gauss_newton import DGN
+
+STEP_SIZE = 0.05
+DAMPING = 1.0
 
 
 class TrainConfig(BaseModel):
@@ -83,7 +90,10 @@ def train(  # pylint: disable=too-many-arguments
     net.train()
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = GNA(net.parameters(), lr=config.learning_rate, model=net)
+    extend(net)
+    extend(criterion)
+    optimizer = DGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
+    # optimizer = GN(net.parameters(), lr=config.learning_rate, model=net)
     # optimizer = torch.optim.SGD(
     #     net.parameters(),
     #     lr=config.learning_rate,
@@ -107,8 +117,10 @@ def train(  # pylint: disable=too-many-arguments
             loss = criterion(output, target)
             final_epoch_per_sample_loss += loss.item()
             num_correct += (output.max(1)[1] == target).clone().detach().sum().item()
-            loss.backward()
-            optimizer.step(data)
+            with backpack(DiagGGNExact()):
+                loss.backward()
+            # optimizer.step(data)
+            optimizer.step()
 
     return len(cast(Sized, trainloader.dataset)), {
         "train_loss": final_epoch_per_sample_loss
