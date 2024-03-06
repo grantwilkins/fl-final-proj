@@ -33,7 +33,7 @@ class BasicBlock(nn.Module):
             padding=1,
             bias=False,
         )
-        # self.bn1 = nn.BatchNorm2d(out_channels)
+        self.bn1 = nn.BatchNorm2d(out_channels)
         self.relu = nn.ReLU(inplace=True)
         self.conv2 = nn.Conv2d(
             out_channels,
@@ -42,17 +42,17 @@ class BasicBlock(nn.Module):
             padding=1,
             bias=False,
         )
-        # self.bn2 = nn.BatchNorm2d(out_channels * self.expansion)
+        self.bn2 = nn.BatchNorm2d(out_channels * self.expansion)
 
     def forward(self, x: Tensor) -> Tensor:
         identity = x
 
         out = self.conv1(x)
-        # out = self.bn1(out)
+        out = self.bn1(out)
         out = self.relu(out)
 
         out = self.conv2(out)
-        # out = self.bn2(out)
+        out = self.bn2(out)
 
         if self.downsample is not None:
             identity = self.downsample(x)
@@ -89,7 +89,7 @@ class ResNet(nn.Module):
             padding=3,
             bias=False,
         )
-        # self.bn1 = nn.BatchNorm2d(self.in_channels)
+        self.bn1 = nn.BatchNorm2d(self.in_channels)
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
@@ -98,7 +98,7 @@ class ResNet(nn.Module):
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
 
-        # self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(512 * self.expansion, num_classes)
 
     def _make_layer(
@@ -120,7 +120,7 @@ class ResNet(nn.Module):
                     stride=stride,
                     bias=False,
                 ),
-                # nn.BatchNorm2d(out_channels * self.expansion),
+                nn.BatchNorm2d(out_channels * self.expansion),
             )
         layers = []
         layers.append(
@@ -136,7 +136,7 @@ class ResNet(nn.Module):
 
     def forward(self, x: Tensor) -> Tensor:
         x = self.conv1(x)
-        # x = self.bn1(x)
+        x = self.bn1(x)
         x = self.relu(x)
         x = self.maxpool(x)
 
@@ -146,9 +146,9 @@ class ResNet(nn.Module):
         x = self.layer4(x)
         # The spatial dimension of the final layer's feature
         # map should be (7, 7) for all ResNets.
-        print("Dimensions of the last convolutional feature map: ", x.shape)
+        # print("Dimensions of the last convolutional feature map: ", x.shape)
 
-        # x = self.avgpool(x)
+        x = self.avgpool(x)
         x = torch.flatten(x, 1)
         x = self.fc(x)
 

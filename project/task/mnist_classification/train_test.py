@@ -20,8 +20,8 @@ from project.types.common import IsolatedRNG
 
 
 from tqdm import tqdm
-from backpack_local import backpack, extend
-from backpack_local.extensions import DiagGGNExact
+from backpack import backpack, extend
+from backpack.extensions import DiagGGNExact
 
 from gauss_newton import DGN
 

@@ -207,14 +207,12 @@ test = ["tox"]
 
 [[package]]
 name = "backpack-for-pytorch"
-version = "1.6.0"
+version = "0.1.dev1802+g5c3f131"
 description = "BackPACK: Packing more into backprop"
 optional = false
 python-versions = ">=3.8"
-files = [
-    {file = "backpack-for-pytorch-1.6.0.tar.gz", hash = "sha256:af6495b71bacf82a1c7cab01aa85bebabccfe74d87d89f108ea72a4a0d384de3"},
-    {file = "backpack_for_pytorch-1.6.0-py3-none-any.whl", hash = "sha256:ac708dbb86dbb36f70fc81a1ccb1df5c7ba46d62bc9d10239d4b0e406ba41a6f"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 einops = ">=0.3.0,<1.0.0"
@@ -223,9 +221,13 @@ torchvision = ">=0.7.0"
 unfoldNd = ">=0.2.0,<1.0.0"
 
 [package.extras]
-docs = ["matplotlib", "memory-profiler", "sphinx-gallery", "sphinx-rtd-theme", "tabulate"]
+docs = ["matplotlib", "memory_profiler", "sphinx-gallery", "sphinx-rtd-theme", "tabulate"]
 lint = ["black", "darglint", "flake8", "flake8-bugbear", "flake8-comprehensions", "flake8-tidy-imports", "isort", "mccabe", "pep8-naming", "pycodestyle", "pydocstyle", "pyflakes"]
 test = ["coveralls", "pytest (>=4.5.0,<5.0.0)", "pytest-benchmark (>=3.2.2,<4.0.0)", "pytest-cov", "pytest-optional-tests (>=0.1.1)", "scipy"]
+
+[package.source]
+type = "directory"
+url = "../backpack"
 
 [[package]]
 name = "beautifulsoup4"
@@ -5250,4 +5252,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9.17, <3.12.0"
-content-hash = "121245f0385178553f8b169ece3d399f63ffea31d57417e440700e19102add81"
+content-hash = "bf4654ee2096a75bb1be3f4a45f3b1b58c45ba199f687e166e236e90d3bae6ef"
