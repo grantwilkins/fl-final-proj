@@ -1,5 +1,6 @@
 """
 Builds ResNet18 from scratch using PyTorch.
+
 This does not build generalized blocks for all ResNets, just for ResNet18.
 Paper => Deep Residual Learning for Image Recognition.
 Link => https://arxiv.org/pdf/1512.03385v1.pdf
@@ -12,6 +13,8 @@ from torch import Tensor
 
 
 class BasicBlock(nn.Module):
+    """BasicBlock for ResNet."""
+
     def __init__(
         self,
         in_channels: int,
@@ -20,7 +23,7 @@ class BasicBlock(nn.Module):
         expansion: int = 1,
         downsample: nn.Module = None,
     ) -> None:
-        super(BasicBlock, self).__init__()
+        super().__init__()
         # Multiplicative factor for the subsequent conv2d layer's output channels.
         # It is 1 for ResNet18 and ResNet34.
         self.expansion = expansion
@@ -45,6 +48,7 @@ class BasicBlock(nn.Module):
         self.bn2 = nn.BatchNorm2d(out_channels * self.expansion)
 
     def forward(self, x: Tensor) -> Tensor:
+        """Forward call for BasicBlock."""
         identity = x
 
         out = self.conv1(x)
@@ -63,20 +67,18 @@ class BasicBlock(nn.Module):
 
 
 class ResNet(nn.Module):
+    """ResNet18 adapted for BackPack."""
+
     def __init__(
         self,
         img_channels: int,
-        num_layers: int,
+        num_layers: int = 18,
         block: type[BasicBlock] = BasicBlock,
         num_classes: int = 1000,
     ) -> None:
-        super(ResNet, self).__init__()
-        if num_layers == 18:
-            # The following `layers` list defines the number of `BasicBlock`
-            # to use to build the network and how many basic blocks to stack
-            # together.
-            layers = [2, 2, 2, 2]
-            self.expansion = 1
+        super().__init__()
+        layers = [2, 2, 2, 2]
+        self.expansion = 1
 
         self.in_channels = 64
         # All ResNets (18 to 152) contain a Conv2d => BN => ReLU for the first
@@ -128,13 +130,14 @@ class ResNet(nn.Module):
         )
         self.in_channels = out_channels * self.expansion
 
-        for i in range(1, blocks):
+        for _ in range(1, blocks):
             layers.append(
                 block(self.in_channels, out_channels, expansion=self.expansion)
             )
         return nn.Sequential(*layers)
 
     def forward(self, x: Tensor) -> Tensor:
+        """Forward call for BasicBlock."""
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu(x)

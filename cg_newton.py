@@ -1,41 +1,47 @@
+# python3.11.6
+"""Implementation of the Conjugate Gradient Optimiser."""
+
 import torch
 import math
+from collections.abc import Iterable, Callable
+from backpack.extensions.backprop_extension import BackpropExtension
 
 
 class CGN(torch.optim.Optimizer):
+    """Conjugate Gradient Torch Optimiser."""
+
     def __init__(
         self,
-        parameters,
-        bp_extension,
-        lr=0.1,
-        damping=1e-2,
-        maxiter=100,
-        tol=1e-1,
-        atol=1e-8,
-    ):
+        parameters: Iterable,
+        bp_extension: BackpropExtension,
+        lr: float = 0.1,
+        damping: float = 1e-2,
+        maxiter: int = 100,
+        tol: float = 1e-1,
+        atol: float = 1e-8,
+    ) -> None:
         super().__init__(
             parameters,
-            dict(
-                lr=lr,
-                damping=damping,
-                maxiter=maxiter,
-                tol=tol,
-                atol=atol,
-                savefield=bp_extension.savefield,
-            ),
+            {
+                "lr": lr,
+                "damping": damping,
+                "maxiter": maxiter,
+                "tol": tol,
+                "atol": atol,
+                "savefield": bp_extension.savefield,
+            },
         )
         self.bp_extension = bp_extension
 
-    def step(self):
+    def step(self) -> None:
+        """Perform a single optimization step."""
         for group in self.param_groups:
             for p in group["params"]:
                 damped_curvature = self.damped_matvec(
                     p, group["damping"], group["savefield"]
                 )
 
-                # print(f"p grad data: {p.grad.data}")
-
-                direction, info = self.cg(
+                direction, _ = self.cg(
                     damped_curvature,
                     -p.grad.data,
                     maxiter=group["maxiter"],
@@ -45,10 +51,13 @@ class CGN(torch.optim.Optimizer):
 
                 p.data.add_(direction, alpha=group["lr"])
 
-    def damped_matvec(self, param, damping, savefield):
+    def damped_matvec(
+        self, param: Iterable, damping: float, savefield: str
+    ) -> torch.Tensor:
+        """Get damped matvec."""
         curvprod_fn = getattr(param, savefield)
 
-        def matvec(v):
+        def matvec(v: torch.Tensor) -> torch.Tensor:
             v = v.unsqueeze(0)
             result = damping * v + curvprod_fn(v)
             return result.squeeze(0)
@@ -56,8 +65,15 @@ class CGN(torch.optim.Optimizer):
         return matvec
 
     @staticmethod
-    def cg(A, b, x0=None, maxiter=None, tol=1e-5, atol=1e-8):
-        r"""Solve :math:`Ax = b` for :math:`x` using conjugate gradient.
+    def cg(
+        a: Callable,
+        b: torch.Tensor,
+        x0: torch.Tensor = None,
+        maxiter: int = -1,
+        tol: float = 1e-5,
+        atol: float = 1e-8,
+    ) -> tuple[torch.Tensor, int]:
+        r"""Solve :math:`ax = b` for :math:`x` using conjugate gradient.
 
         The interface is similar to CG provided by :code:`scipy.sparse.linalg.cg`.
 
@@ -66,7 +82,7 @@ class CGN(torch.optim.Optimizer):
 
         Parameters
         ----------
-        A : function
+        a : function
             Function implementing matrix-vector multiplication by `A`.
         b : torch.Tensor
             Right-hand side of the linear system.
@@ -87,18 +103,18 @@ class CGN(torch.optim.Optimizer):
         info (int): Provides convergence information, if CG converges info
                     corresponds to numiter, otherwise info is set to zero.
         """
-        maxiter = b.numel() if maxiter is None else min(maxiter, b.numel())
+        maxiter = b.numel() if maxiter == -1 else min(maxiter, b.numel())
         x = torch.zeros_like(b) if x0 is None else x0
 
         # initialize parameters
-        r = (b - A(x)).detach()
+        r = (b - a(x)).detach()
         p = r.clone()
         rs_old = (r**2).sum().item()
 
         # stopping criterion
         norm_bound = max([tol * torch.norm(b).item(), atol])
 
-        def converged(rs, numiter):
+        def converged(rs: float, numiter: int) -> tuple[bool, int]:
             """Check whether CG stops (convergence or steps exceeded)."""
             norm_converged = norm_bound > math.sqrt(rs)
             info = numiter if norm_converged else 0
@@ -108,11 +124,11 @@ class CGN(torch.optim.Optimizer):
         # iterate
         iterations = 0
         while True:
-            Ap = A(p).detach()
+            ap = a(p).detach()
 
-            alpha = rs_old / (p * Ap).sum().item()
+            alpha = rs_old / (p * ap).sum().item()
             x.add_(p, alpha=alpha)
-            r.sub_(Ap, alpha=alpha)
+            r.sub_(ap, alpha=alpha)
             rs_new = (r**2).sum().item()
             iterations += 1
 
