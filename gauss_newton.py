@@ -207,16 +207,12 @@ class BDGN(torch.optim.Optimizer):
                         alpha=-group["step_size"],
                     )
                 else:
-                    print(len(p.kflr))
                     C = p.kflr[0]
                     k = group["damping"]
-                    print(C.shape)
-                    print(p.grad.shape)
                     step_direction = (
                         torch.inverse(C + (k * torch.eye(C.shape[0], device=C.device)))
-                        * p.grad
+                        @ p.grad
                     )
-                    print(step_direction.shape)
                     p.data.add_(
                         step_direction,
                         alpha=-group["step_size"],
