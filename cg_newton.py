@@ -40,7 +40,6 @@ class CGN(torch.optim.Optimizer):
                 damped_curvature = self.damped_matvec(
                     p, group["damping"], group["savefield"]
                 )
-
                 direction, _ = self.cg(
                     damped_curvature,
                     -p.grad.data,

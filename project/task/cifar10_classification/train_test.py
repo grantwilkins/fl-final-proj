@@ -21,17 +21,16 @@ from project.types.common import IsolatedRNG
 from tqdm import tqdm
 
 # from gauss_newton import DGN
-from gauss_newton import BDGN
+# from gauss_newton import BDGN
 
-# from cg_newton import CGN
+from cg_newton import CGN
 
 from backpack import extend, backpack
 
 # from backpack.extensions import DiagGGNExact
 
-from backpack.extensions import KFLR
 
-# from backpack.extensions import GGNMP
+from backpack.extensions import GGNMP
 
 STEP_SIZE = 0.05
 DAMPING = 1.0
@@ -111,7 +110,7 @@ def train(  # pylint: disable=too-many-arguments
     # net.print_readable()
     # extend(net)
     # optimizer = DGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
-    optimizer = BDGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
+    # optimizer = BDGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
     # optimizer = CGN(
     #     net.parameters(),
     #     GGNMP(),
@@ -127,6 +126,12 @@ def train(  # pylint: disable=too-many-arguments
     #     lr=config.learning_rate,
     #     weight_decay=0.001,
     # )
+    optimizer = CGN(
+        parameters=net.parameters(),
+        bp_extension=GGNMP(),
+        lr=config.learning_rate,
+        damping=DAMPING,
+    )
 
     final_epoch_per_sample_loss = 0.0
     num_correct = 0
@@ -145,7 +150,7 @@ def train(  # pylint: disable=too-many-arguments
             loss = criterion(output, target)
             final_epoch_per_sample_loss += loss.item()
             num_correct += (output.max(1)[1] == target).clone().detach().sum().item()
-            with backpack(KFLR()):
+            with backpack(GGNMP()):
                 loss.backward()
             optimizer.step()
             # optimizer.step(data)
