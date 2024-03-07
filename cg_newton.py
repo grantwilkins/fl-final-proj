@@ -4,16 +4,29 @@
 import torch
 import math
 from collections.abc import Iterable, Callable
-from backpack.extensions.backprop_extension import BackpropExtension
 
 
 class CGN(torch.optim.Optimizer):
-    """Conjugate Gradient Torch Optimiser."""
+    """
+    Implement the Conjugate Gradient Optimizer as a PyTorch optimizer.
+
+    This optimizer adjusts the parameters based on the conjugate gradient method
+    applied to the gradients of the parameters.
+
+    Attributes
+    ----------
+        parameters (Iterable): Iterable of parameters to optimize or dicts defining
+            parameter groups.
+        lr (float): Learning rate.
+        damping (float): Damping term to improve convergence properties.
+        maxiter (int): Maximum number of iterations for the conjugate gradient method.
+        tol (float): Tolerance for convergence.
+        atol (float): Absolute tolerance for convergence.
+    """
 
     def __init__(
         self,
         parameters: Iterable,
-        bp_extension: BackpropExtension,
         lr: float = 0.1,
         damping: float = 1e-2,
         maxiter: int = 100,
@@ -28,18 +41,23 @@ class CGN(torch.optim.Optimizer):
                 "maxiter": maxiter,
                 "tol": tol,
                 "atol": atol,
-                "savefield": bp_extension.savefield,
             },
         )
-        self.bp_extension = bp_extension
 
     def step(self) -> None:
-        """Perform a single optimization step."""
+        """
+        Perform a single optimization step.
+
+        This method iterates over each parameter group and its parameters,
+        computes the direction for parameter updates using the conjugate gradient
+        method and updates the parameters accordingly.
+        """
         for group in self.param_groups:
             for p in group["params"]:
-                damped_curvature = self.damped_matvec(
-                    p, group["damping"], group["savefield"]
-                )
+                if p.grad is None:
+                    continue
+
+                damped_curvature = self.damped_matvec(p, group["damping"])
 
                 direction, _ = self.cg(
                     damped_curvature,
@@ -51,18 +69,58 @@ class CGN(torch.optim.Optimizer):
 
                 p.data.add_(direction, alpha=group["lr"])
 
-    def damped_matvec(
-        self, param: Iterable, damping: float, savefield: str
-    ) -> torch.Tensor:
-        """Get damped matvec."""
-        curvprod_fn = getattr(param, savefield)
+    def damped_matvec(self, param: torch.Tensor, damping: float) -> torch.Tensor:
+        """
+        Return a function that computes the damped matrix-vector product.
+
+        The damping improves the conditioning of the problem, which can
+        accelerate convergence in the conjugate gradient method.
+
+        Args:
+            param (torch.Tensor): The parameter tensor.
+            damping (float): The damping coefficient.
+
+        Returns
+        -------
+            A function that takes a vector `v` and returns the damped matrix-vector
+            product with the Hessian of the loss function with respect to `param`.
+        """
 
         def matvec(v: torch.Tensor) -> torch.Tensor:
-            v = v.unsqueeze(0)
-            result = damping * v + curvprod_fn(v)
-            return result.squeeze(0)
+            v = v.view_as(param)
+            hv = self.hessian_vector_product(param, v)
+            return damping * v + hv
 
         return matvec
+
+    def hessian_vector_product(
+        self, param: torch.Tensor, v: torch.Tensor
+    ) -> torch.Tensor:
+        """
+        Compute the Hessian-vector product for a given parameter and vector.
+
+        This method is used to efficiently compute the curvature information
+        without explicitly forming the Hessian matrix.
+
+        Args:
+            param (torch.Tensor): The parameter tensor.
+            v (torch.Tensor): The vector to be multiplied with the Hessian.
+
+        Returns
+        -------
+            The Hessian-vector product as a torch.Tensor.
+        """
+        if param.grad is None or not param.grad.requires_grad:
+            return torch.zeros_like(v)
+
+        grad_param = torch.autograd.grad(
+            outputs=param.grad,
+            inputs=param,
+            grad_outputs=v,
+            retain_graph=True,
+            create_graph=True,
+        )[0]
+        return grad_param
 
     @staticmethod
     def cg(
