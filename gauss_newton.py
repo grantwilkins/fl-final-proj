@@ -3,6 +3,7 @@
 
 import torch
 from collections.abc import Iterable
+import numpy as np
 
 
 class DGN(torch.optim.Optimizer):
@@ -31,50 +32,47 @@ class BDGN(torch.optim.Optimizer):
         """Perform a single optimization step."""
         for group in self.param_groups:
             for p in group["params"]:
-                print([i.shape for i in p.kflr])  # noqa:T201
-                # if len(p.kflr) > 1:
-                #     if len(p.kflr) == 2:
-                #         q, g = p.kflr
-                #     elif len(p.kflr) == 4:
-                #         q = torch.kron(p.kflr[0], p.kflr[1])  # p.kflr[0]  #
-                #         g = torch.kron(p.kflr[2], p.kflr[3])  # p.kflr[2]  #
-                #     k = group["damping"]
-                #     w = 1
-                #     orig_shape = p.grad.shape
-                #     left = torch.inverse(
-                #         q + (w * np.sqrt(k) + torch.eye(q.shape[0], device=q.device))
-                #     )
-                #     right = torch.inverse(
-                #         (
-                #             g
-                #             + (
-                #                 w**-1
-                #                 * np.sqrt(k)
-                #                 * torch.eye(g.shape[0], device=g.device)
-                #             )
-                #         ).cpu()
-                #     ).to(device="mps")
-                #     step_direction = left @ p.grad.flatten(1) @ right
-                #     p.data.add_(
-                #         torch.reshape(step_direction, orig_shape),
-                #         alpha=-group["step_size"],
-                #     )
-                # elif len(p.kflr) == 1:
-                #     c = p.kflr[0]
-                #     k = group["damping"]
-                #     step_direction = (
-                #         torch.inverse(c +
-                #  (k * torch.eye(c.shape[0], device=c.device)))
-                #         @ p.grad
-                #     )
-                #     p.data.add_(
-                #         step_direction,
-                #         alpha=-group["step_size"],
-                #     )
-                # else:
-                #     print(len(p.kflr))
-                #     print(p.kflr)
-                #     for item in p.kflr:
-                #         print(item.shape)
-                #     print("hmm")
-                #     exit()
+                if len(p.kflr) == 2:  # noqa:PLR2004
+                    q, g = p.kflr
+                    k = group["damping"]
+                    iq = torch.eye(q.shape[0], device=q.device)
+                    ig = torch.eye(g.shape[0], device=g.device)
+                    # w = torch.sqrt(
+                    #     torch.norm(q.cpu(), p="nuc") / torch.norm(g.cpu(), p="nuc")
+                    # ).to(device="mps")
+                    # print(w)
+                    w = 0.1
+                    orig_shape = p.grad.shape
+                    left = torch.inverse(q + (w * np.sqrt(k) + iq))
+                    right = torch.inverse((g + (w**-1 * np.sqrt(k) * ig)).cpu()).to(
+                        device="mps"
+                    )
+                    if len(p.grad.shape) == 4:  # noqa: PLR2004
+                        step_direction = left @ p.grad.flatten(1) @ right
+                    elif len(p.grad.shape) in {1, 2}:
+                        step_direction = left @ p.grad @ right
+                    else:
+                        # print("aaaa")
+                        # print(p.grad.shape)
+                        # exit()
+                        raise ValueError()
+                    p.data.add_(
+                        torch.reshape(step_direction, orig_shape),
+                        alpha=-group["step_size"],
+                    )
+                elif len(p.kflr) == 1:
+                    c = p.kflr[0]
+                    k = group["damping"]
+                    step_direction = (
+                        torch.inverse(c + (k * torch.eye(c.shape[0], device=c.device)))
+                        @ p.grad
+                    )
+                    p.data.add_(
+                        step_direction,
+                        alpha=-group["step_size"],
+                    )
+                else:
+                    # should only have one or two factors
+                    # print([i.shape for i in p.kflr])
+                    # print("aaa2")
+                    raise ValueError()
