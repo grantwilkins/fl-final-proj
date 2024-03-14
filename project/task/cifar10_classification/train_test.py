@@ -4,11 +4,14 @@
 from collections.abc import Sized
 from pathlib import Path
 from typing import cast
+from functools import partial
 
 import torch
-from pydantic import BaseModel
 from torch import nn
 from torch.utils.data import DataLoader
+from torch.optim import SGD
+
+from pydantic import BaseModel
 
 from project.task.default.train_test import get_fed_eval_fn as get_default_fed_eval_fn
 from project.task.default.train_test import (
@@ -21,31 +24,48 @@ from project.types.common import IsolatedRNG
 
 from tqdm import tqdm
 
-from gauss_newton import DGN
-
-# from gauss_newton import BDGN
-
-# from cg_newton import CGN
+from gauss_newton import DGN, BDGN
+from cg_newton import CGN
 
 from backpack import extend, backpack
+from backpack.extensions import DiagGGNExact, DiagGGNMC, KFLR, KFAC, GGNMP
 
-from backpack.extensions import DiagGGNMC
+# can be ["diag_exact", "diag_mc", "block_exact", "block_mc", "cg", "sgd"]
+METHOD = "sgd"
 
-# from backpack.extensions import KFLR
-
-# from backpack.extensions import KFAC
-
-# from backpack.extensions import GGNMP
-# from backpack.extensions import HMP
-
-STEP_SIZE = 0.05
-DAMPING = 1.0
-
-# LR = 0.1
-# DAMPING = 1e-2
-# CG_TOL = 0.1
-# CG_ATOL = 1e-6
-# CG_MAX_ITER = 20
+if METHOD in {"diag_exact", "diag_mc", "block_exact", "block_mc"}:
+    STEP_SIZE = 0.05
+    DAMPING = 1.0
+    if METHOD == "diag_exact":
+        opt = partial(DGN, step_size=STEP_SIZE, damping=DAMPING, mc=False)
+        bp_extension = DiagGGNExact()
+    elif METHOD == "diag_mc":
+        opt = partial(DGN, step_size=STEP_SIZE, damping=DAMPING, mc=True)
+        bp_extension = DiagGGNMC()
+    elif METHOD == "block_exact":
+        opt = partial(BDGN, step_size=STEP_SIZE, damping=DAMPING, mc=False)
+        bp_extension = KFLR()
+    elif METHOD == "block_mc":
+        opt = partial(BDGN, step_size=STEP_SIZE, damping=DAMPING, mc=True)
+        bp_extension = KFAC()
+elif METHOD == "sgd":
+    opt = partial(
+        SGD,
+        lr=0.1,
+        weight_decay=0.001,
+    )
+    bp_extension = None
+else:
+    bp_extension = GGNMP()
+    opt = partial(
+        CGN,
+        bp_extension,
+        lr=0.1,
+        damping=1e-2,
+        maxiter=0.1,
+        tol=1e-6,
+        atol=20,
+    )
 
 
 class TrainConfig(BaseModel):
@@ -108,37 +128,10 @@ def train(  # pylint: disable=too-many-arguments
     criterion = nn.CrossEntropyLoss().to(config.device)
     extend(criterion)
 
-    # replace_all_batch_norm_modules_(net)
     net.to(config.device)
-    # net.train()
     net.eval()
     net = extend(net, use_converter=True)
-    # net.print_readable()
-    # extend(net)
-    optimizer = DGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
-    # optimizer = BDGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
-    # optimizer = CGN(
-    #     net.parameters(),
-    #     GGNMP(),
-    #     lr=LR,
-    #     damping=DAMPING,
-    #     maxiter=CG_MAX_ITER,
-    #     tol=CG_TOL,
-    #     atol=CG_ATOL,
-    # )
-    # optimizer = GNA(net.parameters(), lr=config.learning_rate, model=net)
-    # optimizer = torch.optim.SGD(
-    #     net.parameters(),
-    #     lr=config.learning_rate,
-    #     weight_decay=0.001,
-    # )
-    bp_extension = DiagGGNMC()
-    # optimizer = CGN(
-    #     parameters=net.parameters(),
-    #     bp_extension=bp_extension,
-    #     lr=config.learning_rate,
-    #     damping=DAMPING,
-    # )
+    optimizer = opt(net.parameters())
 
     final_epoch_per_sample_loss = 0.0
     num_correct = 0
@@ -157,10 +150,12 @@ def train(  # pylint: disable=too-many-arguments
             loss = criterion(output, target)
             final_epoch_per_sample_loss += loss.item()
             num_correct += (output.max(1)[1] == target).clone().detach().sum().item()
-            with backpack(bp_extension):
+            if bp_extension:
+                with backpack(bp_extension):
+                    loss.backward()
+            else:
                 loss.backward()
             optimizer.step()
-            # optimizer.step(data)
 
     return len(cast(Sized, trainloader.dataset)), {
         "train_loss": final_epoch_per_sample_loss

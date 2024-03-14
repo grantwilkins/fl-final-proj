@@ -9,16 +9,21 @@ import numpy as np
 class DGN(torch.optim.Optimizer):
     """Diagonal Gauss Newton Torch Optimiser."""
 
-    def __init__(self, parameters: Iterable, step_size: float, damping: float) -> None:
+    def __init__(
+        self, parameters: Iterable, step_size: float, damping: float, mc: bool
+    ) -> None:
         super().__init__(parameters, {"step_size": step_size, "damping": damping})
+        if mc:
+            self.ggn_field = "diag_ggn_mc"
+        else:
+            self.ggn_field = "diag_ggn_exact"
 
     def step(self) -> None:
         """Perform a single optimization step."""
         for group in self.param_groups:
             for p in group["params"]:
-                # print(f"gf: {p.diag_ggn_exact.shape}")
-                # print(f"grad: {p.grad.shape}")
-                step_direction = p.grad / (p.diag_ggn_mc + group["damping"])
+                ggn = getattr(p, self.ggn_field)
+                step_direction = p.grad / (ggn + group["damping"])
                 p.data.add_(step_direction, alpha=-group["step_size"])
                 # print(p.diag_ggn_mc.shape)
                 # print(p.grad.shape)
@@ -48,15 +53,22 @@ class DGN(torch.optim.Optimizer):
 class BDGN(torch.optim.Optimizer):
     """Block Diagonal Gauss Newton Torch Optimiser."""
 
-    def __init__(self, parameters: Iterable, step_size: float, damping: float) -> None:
+    def __init__(
+        self, parameters: Iterable, step_size: float, damping: float, mc: bool
+    ) -> None:
+        if mc:
+            self.ggn_field = "kfac"
+        else:
+            self.ggn_field = "kflr"
         super().__init__(parameters, {"step_size": step_size, "damping": damping})
 
     def step(self) -> None:
         """Perform a single optimization step."""
         for group in self.param_groups:
             for p in group["params"]:
-                if len(p.kflr) == 2:  # noqa:PLR2004
-                    q, g = p.kflr
+                factors = getattr(p, self.ggn_field)
+                if len(factors) == 2:  # noqa:PLR2004
+                    q, g = factors
                     k = group["damping"]
                     iq = torch.eye(q.shape[0], device=q.device)
                     ig = torch.eye(g.shape[0], device=g.device)
@@ -75,16 +87,13 @@ class BDGN(torch.optim.Optimizer):
                     elif len(p.grad.shape) in {1, 2}:
                         step_direction = left @ p.grad @ right
                     else:
-                        # print("aaaa")
-                        # print(p.grad.shape)
-                        # exit()
                         raise ValueError()
                     p.data.add_(
                         torch.reshape(step_direction, orig_shape),
                         alpha=-group["step_size"],
                     )
-                elif len(p.kflr) == 1:
-                    c = p.kflr[0]
+                elif len(factors) == 1:
+                    c = factors[0]
                     k = group["damping"]
                     step_direction = (
                         torch.inverse(c + (k * torch.eye(c.shape[0], device=c.device)))
@@ -95,7 +104,4 @@ class BDGN(torch.optim.Optimizer):
                         alpha=-group["step_size"],
                     )
                 else:
-                    # should only have one or two factors
-                    # print([i.shape for i in p.kflr])
-                    # print("aaa2")
                     raise ValueError()
