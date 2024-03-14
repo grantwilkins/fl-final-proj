@@ -55,7 +55,7 @@ def _lda_split(
     dirichlet_dist = np.random.dirichlet([alpha] * num_classes, num_clients)
 
     # Assign samples to clients based on Dirichlet distribution
-    partitions_idx = [[] for _ in range(num_clients)]
+    partitions_idx: list[list[int]] = [[] for _ in range(num_clients)]
     for cls in range(num_classes):
         cls_indices = np.where(targets == cls)[0]
         cls_dirichlet = dirichlet_dist[:, cls]

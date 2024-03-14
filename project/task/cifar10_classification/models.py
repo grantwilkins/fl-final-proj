@@ -4,9 +4,6 @@ from torch import nn
 from project.types.common import NetGen
 from project.task.cifar10_classification.resnet18 import ResNet
 
-model_type = "resnet18"
-
-
 CNN = nn.Sequential(
     nn.Conv2d(3, 64, kernel_size=3, padding=1),
     nn.ReLU(),
@@ -34,7 +31,4 @@ CNN = nn.Sequential(
 )
 ResNet18 = ResNet(img_channels=3, num_layers=18, num_classes=10)
 
-if model_type == "cnn":
-    get_net: NetGen = lambda x, y: CNN  # noqa: E731,ARG005
-else:
-    get_net: NetGen = lambda x, y: ResNet18  # noqa: E731,ARG005
+get_net: NetGen = lambda x, y: ResNet18  # noqa: E731,ARG005
