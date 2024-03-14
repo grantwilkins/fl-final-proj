@@ -21,7 +21,14 @@ from project.types.common import IsolatedRNG
 
 from tqdm import tqdm
 from backpack import backpack, extend
-from backpack.extensions import DiagGGNExact
+
+# from gauss_newton import DGN
+
+
+# from backpack.extensions import DiagGGNExact
+
+from backpack.extensions import KFLR
+
 
 from gauss_newton import DGN
 
@@ -99,6 +106,13 @@ def train(  # pylint: disable=too-many-arguments
     #     lr=config.learning_rate,
     #     weight_decay=0.001,
     # )
+    bp_extension = KFLR()
+    # optimizer = CGN(
+    #     parameters=net.parameters(),
+    #     bp_extension=bp_extension,
+    #     lr=config.learning_rate,
+    #     damping=DAMPING,
+    # )
 
     final_epoch_per_sample_loss = 0.0
     num_correct = 0
@@ -117,7 +131,7 @@ def train(  # pylint: disable=too-many-arguments
             loss = criterion(output, target)
             final_epoch_per_sample_loss += loss.item()
             num_correct += (output.max(1)[1] == target).clone().detach().sum().item()
-            with backpack(DiagGGNExact()):
+            with backpack(bp_extension):
                 loss.backward()
             # optimizer.step(data)
             optimizer.step()

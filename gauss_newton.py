@@ -18,8 +18,31 @@ class DGN(torch.optim.Optimizer):
             for p in group["params"]:
                 # print(f"gf: {p.diag_ggn_exact.shape}")
                 # print(f"grad: {p.grad.shape}")
-                step_direction = p.grad / (p.diag_ggn_exact + group["damping"])
+                step_direction = p.grad / (p.diag_ggn_mc + group["damping"])
                 p.data.add_(step_direction, alpha=-group["step_size"])
+                # print(p.diag_ggn_mc.shape)
+                # print(p.grad.shape)
+                # print(step_direction.shape)
+                # if len(p.diag_ggn_mc.shape) == 1:
+                #     plt.imshow(
+                #         np.diag(p.diag_ggn_mc.cpu().detach().numpy()), cmap="gray"
+                #     )
+                #     plt.axis("off")
+                #     plt.savefig("diag.pdf", bbox_inches="tight")
+                #     plt.clf()
+                #     plt.imshow(
+                #         np.diag(p.grad.cpu().detach().numpy()),
+                #         cmap="gray",
+                #     )
+                #     plt.axis("off")
+                #     plt.savefig("gradient.pdf", bbox_inches="tight")
+                #     plt.clf()
+                #     plt.imshow(
+                #         np.diag(step_direction.cpu().detach().numpy()), cmap="gray"
+                #     )
+                #     plt.axis("off")
+                #     plt.savefig("step_dir.pdf", bbox_inches="tight")
+                #     plt.show()
 
 
 class BDGN(torch.optim.Optimizer):

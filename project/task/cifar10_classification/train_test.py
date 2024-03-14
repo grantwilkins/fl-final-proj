@@ -21,19 +21,22 @@ from project.types.common import IsolatedRNG
 
 from tqdm import tqdm
 
-# from gauss_newton import DGN
+from gauss_newton import DGN
 
-from gauss_newton import BDGN
+# from gauss_newton import BDGN
 
 # from cg_newton import CGN
 
 from backpack import extend, backpack
 
-# from backpack.extensions import DiagGGNExact
+from backpack.extensions import DiagGGNMC
 
-from backpack.extensions import KFLR
+# from backpack.extensions import KFLR
+
+# from backpack.extensions import KFAC
 
 # from backpack.extensions import GGNMP
+# from backpack.extensions import HMP
 
 STEP_SIZE = 0.05
 DAMPING = 1.0
@@ -112,8 +115,8 @@ def train(  # pylint: disable=too-many-arguments
     net = extend(net, use_converter=True)
     # net.print_readable()
     # extend(net)
-    # optimizer = DGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
-    optimizer = BDGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
+    optimizer = DGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
+    # optimizer = BDGN(net.parameters(), step_size=STEP_SIZE, damping=DAMPING)
     # optimizer = CGN(
     #     net.parameters(),
     #     GGNMP(),
@@ -129,9 +132,10 @@ def train(  # pylint: disable=too-many-arguments
     #     lr=config.learning_rate,
     #     weight_decay=0.001,
     # )
+    bp_extension = DiagGGNMC()
     # optimizer = CGN(
     #     parameters=net.parameters(),
-    #     bp_extension=GGNMP(),
+    #     bp_extension=bp_extension,
     #     lr=config.learning_rate,
     #     damping=DAMPING,
     # )
@@ -153,7 +157,7 @@ def train(  # pylint: disable=too-many-arguments
             loss = criterion(output, target)
             final_epoch_per_sample_loss += loss.item()
             num_correct += (output.max(1)[1] == target).clone().detach().sum().item()
-            with backpack(KFLR()):
+            with backpack(bp_extension):
                 loss.backward()
             optimizer.step()
             # optimizer.step(data)
@@ -226,7 +230,6 @@ def test(
 
     criterion = nn.CrossEntropyLoss()
     correct, per_sample_loss = 0, 0.0
-
     with torch.no_grad():
         for images, labels in testloader:
             images, labels = (

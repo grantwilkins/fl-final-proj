@@ -15,6 +15,63 @@ from torchvision import transforms
 from torchvision.datasets import MNIST
 
 
+def _lda_split(
+    sorted_trainset: MNIST,
+    num_clients: int,
+    alpha: float,
+    seed: int,
+) -> list[Subset]:
+    """
+    Split the MNIST dataset into partitions based on a Dirichlet distribution.
+
+    This function takes a sorted MNIST dataset and divides it into a specified
+    number of partitions, aiming to simulate a non-IID data distribution among
+    clients in a federated learning setting. It uses a Dirichlet distribution
+    to determine the proportion of each class in each client's data partition.
+
+    Parameters
+    ----------
+    sorted_trainset : MNIST
+        The MNIST dataset, sorted by class labels.
+    num_clients : int
+        The number of clients (partitions) to split the dataset into.
+    alpha : float
+        The concentration parameter for the Dirichlet distribution. Smaller
+        values lead to more skewed distributions among clients.
+    seed : int
+        A seed for the random number generator to ensure reproducibility.
+
+    Returns
+    -------
+    list[Subset]
+        A list of `torch.utils.data.Subset` objects, each representing a
+        partition of the dataset to be assigned to a client.
+    """
+    targets = sorted_trainset.targets
+    num_classes = len(np.unique(targets))
+
+    # Generate Dirichlet distribution for each client
+    np.random.seed(seed)
+    dirichlet_dist = np.random.dirichlet([alpha] * num_classes, num_clients)
+
+    # Assign samples to clients based on Dirichlet distribution
+    partitions_idx = [[] for _ in range(num_clients)]
+    for cls in range(num_classes):
+        cls_indices = np.where(targets == cls)[0]
+        cls_dirichlet = dirichlet_dist[:, cls]
+        cls_proportions = cls_dirichlet / cls_dirichlet.sum()
+        cls_counts = (cls_proportions * len(cls_indices)).astype(int)
+
+        start_idx = 0
+        for client_idx, count in enumerate(cls_counts):
+            client_indices = cls_indices[start_idx : start_idx + count]
+            partitions_idx[client_idx].extend(client_indices)
+            start_idx += count
+
+    # Construct partition subsets
+    return [Subset(sorted_trainset, p) for p in partitions_idx]
+
+
 def _download_data(
     dataset_dir: Path,
 ) -> tuple[MNIST, MNIST]:
@@ -57,6 +114,8 @@ def _partition_data(
     iid: bool,
     power_law: bool,
     balance: bool,
+    lda: bool,
+    alpha: float,
 ) -> tuple[list[Subset] | list[ConcatDataset], MNIST]:
     """Split training set into iid or non iid partitions to simulate the federated.
 
@@ -109,6 +168,14 @@ def _partition_data(
             min_data_per_partition=10,
             mean=0.0,
             sigma=2.0,
+        )
+    elif lda:
+        trainset_sorted = _sort_by_class(trainset)
+        datasets = _lda_split(
+            trainset_sorted,
+            num_clients,
+            alpha,
+            seed,
         )
     else:
         shard_size = int(partition_size / 2)
@@ -400,6 +467,8 @@ def download_and_preprocess(cfg: DictConfig) -> None:
         cfg.dataset.iid,
         cfg.dataset.power_law,
         cfg.dataset.balance,
+        cfg.dataset.lda,
+        cfg.dataset.alpha,
     )
 
     # 2. Save the datasets
