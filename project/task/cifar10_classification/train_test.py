@@ -161,7 +161,7 @@ def train(  # pylint: disable=too-many-arguments
                 batch_data.to(config.device),
                 batch_target.to(config.device),
             )
-            if method == "lbfgs":
+            if isinstance(optimizer, torch.optim.LBFGS):
                 closure_final_epoch_per_sample_loss = 0.0
                 closure_num_correct = 0
 
