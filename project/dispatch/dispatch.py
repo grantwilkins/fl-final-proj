@@ -26,6 +26,12 @@ from project.task.mnist_classification.dispatch import (
 from project.task.mnist_classification.dispatch import (
     dispatch_train as dispatch_mnist_train,
 )
+from project.task.fmnist_classification.dispatch import (
+    dispatch_data as dispatch_fmnist_data,
+)
+from project.task.fmnist_classification.dispatch import (
+    dispatch_train as dispatch_fmnist_train,
+)
 from project.types.common import ConfigStructure, DataStructure, TrainStructure
 
 
@@ -52,6 +58,7 @@ def dispatch_train(cfg: DictConfig) -> TrainStructure:
         dispatch_default_train,
         dispatch_cifar10_train,
         dispatch_mnist_train,
+        dispatch_fmnist_train,
     ]
 
     # Match the first function which does not return None
@@ -90,6 +97,7 @@ def dispatch_data(cfg: DictConfig) -> DataStructure:
         dispatch_cifar10_data,
         dispatch_mnist_data,
         dispatch_default_data,
+        dispatch_fmnist_data,
     ]
 
     # Match the first function which does not return None
