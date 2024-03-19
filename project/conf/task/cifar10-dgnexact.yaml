@@ -17,7 +17,7 @@ fit_config:
   run_config:
     epochs: 1
     learning_rate: 0.01
-    optimizer: sgd
+    optimizer: diag_exact
   # No extra config
   extra: {}
 

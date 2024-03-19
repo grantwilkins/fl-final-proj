@@ -30,43 +30,6 @@ from cg_newton import CGN
 from backpack import extend, backpack
 from backpack.extensions import DiagGGNExact, DiagGGNMC, KFLR, KFAC, GGNMP
 
-# can be ["diag_exact", "diag_mc", "block_exact", "block_mc", "cg", "sgd"]
-METHOD = "sgd"
-
-if METHOD in {"diag_exact", "diag_mc", "block_exact", "block_mc"}:
-    STEP_SIZE = 0.05
-    DAMPING = 1.0
-    if METHOD == "diag_exact":
-        opt = partial(DGN, step_size=STEP_SIZE, damping=DAMPING, mc=False)
-        bp_extension = DiagGGNExact()
-    elif METHOD == "diag_mc":
-        opt = partial(DGN, step_size=STEP_SIZE, damping=DAMPING, mc=True)
-        bp_extension = DiagGGNMC()
-    elif METHOD == "block_exact":
-        opt = partial(BDGN, step_size=STEP_SIZE, damping=DAMPING, mc=False)
-        bp_extension = KFLR()
-    elif METHOD == "block_mc":
-        opt = partial(BDGN, step_size=STEP_SIZE, damping=DAMPING, mc=True)
-        bp_extension = KFAC()
-elif METHOD == "sgd":
-    opt = partial(
-        SGD,
-        lr=0.1,
-        weight_decay=0.001,
-    )
-    bp_extension = None
-else:
-    bp_extension = GGNMP()
-    opt = partial(
-        CGN,
-        bp_extension,
-        lr=0.1,
-        damping=1e-2,
-        maxiter=0.1,
-        tol=1e-6,
-        atol=20,
-    )
-
 
 class TrainConfig(BaseModel):
     """Training configuration, allows '.' member access and static checking.
@@ -78,6 +41,7 @@ class TrainConfig(BaseModel):
     device: torch.device
     epochs: int
     learning_rate: float
+    optimizer: str
 
     class Config:
         """Setting to allow any types, including library ones like torch.device."""
@@ -125,6 +89,60 @@ def train(  # pylint: disable=too-many-arguments
     config: TrainConfig = TrainConfig(**_config)
     del _config
 
+    method = config.optimizer
+
+    if method in {"diag_exact", "diag_mc", "block_exact", "block_mc"}:
+        step_size = 0.05
+        damping = 1.0
+        if method == "diag_exact":
+            opt = partial(DGN, step_size=step_size, damping=damping, mc=False)
+            bp_extension = DiagGGNExact()
+        elif method == "diag_mc":
+            opt = partial(DGN, step_size=step_size, damping=damping, mc=True)
+            bp_extension = DiagGGNMC()
+        elif method == "block_exact":
+            opt = partial(BDGN, step_size=step_size, damping=damping, mc=False)
+            bp_extension = KFLR()
+        elif method == "block_mc":
+            opt = partial(BDGN, step_size=step_size, damping=damping, mc=True)
+            bp_extension = KFAC()
+    elif method == "sgd":
+        opt = partial(
+            SGD,
+            lr=config.learning_rate,
+            weight_decay=0.001,
+        )
+        bp_extension = None
+    elif method == "adam":
+        opt = partial(
+            torch.optim.Adam,
+            lr=config.learning_rate,
+            weight_decay=0.001,
+        )
+        bp_extension = None
+    elif method == "lbfgs":
+        opt = partial(
+            torch.optim.LBFGS,
+            lr=config.learning_rate,
+            max_iter=20,
+            history_size=100,
+            line_search_fn="strong_wolfe",
+        )
+        bp_extension = None
+    elif method == "cg":
+        bp_extension = GGNMP()
+        opt = partial(
+            CGN,
+            bp_extension,
+            lr=config.learning_rate,
+            damping=1e-2,
+            maxiter=0.1,
+            tol=1e-6,
+            atol=20,
+        )
+    else:
+        raise ValueError(f"Unknown method: {method}")
+
     criterion = nn.CrossEntropyLoss().to(config.device)
     extend(criterion)
 
@@ -138,24 +156,46 @@ def train(  # pylint: disable=too-many-arguments
     for _ in range(config.epochs):
         final_epoch_per_sample_loss = 0.0
         num_correct = 0
-        for data, target in tqdm(trainloader):
+        for batch_data, batch_target in tqdm(trainloader):
             data, target = (
-                data.to(
-                    config.device,
-                ),
-                target.to(config.device),
+                batch_data.to(config.device),
+                batch_target.to(config.device),
             )
-            optimizer.zero_grad()
-            output = net(data)
-            loss = criterion(output, target)
-            final_epoch_per_sample_loss += loss.item()
-            num_correct += (output.max(1)[1] == target).clone().detach().sum().item()
-            if bp_extension:
-                with backpack(bp_extension):
+            if method == "lbfgs":
+                closure_final_epoch_per_sample_loss = 0.0
+                closure_num_correct = 0
+
+                def lbfgs_closure(
+                    data: torch.Tensor = data, target: torch.Tensor = target
+                ) -> torch.Tensor:
+                    nonlocal closure_final_epoch_per_sample_loss, closure_num_correct
+                    optimizer.zero_grad()
+                    output = net(data)
+                    loss = criterion(output, target)
+                    closure_final_epoch_per_sample_loss += loss.item()
+                    closure_num_correct += (
+                        (output.max(1)[1] == target).clone().detach().sum().item()
+                    )
                     loss.backward()
+                    return loss
+
+                optimizer.step(lbfgs_closure)
+                final_epoch_per_sample_loss += closure_final_epoch_per_sample_loss
+                num_correct += closure_num_correct
             else:
-                loss.backward()
-            optimizer.step()
+                optimizer.zero_grad()
+                output = net(data)
+                loss = criterion(output, target)
+                final_epoch_per_sample_loss += loss.item()
+                num_correct += (
+                    (output.max(1)[1] == target).clone().detach().sum().item()
+                )
+                if bp_extension:
+                    with backpack(bp_extension):
+                        loss.backward()
+                else:
+                    loss.backward()
+                optimizer.step()
 
     return len(cast(Sized, trainloader.dataset)), {
         "train_loss": final_epoch_per_sample_loss

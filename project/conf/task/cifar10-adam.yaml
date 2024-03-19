@@ -16,8 +16,8 @@ fit_config:
   # The train function requires epochs and learning_rate
   run_config:
     epochs: 1
-    learning_rate: 0.01
-    optimizer: sgd
+    learning_rate: 0.001
+    optimizer: adam
   # No extra config
   extra: {}
 
