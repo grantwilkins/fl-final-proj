@@ -38,7 +38,7 @@ def extract_runtime_info(log_content: str) -> dict:
     -------
         dict: A dictionary containing the runtime information.
     """
-    rounds_info = {}
+    rounds_info: dict = {}
 
     # Regular expressions to match the relevant log messages
     fit_start_pattern = (
