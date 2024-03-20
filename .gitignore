@@ -177,7 +177,8 @@ cython_debug/
 .DS_Store
 manual_gauss_newton.py
 *.pdf
-*.hydra
+.hydra
+results/.hydra*
 history_*
 parameters*
 rng*
