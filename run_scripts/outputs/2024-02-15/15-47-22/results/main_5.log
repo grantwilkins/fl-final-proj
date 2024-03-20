@@ -1,0 +1,153 @@
+[2024-02-15 15:47:22,563][flwr][INFO] - working_dir: null
+to_save_once:
+- yaml
+- log
+- wandb
+to_save_per_round:
+- parameters
+- rng
+- history
+save_frequency: 1
+to_restore: []
+to_clean_once:
+- history
+- parameters
+- yaml
+- log
+- rng
+- history
+use_wandb: false
+debug_clients:
+  all: false
+  one: true
+wandb_resume: false
+wandb_id: null
+wandb:
+  setup:
+    project: template
+    tags:
+    - strategy_${strategy.name}
+    - seed_${fed.seed}
+    entity: null
+    mode: online
+ray_address: null
+ray_redis_password: null
+ray_node_ip_address: null
+file_limit: 250
+task:
+  model_and_data: CIFAR10_RESNET18
+  train_structure: CIFAR10
+  fit_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 4
+    run_config:
+      epochs: 1
+      learning_rate: 0.03
+    extra: {}
+  eval_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  fed_test_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  net_config_initial_parameters: {}
+  fit_metrics:
+  - train_loss
+  - train_accuracy
+  evaluate_metrics:
+  - test_accuracy
+fed:
+  num_rounds: 5
+  num_total_clients: 10
+  num_clients_per_round: 2
+  num_evaluate_clients_per_round: 2
+  enable_resampling: false
+  cpus_per_client: 2
+  gpus_per_client: 0
+  seed: 1337
+  load_saved_state: false
+  server_round: null
+  parameters_folder: null
+  rng_folder: null
+  history_folder: null
+strategy:
+  name: FedAvg
+  init:
+    _target_: flwr.server.strategy.FedAvg
+dataset:
+  dataset_dir: /Users/grantwilkins/fl-final-proj/project/task/cifar10_classification/data/cifar10/data
+  partition_dir: /Users/grantwilkins/fl-final-proj/project/task/cifar10_classification/data/cifar10/partition
+  num_clients: 10
+  val_ratio: 0.1
+  seed: 1337
+  iid: false
+  power_law: true
+  balance: false
+
+[2024-02-15 15:47:22,582][flwr][INFO] - Wandb run initialized with False
+[2024-02-15 15:47:22,582][flwr][INFO] - Pre-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']
+[2024-02-15 15:47:22,582][flwr][INFO] - Loading parameters failed from: /Users/grantwilkins/fl-final-proj/run_scripts/outputs/2024-02-15/15-47-22/results/state/parameters/parameters_0.bin
+[2024-02-15 15:47:22,582][flwr][INFO] - Generating initial parameters with config: {}
+[2024-02-15 15:47:22,582][flwr][INFO] - Generating initial parameters with config: {}
+[2024-02-15 15:47:22,584][flwr][INFO] - Using RNG seed: 1337
+[2024-02-15 15:47:23,692][flwr][INFO] - Fit debug fit: [4547, {}]  and eval: (0.0, 505, {})
+[2024-02-15 15:47:23,694][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=5, round_timeout=None)
+[2024-02-15 15:47:26,240][flwr][INFO] - Flower VCE: Ray initialized with resources: {'memory': 16227568845.0, 'node:__internal_head__': 1.0, 'object_store_memory': 2147483648.0, 'CPU': 10.0, 'node:127.0.0.1': 1.0}
+[2024-02-15 15:47:26,240][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.dev/docs/framework/how-to-run-simulations.html
+[2024-02-15 15:47:26,240][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 2, 'num_gpus': 0.0}
+[2024-02-15 15:47:26,247][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 5 actors
+[2024-02-15 15:47:26,247][flwr][INFO] - Initializing global parameters
+[2024-02-15 15:47:26,247][flwr][INFO] - Using initial parameters provided by strategy
+[2024-02-15 15:47:26,247][flwr][INFO] - Evaluating initial parameters
+[2024-02-15 15:47:26,434][flwr][INFO] - initial parameters (loss, other metrics): 0.0, {}
+[2024-02-15 15:47:26,468][flwr][INFO] - FL starting
+[2024-02-15 15:47:26,468][flwr][INFO] - Sampled the following clients: ['2', '7']
+[2024-02-15 15:47:26,468][flwr][DEBUG] - fit_round 1: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:28,716][flwr][DEBUG] - fit_round 1 received 2 results and 0 failures
+[2024-02-15 15:47:28,921][flwr][INFO] - fit progress: (1, 0.0, {}, 2.4533381250075763)
+[2024-02-15 15:47:28,921][flwr][INFO] - Sampled the following clients: ['3', '0']
+[2024-02-15 15:47:28,921][flwr][DEBUG] - evaluate_round 1: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:29,414][flwr][DEBUG] - evaluate_round 1 received 2 results and 0 failures
+[2024-02-15 15:47:29,450][flwr][INFO] - Sampled the following clients: ['5', '7']
+[2024-02-15 15:47:29,450][flwr][DEBUG] - fit_round 2: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:29,963][flwr][DEBUG] - fit_round 2 received 2 results and 0 failures
+[2024-02-15 15:47:30,164][flwr][INFO] - fit progress: (2, 0.0, {}, 3.6961891660030233)
+[2024-02-15 15:47:30,164][flwr][INFO] - Sampled the following clients: ['2', '3']
+[2024-02-15 15:47:30,164][flwr][DEBUG] - evaluate_round 2: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:30,653][flwr][DEBUG] - evaluate_round 2 received 2 results and 0 failures
+[2024-02-15 15:47:30,704][flwr][INFO] - Sampled the following clients: ['9', '6']
+[2024-02-15 15:47:30,704][flwr][DEBUG] - fit_round 3: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:31,224][flwr][DEBUG] - fit_round 3 received 2 results and 0 failures
+[2024-02-15 15:47:31,415][flwr][INFO] - fit progress: (3, 0.0, {}, 4.947506625001552)
+[2024-02-15 15:47:31,415][flwr][INFO] - Sampled the following clients: ['5', '0']
+[2024-02-15 15:47:31,415][flwr][DEBUG] - evaluate_round 3: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:31,895][flwr][DEBUG] - evaluate_round 3 received 2 results and 0 failures
+[2024-02-15 15:47:31,937][flwr][INFO] - Sampled the following clients: ['3', '9']
+[2024-02-15 15:47:31,937][flwr][DEBUG] - fit_round 4: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:32,441][flwr][DEBUG] - fit_round 4 received 2 results and 0 failures
+[2024-02-15 15:47:32,635][flwr][INFO] - fit progress: (4, 0.0, {}, 6.167652916003135)
+[2024-02-15 15:47:32,636][flwr][INFO] - Sampled the following clients: ['4', '7']
+[2024-02-15 15:47:32,636][flwr][DEBUG] - evaluate_round 4: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:33,123][flwr][DEBUG] - evaluate_round 4 received 2 results and 0 failures
+[2024-02-15 15:47:33,159][flwr][INFO] - Sampled the following clients: ['5', '0']
+[2024-02-15 15:47:33,159][flwr][DEBUG] - fit_round 5: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:33,662][flwr][DEBUG] - fit_round 5 received 2 results and 0 failures
+[2024-02-15 15:47:33,859][flwr][INFO] - fit progress: (5, 0.0, {}, 7.391471625000122)
+[2024-02-15 15:47:33,859][flwr][INFO] - Sampled the following clients: ['7', '5']
+[2024-02-15 15:47:33,859][flwr][DEBUG] - evaluate_round 5: strategy sampled 2 clients (out of 10)
+[2024-02-15 15:47:34,339][flwr][DEBUG] - evaluate_round 5 received 2 results and 0 failures
+[2024-02-15 15:47:34,380][flwr][INFO] - FL finished in 7.912645375006832
+[2024-02-15 15:47:34,384][flwr][INFO] - app_fit: losses_distributed [(1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0)]
+[2024-02-15 15:47:34,384][flwr][INFO] - app_fit: metrics_distributed_fit {}
+[2024-02-15 15:47:34,384][flwr][INFO] - app_fit: metrics_distributed {}
+[2024-02-15 15:47:34,384][flwr][INFO] - app_fit: losses_centralized [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0)]
+[2024-02-15 15:47:34,384][flwr][INFO] - app_fit: metrics_centralized {}
+[2024-02-15 15:47:35,838][flwr][INFO] - Cleaned up ray temp session: /tmp/ray/session_2024-02-15_15-47-23_728368_99836 with size: 680231448576
+[2024-02-15 15:47:35,838][flwr][INFO] - Saving ['yaml', 'log', 'wandb']

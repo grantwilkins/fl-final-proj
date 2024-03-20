@@ -1,0 +1,627 @@
+[2024-03-16 17:21:02,619][flwr][INFO] - working_dir: null
+to_save_once:
+- yaml
+- log
+- wandb
+to_save_per_round:
+- parameters
+- rng
+- history
+save_frequency: 1
+to_restore: []
+to_clean_once:
+- history
+- parameters
+- yaml
+- log
+- rng
+- history
+use_wandb: false
+debug_clients:
+  all: false
+  one: true
+wandb_resume: false
+wandb_id: null
+wandb:
+  setup:
+    project: template
+    tags:
+    - strategy_${strategy.name}
+    - seed_${fed.seed}
+    entity: null
+    mode: online
+ray_address: null
+ray_redis_password: null
+ray_node_ip_address: null
+file_limit: 250
+task:
+  model_and_data: CIFAR10_RESNET18
+  train_structure: CIFAR10
+  fit_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 4
+    run_config:
+      epochs: 5
+      learning_rate: 0.01
+      optimizer: sgd
+    extra: {}
+  eval_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  fed_test_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  net_config_initial_parameters: {}
+  fit_metrics:
+  - train_loss
+  - train_accuracy
+  evaluate_metrics:
+  - test_accuracy
+fed:
+  num_rounds: 50
+  num_total_clients: 100
+  num_clients_per_round: 20
+  num_evaluate_clients_per_round: 20
+  enable_resampling: false
+  cpus_per_client: 2
+  gpus_per_client: 0
+  seed: 1337
+  load_saved_state: true
+  server_round: null
+  parameters_folder: null
+  rng_folder: null
+  history_folder: null
+strategy:
+  name: FedAvg
+  init:
+    _target_: flwr.server.strategy.FedAvg
+dataset:
+  dataset_dir: ./data/cifar10/data
+  partition_dir: ./data/cifar10/partition
+  num_clients: 100
+  val_ratio: 0.1
+  seed: 1337
+  iid: false
+  power_law: false
+  balance: false
+  lda: true
+  alpha: 100.0
+
+[2024-03-16 17:21:02,640][flwr][INFO] - Wandb run initialized with False
+[2024-03-16 17:21:02,640][flwr][INFO] - Pre-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']
+[2024-03-16 17:21:02,640][flwr][INFO] - Loading parameters failed from: /Users/grantwilkins/fl-final-proj/run_scripts/outputs/2024-03-16/17-21-02/results/state/parameters/parameters_0.bin
+[2024-03-16 17:21:02,640][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-16 17:21:02,640][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-16 17:21:02,655][flwr][INFO] - Using RNG seed: 1337
+[2024-03-16 17:21:21,255][flwr][INFO] - Fit debug fit: [446, {'train_loss': 0.5502346967902418, 'train_accuracy': 0.18834080717488788}]  and eval: (0.3299932771799516, 49, {'test_accuracy': 0.12244897959183673})
+[2024-03-16 17:21:21,257][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=50, round_timeout=None)
+[2024-03-16 17:21:23,955][flwr][INFO] - Flower VCE: Ray initialized with resources: {'memory': 20919928423.0, 'object_store_memory': 2147483648.0, 'node:127.0.0.1': 1.0, 'node:__internal_head__': 1.0, 'CPU': 10.0}
+[2024-03-16 17:21:23,955][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.dev/docs/framework/how-to-run-simulations.html
+[2024-03-16 17:21:23,955][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 2, 'num_gpus': 0.0}
+[2024-03-16 17:21:23,962][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 5 actors
+[2024-03-16 17:21:23,962][flwr][INFO] - Initializing global parameters
+[2024-03-16 17:21:23,962][flwr][INFO] - Using initial parameters provided by strategy
+[2024-03-16 17:21:23,962][flwr][INFO] - Evaluating initial parameters
+[2024-03-16 17:21:35,146][flwr][INFO] - initial parameters (loss, other metrics): 0.2877345387458801, {'test_accuracy': 0.115}
+[2024-03-16 17:21:35,204][flwr][INFO] - FL starting
+[2024-03-16 17:21:35,204][flwr][INFO] - Sampled the following clients: ['18', '62', '29', '0', '45', '56', '26', '93', '96', '76', '83', '92', '99', '54', '43', '3', '84', '27', '37', '59']
+[2024-03-16 17:21:35,204][flwr][DEBUG] - fit_round 1: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:23:31,127][flwr][DEBUG] - fit_round 1 received 20 results and 0 failures
+[2024-03-16 17:23:42,779][flwr][INFO] - fit progress: (1, 0.2735525938630104, {'test_accuracy': 0.1839}, 127.57358995801769)
+[2024-03-16 17:23:42,779][flwr][INFO] - Sampled the following clients: ['41', '72', '1', '61', '47', '80', '99', '97', '54', '10', '58', '93', '89', '30', '23', '14', '31', '68', '96', '66']
+[2024-03-16 17:23:42,779][flwr][DEBUG] - evaluate_round 1: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:23:45,915][flwr][DEBUG] - evaluate_round 1 received 20 results and 0 failures
+[2024-03-16 17:23:45,983][flwr][INFO] - Sampled the following clients: ['0', '59', '24', '71', '20', '33', '69', '36', '73', '9', '61', '14', '37', '84', '42', '27', '79', '31', '46', '53']
+[2024-03-16 17:23:45,983][flwr][DEBUG] - fit_round 2: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:25:39,924][flwr][DEBUG] - fit_round 2 received 20 results and 0 failures
+[2024-03-16 17:25:51,509][flwr][INFO] - fit progress: (2, 0.24778771979808809, {'test_accuracy': 0.2646}, 256.3024241660023)
+[2024-03-16 17:25:51,509][flwr][INFO] - Sampled the following clients: ['18', '80', '54', '3', '75', '57', '0', '27', '22', '23', '99', '78', '37', '2', '51', '55', '58', '4', '44', '74']
+[2024-03-16 17:25:51,509][flwr][DEBUG] - evaluate_round 2: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:25:54,604][flwr][DEBUG] - evaluate_round 2 received 20 results and 0 failures
+[2024-03-16 17:25:54,675][flwr][INFO] - Sampled the following clients: ['40', '96', '0', '76', '54', '73', '31', '66', '72', '32', '74', '12', '75', '55', '15', '83', '56', '19', '9', '90']
+[2024-03-16 17:25:54,675][flwr][DEBUG] - fit_round 3: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:27:47,765][flwr][DEBUG] - fit_round 3 received 20 results and 0 failures
+[2024-03-16 17:27:59,425][flwr][INFO] - fit progress: (3, 0.22825856523513793, {'test_accuracy': 0.3077}, 384.21717600000557)
+[2024-03-16 17:27:59,425][flwr][INFO] - Sampled the following clients: ['21', '94', '43', '95', '75', '77', '53', '41', '11', '67', '28', '84', '7', '57', '4', '91', '6', '76', '2', '25']
+[2024-03-16 17:27:59,425][flwr][DEBUG] - evaluate_round 3: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:28:02,571][flwr][DEBUG] - evaluate_round 3 received 20 results and 0 failures
+[2024-03-16 17:28:02,649][flwr][INFO] - Sampled the following clients: ['96', '98', '53', '49', '10', '18', '42', '63', '37', '88', '94', '81', '31', '56', '74', '50', '86', '25', '15', '28']
+[2024-03-16 17:28:02,649][flwr][DEBUG] - fit_round 4: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:29:57,290][flwr][DEBUG] - fit_round 4 received 20 results and 0 failures
+[2024-03-16 17:30:08,910][flwr][INFO] - fit progress: (4, 0.21322275815606118, {'test_accuracy': 0.3577}, 513.7004954159493)
+[2024-03-16 17:30:08,910][flwr][INFO] - Sampled the following clients: ['36', '62', '92', '38', '75', '54', '45', '8', '26', '7', '91', '63', '43', '52', '66', '10', '83', '60', '55', '21']
+[2024-03-16 17:30:08,910][flwr][DEBUG] - evaluate_round 4: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:30:11,937][flwr][DEBUG] - evaluate_round 4 received 20 results and 0 failures
+[2024-03-16 17:30:12,031][flwr][INFO] - Sampled the following clients: ['3', '38', '10', '6', '91', '66', '41', '36', '94', '40', '8', '35', '69', '79', '27', '64', '65', '70', '59', '20']
+[2024-03-16 17:30:12,031][flwr][DEBUG] - fit_round 5: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:32:05,555][flwr][DEBUG] - fit_round 5 received 20 results and 0 failures
+[2024-03-16 17:32:17,221][flwr][INFO] - fit progress: (5, 0.19989643645882607, {'test_accuracy': 0.4096}, 642.0101726660505)
+[2024-03-16 17:32:17,221][flwr][INFO] - Sampled the following clients: ['18', '81', '51', '75', '11', '66', '76', '39', '10', '89', '96', '57', '79', '50', '40', '90', '45', '46', '31', '61']
+[2024-03-16 17:32:17,221][flwr][DEBUG] - evaluate_round 5: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:32:20,217][flwr][DEBUG] - evaluate_round 5 received 20 results and 0 failures
+[2024-03-16 17:32:20,320][flwr][INFO] - Sampled the following clients: ['53', '40', '33', '94', '26', '41', '52', '3', '31', '69', '76', '81', '27', '71', '18', '91', '2', '44', '11', '84']
+[2024-03-16 17:32:20,320][flwr][DEBUG] - fit_round 6: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:34:14,218][flwr][DEBUG] - fit_round 6 received 20 results and 0 failures
+[2024-03-16 17:34:25,947][flwr][INFO] - fit progress: (6, 0.19019949734210967, {'test_accuracy': 0.4354}, 770.7350428750506)
+[2024-03-16 17:34:25,947][flwr][INFO] - Sampled the following clients: ['40', '30', '61', '48', '49', '90', '2', '85', '27', '65', '80', '12', '74', '47', '39', '69', '63', '86', '87', '66']
+[2024-03-16 17:34:25,947][flwr][DEBUG] - evaluate_round 6: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:34:28,962][flwr][DEBUG] - evaluate_round 6 received 20 results and 0 failures
+[2024-03-16 17:34:29,043][flwr][INFO] - Sampled the following clients: ['63', '74', '14', '11', '58', '76', '92', '62', '73', '22', '65', '91', '47', '71', '56', '10', '40', '17', '33', '34']
+[2024-03-16 17:34:29,043][flwr][DEBUG] - fit_round 7: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:36:23,047][flwr][DEBUG] - fit_round 7 received 20 results and 0 failures
+[2024-03-16 17:36:34,755][flwr][INFO] - fit progress: (7, 0.18333581679463387, {'test_accuracy': 0.4646}, 899.5418082909891)
+[2024-03-16 17:36:34,756][flwr][INFO] - Sampled the following clients: ['9', '28', '80', '42', '19', '82', '17', '84', '43', '69', '56', '15', '63', '81', '6', '64', '10', '68', '89', '12']
+[2024-03-16 17:36:34,756][flwr][DEBUG] - evaluate_round 7: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:36:37,837][flwr][DEBUG] - evaluate_round 7 received 20 results and 0 failures
+[2024-03-16 17:36:37,947][flwr][INFO] - Sampled the following clients: ['26', '65', '22', '82', '73', '93', '50', '48', '76', '3', '11', '51', '79', '90', '96', '2', '86', '25', '19', '13']
+[2024-03-16 17:36:37,947][flwr][DEBUG] - fit_round 8: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:38:31,406][flwr][DEBUG] - fit_round 8 received 20 results and 0 failures
+[2024-03-16 17:38:43,108][flwr][INFO] - fit progress: (8, 0.17883638188242912, {'test_accuracy': 0.4829}, 1027.8929903330281)
+[2024-03-16 17:38:43,108][flwr][INFO] - Sampled the following clients: ['53', '17', '91', '18', '86', '0', '30', '80', '22', '81', '76', '61', '52', '55', '96', '68', '54', '28', '92', '64']
+[2024-03-16 17:38:43,108][flwr][DEBUG] - evaluate_round 8: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:38:46,137][flwr][DEBUG] - evaluate_round 8 received 20 results and 0 failures
+[2024-03-16 17:38:46,233][flwr][INFO] - Sampled the following clients: ['9', '90', '34', '35', '37', '31', '17', '5', '26', '19', '83', '11', '18', '8', '77', '84', '29', '3', '56', '72']
+[2024-03-16 17:38:46,233][flwr][DEBUG] - fit_round 9: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:40:40,006][flwr][DEBUG] - fit_round 9 received 20 results and 0 failures
+[2024-03-16 17:40:51,679][flwr][INFO] - fit progress: (9, 0.1762092664361, {'test_accuracy': 0.5003}, 1156.462471207953)
+[2024-03-16 17:40:51,679][flwr][INFO] - Sampled the following clients: ['99', '24', '66', '35', '3', '1', '50', '67', '13', '97', '76', '4', '75', '53', '87', '61', '98', '31', '45', '44']
+[2024-03-16 17:40:51,679][flwr][DEBUG] - evaluate_round 9: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:40:54,670][flwr][DEBUG] - evaluate_round 9 received 20 results and 0 failures
+[2024-03-16 17:40:54,757][flwr][INFO] - Sampled the following clients: ['96', '46', '99', '31', '33', '10', '4', '5', '69', '20', '60', '52', '95', '15', '47', '66', '61', '90', '85', '12']
+[2024-03-16 17:40:54,757][flwr][DEBUG] - fit_round 10: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:42:49,089][flwr][DEBUG] - fit_round 10 received 20 results and 0 failures
+[2024-03-16 17:43:00,797][flwr][INFO] - fit progress: (10, 0.17373488044440746, {'test_accuracy': 0.5082}, 1285.578853999963)
+[2024-03-16 17:43:00,797][flwr][INFO] - Sampled the following clients: ['26', '40', '28', '34', '68', '46', '42', '73', '93', '84', '61', '72', '10', '78', '94', '33', '4', '11', '70', '24']
+[2024-03-16 17:43:00,797][flwr][DEBUG] - evaluate_round 10: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:43:03,874][flwr][DEBUG] - evaluate_round 10 received 20 results and 0 failures
+[2024-03-16 17:43:03,970][flwr][INFO] - Sampled the following clients: ['80', '18', '11', '61', '25', '0', '85', '30', '19', '14', '53', '90', '43', '29', '33', '36', '81', '99', '58', '5']
+[2024-03-16 17:43:03,970][flwr][DEBUG] - fit_round 11: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:44:57,463][flwr][DEBUG] - fit_round 11 received 20 results and 0 failures
+[2024-03-16 17:45:09,132][flwr][INFO] - fit progress: (11, 0.17363993283361195, {'test_accuracy': 0.5156}, 1413.9191220829962)
+[2024-03-16 17:45:09,132][flwr][INFO] - Sampled the following clients: ['14', '79', '10', '1', '85', '92', '80', '48', '61', '50', '25', '45', '43', '7', '15', '33', '98', '75', '97', '47']
+[2024-03-16 17:45:09,133][flwr][DEBUG] - evaluate_round 11: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:45:12,133][flwr][DEBUG] - evaluate_round 11 received 20 results and 0 failures
+[2024-03-16 17:45:12,230][flwr][INFO] - Sampled the following clients: ['41', '75', '57', '14', '91', '99', '52', '16', '44', '24', '95', '23', '80', '27', '92', '35', '55', '94', '31', '69']
+[2024-03-16 17:45:12,230][flwr][DEBUG] - fit_round 12: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:47:05,003][flwr][DEBUG] - fit_round 12 received 20 results and 0 failures
+[2024-03-16 17:47:16,653][flwr][INFO] - fit progress: (12, 0.1764589121311903, {'test_accuracy': 0.525}, 1541.4386469159508)
+[2024-03-16 17:47:16,653][flwr][INFO] - Sampled the following clients: ['27', '32', '70', '96', '74', '37', '52', '39', '82', '23', '66', '7', '38', '24', '26', '79', '36', '51', '8', '58']
+[2024-03-16 17:47:16,653][flwr][DEBUG] - evaluate_round 12: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:47:19,662][flwr][DEBUG] - evaluate_round 12 received 20 results and 0 failures
+[2024-03-16 17:47:19,762][flwr][INFO] - Sampled the following clients: ['31', '22', '18', '50', '54', '26', '58', '3', '27', '2', '91', '63', '68', '87', '4', '33', '6', '42', '34', '45']
+[2024-03-16 17:47:19,762][flwr][DEBUG] - fit_round 13: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:49:13,694][flwr][DEBUG] - fit_round 13 received 20 results and 0 failures
+[2024-03-16 17:49:25,310][flwr][INFO] - fit progress: (13, 0.17797586218565703, {'test_accuracy': 0.5396}, 1670.0942978749517)
+[2024-03-16 17:49:25,310][flwr][INFO] - Sampled the following clients: ['21', '33', '98', '74', '92', '2', '14', '9', '67', '87', '89', '76', '32', '40', '52', '71', '75', '6', '11', '86']
+[2024-03-16 17:49:25,310][flwr][DEBUG] - evaluate_round 13: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:49:28,274][flwr][DEBUG] - evaluate_round 13 received 20 results and 0 failures
+[2024-03-16 17:49:28,375][flwr][INFO] - Sampled the following clients: ['45', '67', '28', '80', '9', '73', '94', '92', '11', '59', '61', '78', '18', '41', '64', '4', '1', '55', '57', '85']
+[2024-03-16 17:49:28,375][flwr][DEBUG] - fit_round 14: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:51:21,694][flwr][DEBUG] - fit_round 14 received 20 results and 0 failures
+[2024-03-16 17:51:33,454][flwr][INFO] - fit progress: (14, 0.17885612854212524, {'test_accuracy': 0.5468}, 1798.2378833750263)
+[2024-03-16 17:51:33,455][flwr][INFO] - Sampled the following clients: ['66', '63', '38', '1', '49', '64', '88', '36', '51', '50', '18', '73', '56', '35', '99', '11', '44', '26', '4', '53']
+[2024-03-16 17:51:33,455][flwr][DEBUG] - evaluate_round 14: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:51:36,446][flwr][DEBUG] - evaluate_round 14 received 20 results and 0 failures
+[2024-03-16 17:51:36,542][flwr][INFO] - Sampled the following clients: ['81', '77', '91', '7', '30', '98', '69', '55', '1', '17', '73', '59', '9', '97', '2', '65', '38', '24', '6', '64']
+[2024-03-16 17:51:36,542][flwr][DEBUG] - fit_round 15: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:53:29,710][flwr][DEBUG] - fit_round 15 received 20 results and 0 failures
+[2024-03-16 17:53:41,232][flwr][INFO] - fit progress: (15, 0.18107023077756165, {'test_accuracy': 0.5511}, 1926.014451749972)
+[2024-03-16 17:53:41,232][flwr][INFO] - Sampled the following clients: ['22', '29', '58', '6', '55', '69', '75', '72', '19', '17', '98', '76', '28', '67', '97', '25', '82', '31', '18', '52']
+[2024-03-16 17:53:41,232][flwr][DEBUG] - evaluate_round 15: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:53:44,240][flwr][DEBUG] - evaluate_round 15 received 20 results and 0 failures
+[2024-03-16 17:53:44,311][flwr][INFO] - Sampled the following clients: ['98', '8', '0', '77', '49', '40', '13', '33', '67', '34', '91', '54', '96', '82', '7', '60', '10', '97', '42', '83']
+[2024-03-16 17:53:44,311][flwr][DEBUG] - fit_round 16: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:55:37,444][flwr][DEBUG] - fit_round 16 received 20 results and 0 failures
+[2024-03-16 17:55:49,072][flwr][INFO] - fit progress: (16, 0.18572487214133143, {'test_accuracy': 0.5668}, 2053.8535316250054)
+[2024-03-16 17:55:49,072][flwr][INFO] - Sampled the following clients: ['31', '79', '78', '41', '89', '22', '94', '72', '76', '68', '75', '34', '87', '13', '39', '96', '25', '64', '69', '40']
+[2024-03-16 17:55:49,072][flwr][DEBUG] - evaluate_round 16: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:55:52,148][flwr][DEBUG] - evaluate_round 16 received 20 results and 0 failures
+[2024-03-16 17:55:52,237][flwr][INFO] - Sampled the following clients: ['43', '99', '52', '16', '65', '90', '33', '86', '37', '13', '74', '11', '88', '14', '59', '97', '3', '22', '47', '1']
+[2024-03-16 17:55:52,237][flwr][DEBUG] - fit_round 17: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:57:45,847][flwr][DEBUG] - fit_round 17 received 20 results and 0 failures
+[2024-03-16 17:57:57,463][flwr][INFO] - fit progress: (17, 0.1876749105423689, {'test_accuracy': 0.5672}, 2182.242905583)
+[2024-03-16 17:57:57,463][flwr][INFO] - Sampled the following clients: ['4', '86', '47', '48', '13', '14', '62', '94', '7', '38', '53', '95', '59', '1', '8', '27', '19', '29', '78', '41']
+[2024-03-16 17:57:57,463][flwr][DEBUG] - evaluate_round 17: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:58:00,542][flwr][DEBUG] - evaluate_round 17 received 20 results and 0 failures
+[2024-03-16 17:58:00,624][flwr][INFO] - Sampled the following clients: ['15', '59', '14', '63', '45', '24', '18', '87', '51', '70', '81', '13', '6', '55', '74', '17', '50', '48', '96', '16']
+[2024-03-16 17:58:00,624][flwr][DEBUG] - fit_round 18: strategy sampled 20 clients (out of 100)
+[2024-03-16 17:59:54,292][flwr][DEBUG] - fit_round 18 received 20 results and 0 failures
+[2024-03-16 18:00:06,029][flwr][INFO] - fit progress: (18, 0.1923530511751771, {'test_accuracy': 0.574}, 2310.8076451659435)
+[2024-03-16 18:00:06,029][flwr][INFO] - Sampled the following clients: ['22', '64', '81', '52', '47', '10', '96', '98', '34', '44', '7', '57', '62', '31', '14', '54', '90', '43', '37', '1']
+[2024-03-16 18:00:06,029][flwr][DEBUG] - evaluate_round 18: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:00:09,049][flwr][DEBUG] - evaluate_round 18 received 20 results and 0 failures
+[2024-03-16 18:00:09,147][flwr][INFO] - Sampled the following clients: ['10', '22', '16', '91', '66', '86', '77', '36', '59', '78', '83', '72', '47', '12', '40', '29', '52', '58', '65', '51']
+[2024-03-16 18:00:09,148][flwr][DEBUG] - fit_round 19: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:02:02,630][flwr][DEBUG] - fit_round 19 received 20 results and 0 failures
+[2024-03-16 18:02:14,183][flwr][INFO] - fit progress: (19, 0.19472422593459487, {'test_accuracy': 0.5782}, 2438.960925500025)
+[2024-03-16 18:02:14,183][flwr][INFO] - Sampled the following clients: ['80', '46', '34', '40', '81', '49', '66', '79', '62', '29', '51', '38', '90', '85', '59', '8', '17', '10', '27', '87']
+[2024-03-16 18:02:14,183][flwr][DEBUG] - evaluate_round 19: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:02:17,210][flwr][DEBUG] - evaluate_round 19 received 20 results and 0 failures
+[2024-03-16 18:02:17,314][flwr][INFO] - Sampled the following clients: ['3', '65', '59', '57', '35', '33', '26', '96', '69', '87', '5', '1', '76', '56', '24', '58', '47', '62', '49', '9']
+[2024-03-16 18:02:17,314][flwr][DEBUG] - fit_round 20: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:04:10,688][flwr][DEBUG] - fit_round 20 received 20 results and 0 failures
+[2024-03-16 18:04:22,292][flwr][INFO] - fit progress: (20, 0.19418107542917132, {'test_accuracy': 0.5805}, 2567.069234165945)
+[2024-03-16 18:04:22,293][flwr][INFO] - Sampled the following clients: ['54', '72', '45', '62', '50', '19', '92', '75', '32', '95', '20', '93', '11', '15', '98', '24', '13', '9', '4', '87']
+[2024-03-16 18:04:22,293][flwr][DEBUG] - evaluate_round 20: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:04:25,299][flwr][DEBUG] - evaluate_round 20 received 20 results and 0 failures
+[2024-03-16 18:04:25,398][flwr][INFO] - Sampled the following clients: ['89', '9', '33', '36', '47', '52', '19', '96', '10', '16', '51', '37', '26', '2', '20', '98', '79', '63', '40', '31']
+[2024-03-16 18:04:25,398][flwr][DEBUG] - fit_round 21: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:06:18,956][flwr][DEBUG] - fit_round 21 received 20 results and 0 failures
+[2024-03-16 18:06:30,861][flwr][INFO] - fit progress: (21, 0.19787326307967304, {'test_accuracy': 0.5891}, 2695.636861708015)
+[2024-03-16 18:06:30,861][flwr][INFO] - Sampled the following clients: ['23', '55', '78', '82', '84', '32', '22', '15', '50', '93', '89', '69', '43', '34', '98', '37', '60', '67', '79', '40']
+[2024-03-16 18:06:30,861][flwr][DEBUG] - evaluate_round 21: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:06:33,887][flwr][DEBUG] - evaluate_round 21 received 20 results and 0 failures
+[2024-03-16 18:06:33,985][flwr][INFO] - Sampled the following clients: ['8', '82', '48', '27', '33', '75', '7', '16', '67', '53', '14', '12', '4', '22', '61', '84', '42', '59', '17', '56']
+[2024-03-16 18:06:33,985][flwr][DEBUG] - fit_round 22: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:08:27,868][flwr][DEBUG] - fit_round 22 received 20 results and 0 failures
+[2024-03-16 18:08:39,634][flwr][INFO] - fit progress: (22, 0.1936004297941923, {'test_accuracy': 0.5907}, 2824.40868295799)
+[2024-03-16 18:08:39,634][flwr][INFO] - Sampled the following clients: ['15', '65', '3', '0', '82', '88', '35', '78', '71', '25', '12', '8', '10', '14', '24', '45', '21', '72', '80', '93']
+[2024-03-16 18:08:39,634][flwr][DEBUG] - evaluate_round 22: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:08:42,644][flwr][DEBUG] - evaluate_round 22 received 20 results and 0 failures
+[2024-03-16 18:08:42,736][flwr][INFO] - Sampled the following clients: ['72', '74', '69', '17', '64', '22', '25', '21', '62', '48', '36', '0', '56', '93', '39', '71', '15', '13', '40', '49']
+[2024-03-16 18:08:42,736][flwr][DEBUG] - fit_round 23: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:10:38,580][flwr][DEBUG] - fit_round 23 received 20 results and 0 failures
+[2024-03-16 18:10:50,292][flwr][INFO] - fit progress: (23, 0.19349959289319812, {'test_accuracy': 0.5981}, 2955.0651065829443)
+[2024-03-16 18:10:50,292][flwr][INFO] - Sampled the following clients: ['74', '51', '53', '22', '48', '35', '12', '38', '10', '85', '18', '73', '65', '19', '71', '89', '72', '44', '70', '80']
+[2024-03-16 18:10:50,292][flwr][DEBUG] - evaluate_round 23: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:10:53,304][flwr][DEBUG] - evaluate_round 23 received 20 results and 0 failures
+[2024-03-16 18:10:53,372][flwr][INFO] - Sampled the following clients: ['80', '68', '69', '42', '85', '22', '21', '86', '50', '41', '62', '96', '67', '4', '77', '39', '87', '34', '35', '98']
+[2024-03-16 18:10:53,372][flwr][DEBUG] - fit_round 24: strategy sampled 20 clients (out of 100)
+[2024-03-16 18:12:00,925][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: a8eecff2c161f8b70ba66cdd01000000
+	pid: 19304
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:01,046][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: a8eecff2c161f8b70ba66cdd01000000
+	pid: 19304
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:01,046][flwr][WARNING] - Actor(a8eecff2c161f8b70ba66cdd01000000) will be remove from pool.
+[2024-03-16 18:12:01,047][flwr][WARNING] - REMOVED actor a8eecff2c161f8b70ba66cdd01000000 from pool
+[2024-03-16 18:12:01,047][flwr][WARNING] - Pool size: 4
+[2024-03-16 18:12:01,048][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: a8eecff2c161f8b70ba66cdd01000000
+	pid: 19304
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:01,048][flwr][WARNING] - Actor(a8eecff2c161f8b70ba66cdd01000000) will be remove from pool.
+[2024-03-16 18:12:01,048][flwr][WARNING] - Actor(a8eecff2c161f8b70ba66cdd01000000) will be remove from pool.
+[2024-03-16 18:12:01,052][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: a8eecff2c161f8b70ba66cdd01000000
+	pid: 19304
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-16 18:12:01,053][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: a8eecff2c161f8b70ba66cdd01000000
+	pid: 19304
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-16 18:12:01,053][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: a8eecff2c161f8b70ba66cdd01000000
+	pid: 19304
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:01,053][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: a8eecff2c161f8b70ba66cdd01000000
+	pid: 19304
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-16 18:12:01,054][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: a8eecff2c161f8b70ba66cdd01000000
+	pid: 19304
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:01,054][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: a8eecff2c161f8b70ba66cdd01000000
+	pid: 19304
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:06,563][flwr][INFO] - The cluster expanded. Adding 1 actors to the pool.
+[2024-03-16 18:12:07,835][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 1af0c7310fb5e69fc2b5f25e01000000
+	pid: 19302
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:07,937][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 1af0c7310fb5e69fc2b5f25e01000000
+	pid: 19302
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:07,937][flwr][WARNING] - Actor(1af0c7310fb5e69fc2b5f25e01000000) will be remove from pool.
+[2024-03-16 18:12:07,937][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 1af0c7310fb5e69fc2b5f25e01000000
+	pid: 19302
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-16 18:12:07,938][flwr][WARNING] - REMOVED actor 1af0c7310fb5e69fc2b5f25e01000000 from pool
+[2024-03-16 18:12:07,938][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 1af0c7310fb5e69fc2b5f25e01000000
+	pid: 19302
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:07,938][flwr][WARNING] - Pool size: 4
+[2024-03-16 18:12:07,938][flwr][WARNING] - Actor(1af0c7310fb5e69fc2b5f25e01000000) will be remove from pool.
+[2024-03-16 18:12:07,939][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 1af0c7310fb5e69fc2b5f25e01000000
+	pid: 19302
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-16 18:12:07,939][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 1af0c7310fb5e69fc2b5f25e01000000
+	pid: 19302
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:07,939][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 1af0c7310fb5e69fc2b5f25e01000000
+	pid: 19302
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:07,939][flwr][WARNING] - Actor(1af0c7310fb5e69fc2b5f25e01000000) will be remove from pool.
+[2024-03-16 18:12:07,939][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 1af0c7310fb5e69fc2b5f25e01000000
+	pid: 19302
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-16 18:12:07,939][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 1af0c7310fb5e69fc2b5f25e01000000
+	pid: 19302
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:12,494][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 02baafc5739ce2a5cbc3d86601000000
+	pid: 19301
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:12,494][flwr][WARNING] - Actor(02baafc5739ce2a5cbc3d86601000000) will be remove from pool.
+[2024-03-16 18:12:12,494][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 02baafc5739ce2a5cbc3d86601000000
+	pid: 19301
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-16 18:12:12,495][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 02baafc5739ce2a5cbc3d86601000000
+	pid: 19301
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:16,570][flwr][INFO] - The cluster expanded. Adding 1 actors to the pool.
+[2024-03-16 18:12:18,518][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: bf11790d1f22bfc5a73269ad01000000
+	pid: 19305
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:18,519][flwr][WARNING] - Actor(bf11790d1f22bfc5a73269ad01000000) will be remove from pool.
+[2024-03-16 18:12:18,519][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: bf11790d1f22bfc5a73269ad01000000
+	pid: 19305
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-16 18:12:18,519][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: bf11790d1f22bfc5a73269ad01000000
+	pid: 19305
+	namespace: 3d634ce0-b437-4c64-9bc5-6d90995c0695
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-16 18:12:18,520][flwr][DEBUG] - fit_round 24 received 12 results and 8 failures

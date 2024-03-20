@@ -1,0 +1,1237 @@
+[2024-03-20 10:57:08,478][flwr][INFO] - working_dir: null
+to_save_once:
+- yaml
+- log
+- wandb
+to_save_per_round:
+- parameters
+- rng
+- history
+save_frequency: 1
+to_restore: []
+to_clean_once:
+- history
+- parameters
+- yaml
+- log
+- rng
+- history
+use_wandb: false
+debug_clients:
+  all: false
+  one: true
+wandb_resume: false
+wandb_id: null
+wandb:
+  setup:
+    project: template
+    tags:
+    - strategy_${strategy.name}
+    - seed_${fed.seed}
+    entity: null
+    mode: online
+ray_address: null
+ray_redis_password: null
+ray_node_ip_address: null
+file_limit: 250
+task:
+  model_and_data: FMNIST_CNN
+  train_structure: FMNIST
+  fit_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 4
+    run_config:
+      epochs: 1
+      learning_rate: 0.01
+      optimizer: diag_mc
+    extra: {}
+  eval_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  fed_test_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  net_config_initial_parameters: {}
+  fit_metrics:
+  - train_loss
+  - train_accuracy
+  evaluate_metrics:
+  - test_accuracy
+fed:
+  num_rounds: 50
+  num_total_clients: 1
+  num_clients_per_round: 1
+  num_evaluate_clients_per_round: 1
+  enable_resampling: false
+  cpus_per_client: 10
+  gpus_per_client: 0
+  seed: 1337
+  load_saved_state: true
+  server_round: null
+  parameters_folder: null
+  rng_folder: null
+  history_folder: null
+strategy:
+  name: FedAvg
+  init:
+    _target_: flwr.server.strategy.FedAvg
+dataset:
+  dataset_dir: ./data/fmnist/data
+  partition_dir: ./data/fmnist/partition
+  num_clients: 1
+  val_ratio: 0.1
+  seed: 1337
+  iid: false
+  power_law: false
+  balance: false
+  lda: true
+  alpha: 100.0
+
+[2024-03-20 10:57:08,498][flwr][INFO] - Wandb run initialized with False
+[2024-03-20 10:57:08,498][flwr][INFO] - Pre-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']
+[2024-03-20 10:57:08,499][flwr][INFO] - Loading parameters failed from: /Users/grantwilkins/fl-final-proj/outputs/2024-03-20/10-57-08/results/state/parameters/parameters_0.bin
+[2024-03-20 10:57:08,499][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-20 10:57:08,499][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-20 10:57:08,510][flwr][INFO] - Using RNG seed: 1337
+[2024-03-20 11:01:09,549][flwr][INFO] - Fit debug fit: [54000, {'train_loss': 0.10412003495571968, 'train_accuracy': 0.8471481481481481}]  and eval: (0.2886222794055939, 6000, {'test_accuracy': 0.0885})
+[2024-03-20 11:01:09,549][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=50, round_timeout=None)
+[2024-03-20 11:01:12,075][flwr][INFO] - Flower VCE: Ray initialized with resources: {'memory': 14255580775.0, 'node:127.0.0.1': 1.0, 'CPU': 10.0, 'node:__internal_head__': 1.0, 'object_store_memory': 2147483648.0}
+[2024-03-20 11:01:12,075][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.dev/docs/framework/how-to-run-simulations.html
+[2024-03-20 11:01:12,075][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 10, 'num_gpus': 0.0}
+[2024-03-20 11:01:12,083][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 1 actors
+[2024-03-20 11:01:12,083][flwr][INFO] - Initializing global parameters
+[2024-03-20 11:01:12,083][flwr][INFO] - Using initial parameters provided by strategy
+[2024-03-20 11:01:12,083][flwr][INFO] - Evaluating initial parameters
+[2024-03-20 11:01:15,377][flwr][INFO] - initial parameters (loss, other metrics): 0.2887480685710907, {'test_accuracy': 0.0881}
+[2024-03-20 11:01:15,390][flwr][INFO] - FL starting
+[2024-03-20 11:01:15,390][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:01:15,390][flwr][DEBUG] - fit_round 1: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:05:18,884][flwr][DEBUG] - fit_round 1 received 1 results and 0 failures
+[2024-03-20 11:05:22,273][flwr][INFO] - fit progress: (1, 0.04149511118645314, {'test_accuracy': 0.8782}, 246.88323391601443)
+[2024-03-20 11:05:22,273][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:05:22,273][flwr][DEBUG] - evaluate_round 1: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:05:24,450][flwr][DEBUG] - evaluate_round 1 received 1 results and 0 failures
+[2024-03-20 11:05:24,463][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:05:24,463][flwr][DEBUG] - fit_round 2: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:10:13,538][flwr][DEBUG] - fit_round 2 received 1 results and 0 failures
+[2024-03-20 11:10:18,020][flwr][INFO] - fit progress: (2, 0.042301472955605275, {'test_accuracy': 0.8835}, 542.631201375043)
+[2024-03-20 11:10:18,020][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:10:18,020][flwr][DEBUG] - evaluate_round 2: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:10:20,832][flwr][DEBUG] - evaluate_round 2 received 1 results and 0 failures
+[2024-03-20 11:10:20,841][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:10:20,841][flwr][DEBUG] - fit_round 3: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:15:12,476][flwr][DEBUG] - fit_round 3 received 1 results and 0 failures
+[2024-03-20 11:15:16,844][flwr][INFO] - fit progress: (3, 0.04203040659506005, {'test_accuracy': 0.8869}, 841.4564551250078)
+[2024-03-20 11:15:16,845][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:15:16,845][flwr][DEBUG] - evaluate_round 3: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:15:19,687][flwr][DEBUG] - evaluate_round 3 received 1 results and 0 failures
+[2024-03-20 11:15:19,707][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:15:19,707][flwr][DEBUG] - fit_round 4: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:20:13,606][flwr][DEBUG] - fit_round 4 received 1 results and 0 failures
+[2024-03-20 11:20:17,850][flwr][INFO] - fit progress: (4, 0.04540021322656616, {'test_accuracy': 0.8884}, 1142.4627454581205)
+[2024-03-20 11:20:17,850][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:20:17,850][flwr][DEBUG] - evaluate_round 4: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:20:20,636][flwr][DEBUG] - evaluate_round 4 received 1 results and 0 failures
+[2024-03-20 11:20:20,650][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:20:20,650][flwr][DEBUG] - fit_round 5: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:24:33,584][flwr][DEBUG] - fit_round 5 received 1 results and 0 failures
+[2024-03-20 11:24:36,431][flwr][INFO] - fit progress: (5, 0.06743894026018361, {'test_accuracy': 0.8671}, 1401.044787916122)
+[2024-03-20 11:24:36,431][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:24:36,431][flwr][DEBUG] - evaluate_round 5: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:24:38,458][flwr][DEBUG] - evaluate_round 5 received 1 results and 0 failures
+[2024-03-20 11:24:38,469][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:24:38,469][flwr][DEBUG] - fit_round 6: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:28:36,769][flwr][DEBUG] - fit_round 6 received 1 results and 0 failures
+[2024-03-20 11:28:39,860][flwr][INFO] - fit progress: (6, 0.057006170759083485, {'test_accuracy': 0.8835}, 1644.4738650829531)
+[2024-03-20 11:28:39,860][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:28:39,860][flwr][DEBUG] - evaluate_round 6: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:28:42,079][flwr][DEBUG] - evaluate_round 6 received 1 results and 0 failures
+[2024-03-20 11:28:42,090][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:28:42,090][flwr][DEBUG] - fit_round 7: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:32:25,274][flwr][DEBUG] - fit_round 7 received 1 results and 0 failures
+[2024-03-20 11:32:28,107][flwr][INFO] - fit progress: (7, 0.06418949679320353, {'test_accuracy': 0.8866}, 1872.7414102079347)
+[2024-03-20 11:32:28,107][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:32:28,107][flwr][DEBUG] - evaluate_round 7: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:32:29,985][flwr][DEBUG] - evaluate_round 7 received 1 results and 0 failures
+[2024-03-20 11:32:29,998][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:32:29,998][flwr][DEBUG] - fit_round 8: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:36:09,958][flwr][DEBUG] - fit_round 8 received 1 results and 0 failures
+[2024-03-20 11:36:12,880][flwr][INFO] - fit progress: (8, 0.0813249635555588, {'test_accuracy': 0.8573}, 2097.5175772500224)
+[2024-03-20 11:36:12,881][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:36:12,881][flwr][DEBUG] - evaluate_round 8: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:36:14,703][flwr][DEBUG] - evaluate_round 8 received 1 results and 0 failures
+[2024-03-20 11:36:14,716][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:36:14,716][flwr][DEBUG] - fit_round 9: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:39:53,209][flwr][DEBUG] - fit_round 9 received 1 results and 0 failures
+[2024-03-20 11:39:56,041][flwr][INFO] - fit progress: (9, 0.07017177205935943, {'test_accuracy': 0.8746}, 2320.680196915986)
+[2024-03-20 11:39:56,041][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:39:56,041][flwr][DEBUG] - evaluate_round 9: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:39:57,905][flwr][DEBUG] - evaluate_round 9 received 1 results and 0 failures
+[2024-03-20 11:39:57,929][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:39:57,929][flwr][DEBUG] - fit_round 10: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:43:37,697][flwr][DEBUG] - fit_round 10 received 1 results and 0 failures
+[2024-03-20 11:43:40,515][flwr][INFO] - fit progress: (10, 0.07908758592924821, {'test_accuracy': 0.8763}, 2545.1566893749405)
+[2024-03-20 11:43:40,515][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:43:40,515][flwr][DEBUG] - evaluate_round 10: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:43:42,370][flwr][DEBUG] - evaluate_round 10 received 1 results and 0 failures
+[2024-03-20 11:43:42,383][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:43:42,383][flwr][DEBUG] - fit_round 11: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:47:21,723][flwr][DEBUG] - fit_round 11 received 1 results and 0 failures
+[2024-03-20 11:47:24,567][flwr][INFO] - fit progress: (11, 0.07017189334905258, {'test_accuracy': 0.885}, 2769.2102364159655)
+[2024-03-20 11:47:24,567][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:47:24,567][flwr][DEBUG] - evaluate_round 11: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:47:26,447][flwr][DEBUG] - evaluate_round 11 received 1 results and 0 failures
+[2024-03-20 11:47:26,460][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:47:26,460][flwr][DEBUG] - fit_round 12: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:51:07,854][flwr][DEBUG] - fit_round 12 received 1 results and 0 failures
+[2024-03-20 11:51:10,704][flwr][INFO] - fit progress: (12, 0.09052184371971182, {'test_accuracy': 0.8686}, 2995.349826916121)
+[2024-03-20 11:51:10,704][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:51:10,704][flwr][DEBUG] - evaluate_round 12: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:51:12,665][flwr][DEBUG] - evaluate_round 12 received 1 results and 0 failures
+[2024-03-20 11:51:12,678][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:51:12,678][flwr][DEBUG] - fit_round 13: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:54:51,247][flwr][DEBUG] - fit_round 13 received 1 results and 0 failures
+[2024-03-20 11:54:54,044][flwr][INFO] - fit progress: (13, 0.0890820433637191, {'test_accuracy': 0.8737}, 3218.6920579581056)
+[2024-03-20 11:54:54,044][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:54:54,044][flwr][DEBUG] - evaluate_round 13: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:54:55,898][flwr][DEBUG] - evaluate_round 13 received 1 results and 0 failures
+[2024-03-20 11:54:55,925][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:54:55,925][flwr][DEBUG] - fit_round 14: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:58:34,497][flwr][DEBUG] - fit_round 14 received 1 results and 0 failures
+[2024-03-20 11:58:37,328][flwr][INFO] - fit progress: (14, 0.08535081919759338, {'test_accuracy': 0.8643}, 3441.978358708089)
+[2024-03-20 11:58:37,328][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:58:37,328][flwr][DEBUG] - evaluate_round 14: strategy sampled 1 clients (out of 1)
+[2024-03-20 11:58:39,190][flwr][DEBUG] - evaluate_round 14 received 1 results and 0 failures
+[2024-03-20 11:58:39,200][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 11:58:39,200][flwr][DEBUG] - fit_round 15: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:02:18,429][flwr][DEBUG] - fit_round 15 received 1 results and 0 failures
+[2024-03-20 12:02:21,236][flwr][INFO] - fit progress: (15, 0.08638521794319177, {'test_accuracy': 0.8758}, 3665.8880848330446)
+[2024-03-20 12:02:21,236][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:02:21,236][flwr][DEBUG] - evaluate_round 15: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:02:23,085][flwr][DEBUG] - evaluate_round 15 received 1 results and 0 failures
+[2024-03-20 12:02:23,098][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:02:23,098][flwr][DEBUG] - fit_round 16: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:06:02,503][flwr][DEBUG] - fit_round 16 received 1 results and 0 failures
+[2024-03-20 12:06:05,297][flwr][INFO] - fit progress: (16, 0.07724053474920031, {'test_accuracy': 0.8692}, 3889.8854972911067)
+[2024-03-20 12:06:05,298][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:06:05,298][flwr][DEBUG] - evaluate_round 16: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:06:07,155][flwr][DEBUG] - evaluate_round 16 received 1 results and 0 failures
+[2024-03-20 12:06:07,168][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:06:07,168][flwr][DEBUG] - fit_round 17: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:09:47,410][flwr][DEBUG] - fit_round 17 received 1 results and 0 failures
+[2024-03-20 12:09:50,195][flwr][INFO] - fit progress: (17, 0.09088101691504441, {'test_accuracy': 0.8629}, 4114.779541416094)
+[2024-03-20 12:09:50,195][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:09:50,195][flwr][DEBUG] - evaluate_round 17: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:09:52,040][flwr][DEBUG] - evaluate_round 17 received 1 results and 0 failures
+[2024-03-20 12:09:52,051][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:09:52,051][flwr][DEBUG] - fit_round 18: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:13:32,472][flwr][DEBUG] - fit_round 18 received 1 results and 0 failures
+[2024-03-20 12:13:35,253][flwr][INFO] - fit progress: (18, 0.10854563605079652, {'test_accuracy': 0.8621}, 4339.834589957958)
+[2024-03-20 12:13:35,253][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:13:35,253][flwr][DEBUG] - evaluate_round 18: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:13:37,163][flwr][DEBUG] - evaluate_round 18 received 1 results and 0 failures
+[2024-03-20 12:13:37,174][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:13:37,174][flwr][DEBUG] - fit_round 19: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:17:18,493][flwr][DEBUG] - fit_round 19 received 1 results and 0 failures
+[2024-03-20 12:17:21,281][flwr][INFO] - fit progress: (19, 0.09622510230285919, {'test_accuracy': 0.8567}, 4565.85925075016)
+[2024-03-20 12:17:21,281][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:17:21,281][flwr][DEBUG] - evaluate_round 19: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:17:23,124][flwr][DEBUG] - evaluate_round 19 received 1 results and 0 failures
+[2024-03-20 12:17:23,140][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:17:23,140][flwr][DEBUG] - fit_round 20: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:21:04,074][flwr][DEBUG] - fit_round 20 received 1 results and 0 failures
+[2024-03-20 12:21:06,868][flwr][INFO] - fit progress: (20, 0.11840196258830968, {'test_accuracy': 0.8228}, 4791.4434865829535)
+[2024-03-20 12:21:06,868][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:21:06,868][flwr][DEBUG] - evaluate_round 20: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:21:08,708][flwr][DEBUG] - evaluate_round 20 received 1 results and 0 failures
+[2024-03-20 12:21:08,720][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:21:08,720][flwr][DEBUG] - fit_round 21: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:24:50,250][flwr][DEBUG] - fit_round 21 received 1 results and 0 failures
+[2024-03-20 12:24:53,039][flwr][INFO] - fit progress: (21, 0.08325206536031643, {'test_accuracy': 0.8553}, 5017.611853416078)
+[2024-03-20 12:24:53,040][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:24:53,040][flwr][DEBUG] - evaluate_round 21: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:24:54,874][flwr][DEBUG] - evaluate_round 21 received 1 results and 0 failures
+[2024-03-20 12:24:54,887][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:24:54,887][flwr][DEBUG] - fit_round 22: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:28:36,728][flwr][DEBUG] - fit_round 22 received 1 results and 0 failures
+[2024-03-20 12:28:39,506][flwr][INFO] - fit progress: (22, 0.11268604231465254, {'test_accuracy': 0.8469}, 5244.074849416036)
+[2024-03-20 12:28:39,506][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:28:39,506][flwr][DEBUG] - evaluate_round 22: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:28:41,358][flwr][DEBUG] - evaluate_round 22 received 1 results and 0 failures
+[2024-03-20 12:28:41,373][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:28:41,373][flwr][DEBUG] - fit_round 23: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:32:22,929][flwr][DEBUG] - fit_round 23 received 1 results and 0 failures
+[2024-03-20 12:32:25,706][flwr][INFO] - fit progress: (23, 0.09500990369778521, {'test_accuracy': 0.853}, 5470.272495249985)
+[2024-03-20 12:32:25,707][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:32:25,707][flwr][DEBUG] - evaluate_round 23: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:32:27,545][flwr][DEBUG] - evaluate_round 23 received 1 results and 0 failures
+[2024-03-20 12:32:27,560][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:32:27,560][flwr][DEBUG] - fit_round 24: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:36:06,580][flwr][DEBUG] - fit_round 24 received 1 results and 0 failures
+[2024-03-20 12:36:09,373][flwr][INFO] - fit progress: (24, 0.10036803586864805, {'test_accuracy': 0.8255}, 5693.935553000076)
+[2024-03-20 12:36:09,373][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:36:09,373][flwr][DEBUG] - evaluate_round 24: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:36:11,210][flwr][DEBUG] - evaluate_round 24 received 1 results and 0 failures
+[2024-03-20 12:36:11,217][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:36:11,217][flwr][DEBUG] - fit_round 25: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:39:51,225][flwr][DEBUG] - fit_round 25 received 1 results and 0 failures
+[2024-03-20 12:39:54,008][flwr][INFO] - fit progress: (25, 0.09969010041506703, {'test_accuracy': 0.8396}, 5918.567620166112)
+[2024-03-20 12:39:54,008][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:39:54,008][flwr][DEBUG] - evaluate_round 25: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:39:55,842][flwr][DEBUG] - evaluate_round 25 received 1 results and 0 failures
+[2024-03-20 12:39:55,849][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:39:55,849][flwr][DEBUG] - fit_round 26: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:43:35,069][flwr][DEBUG] - fit_round 26 received 1 results and 0 failures
+[2024-03-20 12:43:37,854][flwr][INFO] - fit progress: (26, 0.12189829292434347, {'test_accuracy': 0.7494}, 6142.411022332963)
+[2024-03-20 12:43:37,854][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:43:37,854][flwr][DEBUG] - evaluate_round 26: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:43:39,690][flwr][DEBUG] - evaluate_round 26 received 1 results and 0 failures
+[2024-03-20 12:43:39,704][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:43:39,704][flwr][DEBUG] - fit_round 27: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:47:24,913][flwr][DEBUG] - fit_round 27 received 1 results and 0 failures
+[2024-03-20 12:47:27,896][flwr][INFO] - fit progress: (27, 0.10013296768519506, {'test_accuracy': 0.8238}, 6372.449892541161)
+[2024-03-20 12:47:27,896][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:47:27,896][flwr][DEBUG] - evaluate_round 27: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:47:29,834][flwr][DEBUG] - evaluate_round 27 received 1 results and 0 failures
+[2024-03-20 12:47:29,844][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:47:29,844][flwr][DEBUG] - fit_round 28: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:51:18,596][flwr][DEBUG] - fit_round 28 received 1 results and 0 failures
+[2024-03-20 12:51:21,425][flwr][INFO] - fit progress: (28, 0.10527487733461612, {'test_accuracy': 0.8175}, 6605.9749231250025)
+[2024-03-20 12:51:21,425][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:51:21,425][flwr][DEBUG] - evaluate_round 28: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:51:23,290][flwr][DEBUG] - evaluate_round 28 received 1 results and 0 failures
+[2024-03-20 12:51:23,306][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:51:23,306][flwr][DEBUG] - fit_round 29: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:55:09,569][flwr][DEBUG] - fit_round 29 received 1 results and 0 failures
+[2024-03-20 12:55:12,384][flwr][INFO] - fit progress: (29, 0.10000587999855383, {'test_accuracy': 0.833}, 6836.93081762502)
+[2024-03-20 12:55:12,384][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:55:12,384][flwr][DEBUG] - evaluate_round 29: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:55:14,232][flwr][DEBUG] - evaluate_round 29 received 1 results and 0 failures
+[2024-03-20 12:55:14,244][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:55:14,244][flwr][DEBUG] - fit_round 30: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:59:00,678][flwr][DEBUG] - fit_round 30 received 1 results and 0 failures
+[2024-03-20 12:59:03,537][flwr][INFO] - fit progress: (30, 0.10781350878895285, {'test_accuracy': 0.7795}, 7068.0808554580435)
+[2024-03-20 12:59:03,537][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:59:03,537][flwr][DEBUG] - evaluate_round 30: strategy sampled 1 clients (out of 1)
+[2024-03-20 12:59:05,393][flwr][DEBUG] - evaluate_round 30 received 1 results and 0 failures
+[2024-03-20 12:59:05,407][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 12:59:05,407][flwr][DEBUG] - fit_round 31: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:00:01,858][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2524, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientException): [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+
+[2024-03-20 13:00:01,865][flwr][ERROR] - [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+[2024-03-20 13:00:01,872][flwr][DEBUG] - fit_round 31 received 0 results and 1 failures
+[2024-03-20 13:00:04,619][flwr][INFO] - fit progress: (31, 0.10781350878895285, {'test_accuracy': 0.7795}, 7129.171563375043)
+[2024-03-20 13:00:04,619][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:00:04,619][flwr][DEBUG] - evaluate_round 31: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:00:06,455][flwr][DEBUG] - evaluate_round 31 received 1 results and 0 failures
+[2024-03-20 13:00:06,469][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:00:06,469][flwr][DEBUG] - fit_round 32: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:03:52,573][flwr][DEBUG] - fit_round 32 received 1 results and 0 failures
+[2024-03-20 13:03:55,401][flwr][INFO] - fit progress: (32, 0.11344454352008543, {'test_accuracy': 0.7545}, 7359.953612165991)
+[2024-03-20 13:03:55,401][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:03:55,401][flwr][DEBUG] - evaluate_round 32: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:03:57,269][flwr][DEBUG] - evaluate_round 32 received 1 results and 0 failures
+[2024-03-20 13:03:57,292][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:03:57,292][flwr][DEBUG] - fit_round 33: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:07:43,291][flwr][DEBUG] - fit_round 33 received 1 results and 0 failures
+[2024-03-20 13:07:46,243][flwr][INFO] - fit progress: (33, 0.10399164199169604, {'test_accuracy': 0.7806}, 7590.793280041078)
+[2024-03-20 13:07:46,243][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:07:46,243][flwr][DEBUG] - evaluate_round 33: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:07:48,121][flwr][DEBUG] - evaluate_round 33 received 1 results and 0 failures
+[2024-03-20 13:07:48,142][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:07:48,142][flwr][DEBUG] - fit_round 34: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:11:04,191][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2524, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientException): [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+
+[2024-03-20 13:11:04,206][flwr][ERROR] - [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+[2024-03-20 13:11:04,211][flwr][DEBUG] - fit_round 34 received 0 results and 1 failures
+[2024-03-20 13:11:07,003][flwr][INFO] - fit progress: (34, 0.10399164199169604, {'test_accuracy': 0.7806}, 7791.551777833141)
+[2024-03-20 13:11:07,003][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:11:07,003][flwr][DEBUG] - evaluate_round 34: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:11:08,862][flwr][DEBUG] - evaluate_round 34 received 1 results and 0 failures
+[2024-03-20 13:11:08,882][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:11:08,883][flwr][DEBUG] - fit_round 35: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:12:57,299][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2524, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientException): [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+
+[2024-03-20 13:12:57,302][flwr][ERROR] - [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+[2024-03-20 13:12:57,304][flwr][DEBUG] - fit_round 35 received 0 results and 1 failures
+[2024-03-20 13:13:00,156][flwr][INFO] - fit progress: (35, 0.10399164199169604, {'test_accuracy': 0.7806}, 7904.703761290992)
+[2024-03-20 13:13:00,156][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:13:00,157][flwr][DEBUG] - evaluate_round 35: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:13:02,020][flwr][DEBUG] - evaluate_round 35 received 1 results and 0 failures
+[2024-03-20 13:13:02,034][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:13:02,034][flwr][DEBUG] - fit_round 36: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:16:47,943][flwr][DEBUG] - fit_round 36 received 1 results and 0 failures
+[2024-03-20 13:16:50,764][flwr][INFO] - fit progress: (36, 0.13476774457455118, {'test_accuracy': 0.7664}, 8135.309056875063)
+[2024-03-20 13:16:50,764][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:16:50,764][flwr][DEBUG] - evaluate_round 36: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:16:52,609][flwr][DEBUG] - evaluate_round 36 received 1 results and 0 failures
+[2024-03-20 13:16:52,622][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:16:52,622][flwr][DEBUG] - fit_round 37: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:20:38,391][flwr][DEBUG] - fit_round 37 received 1 results and 0 failures
+[2024-03-20 13:20:41,174][flwr][INFO] - fit progress: (37, 0.13456268170229743, {'test_accuracy': 0.7464}, 8365.716328208102)
+[2024-03-20 13:20:41,174][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:20:41,174][flwr][DEBUG] - evaluate_round 37: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:20:43,015][flwr][DEBUG] - evaluate_round 37 received 1 results and 0 failures
+[2024-03-20 13:20:43,029][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:20:43,029][flwr][DEBUG] - fit_round 38: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:24:28,873][flwr][DEBUG] - fit_round 38 received 1 results and 0 failures
+[2024-03-20 13:24:31,673][flwr][INFO] - fit progress: (38, 0.17762538437866504, {'test_accuracy': 0.7558}, 8596.213937208056)
+[2024-03-20 13:24:31,674][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:24:31,674][flwr][DEBUG] - evaluate_round 38: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:24:33,516][flwr][DEBUG] - evaluate_round 38 received 1 results and 0 failures
+[2024-03-20 13:24:33,529][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:24:33,529][flwr][DEBUG] - fit_round 39: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:26:13,558][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2524, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientException): [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+
+[2024-03-20 13:26:13,561][flwr][ERROR] - [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+[2024-03-20 13:26:13,564][flwr][DEBUG] - fit_round 39 received 0 results and 1 failures
+[2024-03-20 13:26:16,398][flwr][INFO] - fit progress: (39, 0.17762538437866504, {'test_accuracy': 0.7558}, 8700.937256500125)
+[2024-03-20 13:26:16,398][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:26:16,398][flwr][DEBUG] - evaluate_round 39: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:26:18,335][flwr][DEBUG] - evaluate_round 39 received 1 results and 0 failures
+[2024-03-20 13:26:18,349][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:26:18,350][flwr][DEBUG] - fit_round 40: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:29:08,751][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2524, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientException): [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+
+[2024-03-20 13:29:08,754][flwr][ERROR] - [36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+                  ^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit
+    return maybe_call_fit(
+           ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit
+    return client.fit(fit_ins)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit
+    num_samples, metrics = self.train(
+                           ^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train
+    loss.backward()
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward
+    torch.autograd.backward(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook
+    out = hook(self.module, res, self.grad_outputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions
+    backpack_extension(module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__
+    module_extension(self, module, g_inp, g_out)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__
+    bp_quantity = self.backpropagate(
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate
+    return hess_func(module, grad_inp, grad_out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled
+    return self._sqrt_hessian_sampled(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled
+    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads
+    return grad_func(subsampled_input, mc_samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual
+    distribution = self._make_distribution(subsampled_input)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution
+    return Categorical(probs_rearranged)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__
+    raise ValueError(
+ValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:
+tensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],
+        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device='mps:0')
+
+The above exception was the direct cause of the following exception:
+
+[36mray::DefaultActor.run()[39m (pid=12206, ip=127.0.0.1, actor_id=b8b8ea53dac67b679b534ad901000000, repr=<flwr.simulation.ray_transport.ray_actor.DefaultActor object at 0x108383e90>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 84, in run
+    raise ClientException(str(message)) from ex
+flwr.simulation.ray_transport.ray_actor.ClientException: 
+>>>>>>>A ClientException occurred.('\n\tSomething went wrong when running your client workload.\n\tClient 0 crashed when the DefaultActor was running its workload.\n\tException triggered on the client side: Traceback (most recent call last):\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 72, in run\n    job_results = job_fn(client)\n                  ^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 191, in fit\n    return maybe_call_fit(\n           ^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/client.py", line 223, in maybe_call_fit\n    return client.fit(fit_ins)\n           ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/client/numpy_client.py", line 227, in _fit\n    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/client/client.py", line 141, in fit\n    num_samples, metrics = self.train(\n                           ^^^^^^^^^^^\n  File "/Users/grantwilkins/fl-final-proj/project/task/fmnist_classification/train_test.py", line 195, in train\n    loss.backward()\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/_tensor.py", line 522, in backward\n    torch.autograd.backward(\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/autograd/__init__.py", line 266, in backward\n    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/utils/hooks.py", line 138, in hook\n    out = hook(self.module, res, self.grad_outputs)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/__init__.py", line 209, in hook_run_extensions\n    backpack_extension(module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/backprop_extension.py", line 127, in __call__\n    module_extension(self, module, g_inp, g_out)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/module_extension.py", line 119, in __call__\n    bp_quantity = self.backpropagate(\n                  ^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/extensions/secondorder/diag_ggn/losses.py", line 13, in backpropagate\n    return hess_func(module, grad_inp, grad_out)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/basederivatives.py", line 514, in sqrt_hessian_sampled\n    return self._sqrt_hessian_sampled(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 60, in _sqrt_hessian_sampled\n    sqrt_hessian = self.compute_sampled_grads(subsampled_input, mc_samples) / sqrt(\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/nll_base.py", line 98, in compute_sampled_grads\n    return grad_func(subsampled_input, mc_samples)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 292, in _compute_sampled_grads_manual\n    distribution = self._make_distribution(subsampled_input)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/backpack/core/derivatives/crossentropyloss.py", line 271, in _make_distribution\n    return Categorical(probs_rearranged)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/categorical.py", line 70, in __init__\n    super().__init__(batch_shape, validate_args=validate_args)\n  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/distributions/distribution.py", line 68, in __init__\n    raise ValueError(\nValueError: Expected parameter probs (Tensor of shape (4, 10)) of distribution Categorical(probs: torch.Size([4, 10])) to satisfy the constraint Simplex(), but found invalid values:\ntensor([[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan],\n        [nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]], device=\'mps:0\')\n',)
+[2024-03-20 13:29:08,757][flwr][DEBUG] - fit_round 40 received 0 results and 1 failures
+[2024-03-20 13:29:11,586][flwr][INFO] - fit progress: (40, 0.17762538437866504, {'test_accuracy': 0.7558}, 8876.123513833154)
+[2024-03-20 13:29:11,586][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:29:11,586][flwr][DEBUG] - evaluate_round 40: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:29:13,460][flwr][DEBUG] - evaluate_round 40 received 1 results and 0 failures
+[2024-03-20 13:29:13,474][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:29:13,474][flwr][DEBUG] - fit_round 41: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:32:59,155][flwr][DEBUG] - fit_round 41 received 1 results and 0 failures
+[2024-03-20 13:33:01,992][flwr][INFO] - fit progress: (41, 0.1439780186699726, {'test_accuracy': 0.6853}, 9106.527074832935)
+[2024-03-20 13:33:01,992][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:33:01,992][flwr][DEBUG] - evaluate_round 41: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:33:03,882][flwr][DEBUG] - evaluate_round 41 received 1 results and 0 failures
+[2024-03-20 13:33:03,895][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:33:03,895][flwr][DEBUG] - fit_round 42: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:36:49,643][flwr][DEBUG] - fit_round 42 received 1 results and 0 failures
+[2024-03-20 13:36:52,442][flwr][INFO] - fit progress: (42, 0.2879858329772949, {'test_accuracy': 0.1}, 9337.030989957973)
+[2024-03-20 13:36:52,442][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:36:52,442][flwr][DEBUG] - evaluate_round 42: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:36:54,350][flwr][DEBUG] - evaluate_round 42 received 1 results and 0 failures
+[2024-03-20 13:36:54,357][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:36:54,358][flwr][DEBUG] - fit_round 43: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:40:39,924][flwr][DEBUG] - fit_round 43 received 1 results and 0 failures
+[2024-03-20 13:40:42,738][flwr][INFO] - fit progress: (43, 0.287987513923645, {'test_accuracy': 0.1}, 9567.330030041048)
+[2024-03-20 13:40:42,738][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:40:42,738][flwr][DEBUG] - evaluate_round 43: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:40:44,568][flwr][DEBUG] - evaluate_round 43 received 1 results and 0 failures
+[2024-03-20 13:40:44,585][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:40:44,585][flwr][DEBUG] - fit_round 44: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:44:30,095][flwr][DEBUG] - fit_round 44 received 1 results and 0 failures
+[2024-03-20 13:44:33,059][flwr][INFO] - fit progress: (44, 0.2879542736291885, {'test_accuracy': 0.1}, 9797.653174041072)
+[2024-03-20 13:44:33,059][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:44:33,059][flwr][DEBUG] - evaluate_round 44: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:44:34,903][flwr][DEBUG] - evaluate_round 44 received 1 results and 0 failures
+[2024-03-20 13:44:34,916][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:44:34,916][flwr][DEBUG] - fit_round 45: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:48:20,857][flwr][DEBUG] - fit_round 45 received 1 results and 0 failures
+[2024-03-20 13:48:23,754][flwr][INFO] - fit progress: (45, 0.28798293225765226, {'test_accuracy': 0.1}, 10028.350598457968)
+[2024-03-20 13:48:23,754][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:48:23,754][flwr][DEBUG] - evaluate_round 45: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:48:25,661][flwr][DEBUG] - evaluate_round 45 received 1 results and 0 failures
+[2024-03-20 13:48:25,676][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:48:25,676][flwr][DEBUG] - fit_round 46: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:52:22,898][flwr][DEBUG] - fit_round 46 received 1 results and 0 failures
+[2024-03-20 13:52:25,927][flwr][INFO] - fit progress: (46, 0.2879992009162903, {'test_accuracy': 0.1}, 10270.526477708016)
+[2024-03-20 13:52:25,927][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:52:25,928][flwr][DEBUG] - evaluate_round 46: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:52:27,892][flwr][DEBUG] - evaluate_round 46 received 1 results and 0 failures
+[2024-03-20 13:52:27,904][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:52:27,904][flwr][DEBUG] - fit_round 47: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:56:16,829][flwr][DEBUG] - fit_round 47 received 1 results and 0 failures
+[2024-03-20 13:56:19,675][flwr][INFO] - fit progress: (47, 0.2879824282646179, {'test_accuracy': 0.1}, 10504.276138083078)
+[2024-03-20 13:56:19,675][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:56:19,675][flwr][DEBUG] - evaluate_round 47: strategy sampled 1 clients (out of 1)
+[2024-03-20 13:56:21,540][flwr][DEBUG] - evaluate_round 47 received 1 results and 0 failures
+[2024-03-20 13:56:21,554][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 13:56:21,554][flwr][DEBUG] - fit_round 48: strategy sampled 1 clients (out of 1)
+[2024-03-20 14:00:11,940][flwr][DEBUG] - fit_round 48 received 1 results and 0 failures
+[2024-03-20 14:00:15,148][flwr][INFO] - fit progress: (48, 0.2879702172756195, {'test_accuracy': 0.1}, 10739.751752499957)
+[2024-03-20 14:00:15,148][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 14:00:15,148][flwr][DEBUG] - evaluate_round 48: strategy sampled 1 clients (out of 1)
+[2024-03-20 14:00:17,162][flwr][DEBUG] - evaluate_round 48 received 1 results and 0 failures
+[2024-03-20 14:00:17,173][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 14:00:17,173][flwr][DEBUG] - fit_round 49: strategy sampled 1 clients (out of 1)
+[2024-03-20 14:04:08,040][flwr][DEBUG] - fit_round 49 received 1 results and 0 failures
+[2024-03-20 14:04:10,888][flwr][INFO] - fit progress: (49, 0.2879862605571747, {'test_accuracy': 0.1}, 10975.494920708006)
+[2024-03-20 14:04:10,889][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 14:04:10,889][flwr][DEBUG] - evaluate_round 49: strategy sampled 1 clients (out of 1)
+[2024-03-20 14:04:12,871][flwr][DEBUG] - evaluate_round 49 received 1 results and 0 failures
+[2024-03-20 14:04:12,886][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 14:04:12,886][flwr][DEBUG] - fit_round 50: strategy sampled 1 clients (out of 1)
+[2024-03-20 14:08:02,038][flwr][DEBUG] - fit_round 50 received 1 results and 0 failures
+[2024-03-20 14:08:05,246][flwr][INFO] - fit progress: (50, 0.28796649351119996, {'test_accuracy': 0.1}, 11209.854809124954)
+[2024-03-20 14:08:05,246][flwr][INFO] - Sampled the following clients: ['0']
+[2024-03-20 14:08:05,246][flwr][DEBUG] - evaluate_round 50: strategy sampled 1 clients (out of 1)
+[2024-03-20 14:08:07,258][flwr][DEBUG] - evaluate_round 50 received 1 results and 0 failures
+[2024-03-20 14:08:07,270][flwr][INFO] - FL finished in 11211.878495458048
+[2024-03-20 14:08:07,271][flwr][INFO] - app_fit: losses_distributed [(1, 0.03774143060145434), (2, 0.038278326545274466), (3, 0.037745273163416034), (4, 0.037782177178660885), (5, 0.05794500690723786), (6, 0.04874884963554757), (7, 0.055503884787701255), (8, 0.07401665140307917), (9, 0.06378361256134595), (10, 0.0734481278681879), (11, 0.06231956717595105), (12, 0.08061307531812072), (13, 0.0743683354990081), (14, 0.07333682662084526), (15, 0.07399159352456401), (16, 0.07167769128043257), (17, 0.07714556840310018), (18, 0.09982407325593053), (19, 0.08973125906858395), (20, 0.10655687686807543), (21, 0.07949205035186056), (22, 0.1041480999466573), (23, 0.0796304413024371), (24, 0.09473406039245454), (25, 0.09215935447487937), (26, 0.12054703019191462), (27, 0.08779743816396353), (28, 0.09210553104653309), (29, 0.08585334615157549), (30, 0.1034603872275317), (31, 0.1034603872275317), (32, 0.10949115974079796), (33, 0.09933665717591733), (34, 0.09933665717591733), (35, 0.09933665717591733), (36, 0.11585101826798112), (37, 0.13324760733541138), (38, 0.15369489383156543), (39, 0.15369489383156543), (40, 0.15369489383156543), (41, 0.13516783963031828), (42, 0.28858818066120145), (43, 0.2881143950621287), (44, 0.2880689291556676), (45, 0.288118803024292), (46, 0.2881287708679835), (47, 0.2881152374744415), (48, 0.28809266940752665), (49, 0.2881121118068695), (50, 0.28808622193336486)]
+[2024-03-20 14:08:07,271][flwr][INFO] - app_fit: metrics_distributed_fit {'train_loss': [(1, 0.10466170016917405), (2, 0.0712725630266917), (3, 0.05879801738042227), (4, 0.05256959034752634), (5, 0.047995132237737104), (6, 0.04435666099862306), (7, 0.04322449640277016), (8, 0.04321616044822443), (9, 0.046384786446063996), (10, 0.043473741734104045), (11, 0.04537569621257885), (12, 0.047599109247838105), (13, 0.04971489955653455), (14, 0.054721394232364384), (15, 0.05972585488828552), (16, 0.053785877600477726), (17, 0.057728983788034795), (18, 0.06466082960266142), (19, 0.07353185034074215), (20, 0.08059522555361139), (21, 0.09395480391365155), (22, 0.08949801860945626), (23, 0.09432919346635037), (24, 0.13665346750200655), (25, 0.12369562008586622), (26, 0.17956196177723652), (27, 0.17070060103744505), (28, 0.14582557890072392), (29, 0.12673760203835416), (30, 0.16342813034623158), (32, 0.17717102103516663), (33, 0.1618470141649297), (36, 0.1667626551367268), (37, 0.18582430609442624), (38, 0.23081351668516728), (41, 0.2648065408090334), (42, 0.350492477026509), (43, 0.5765103356440862), (44, 0.5763419366103631), (45, 0.5763399788759372), (46, 0.576337059798064), (47, 0.5763535273295862), (48, 0.5763412949288332), (49, 0.5763334442332939), (50, 0.5763410531768093)], 'train_accuracy': [(1, 0.8474444444444444), (2, 0.8952592592592593), (3, 0.9122222222222223), (4, 0.9228333333333333), (5, 0.9293148148148148), (6, 0.9353888888888889), (7, 0.9389259259259259), (8, 0.9396111111111111), (9, 0.9378703703703704), (10, 0.9412592592592592), (11, 0.9406481481481481), (12, 0.9408703703703704), (13, 0.9381666666666667), (14, 0.9353703703703704), (15, 0.9304074074074075), (16, 0.9346851851851852), (17, 0.9322592592592592), (18, 0.9273518518518519), (19, 0.9201481481481482), (20, 0.9142962962962963), (21, 0.8997592592592593), (22, 0.9051296296296296), (23, 0.8995185185185185), (24, 0.8680555555555556), (25, 0.8678888888888889), (26, 0.8299814814814814), (27, 0.8185), (28, 0.8391481481481482), (29, 0.8564814814814815), (30, 0.8354444444444444), (32, 0.8084074074074074), (33, 0.8204074074074074), (36, 0.8182407407407407), (37, 0.7991481481481482), (38, 0.762962962962963), (41, 0.7177407407407408), (42, 0.5554629629629629), (43, 0.09885185185185186), (44, 0.09888888888888889), (45, 0.09809259259259259), (46, 0.09848148148148148), (47, 0.0982962962962963), (48, 0.09927777777777778), (49, 0.09857407407407408), (50, 0.09775925925925925)]}
+[2024-03-20 14:08:07,271][flwr][INFO] - app_fit: metrics_distributed {'test_accuracy': [(1, 0.888), (2, 0.8906666666666667), (3, 0.8878333333333334), (4, 0.9006666666666666), (5, 0.8773333333333333), (6, 0.8875), (7, 0.889), (8, 0.858), (9, 0.879), (10, 0.8771666666666667), (11, 0.8866666666666667), (12, 0.875), (13, 0.8878333333333334), (14, 0.873), (15, 0.883), (16, 0.874), (17, 0.8728333333333333), (18, 0.8698333333333333), (19, 0.8635), (20, 0.8301666666666667), (21, 0.8611666666666666), (22, 0.8515), (23, 0.862), (24, 0.8361666666666666), (25, 0.8393333333333334), (26, 0.7425), (27, 0.8293333333333334), (28, 0.8241666666666667), (29, 0.8391666666666666), (30, 0.7881666666666667), (31, 0.7881666666666667), (32, 0.7578333333333334), (33, 0.787), (34, 0.787), (35, 0.787), (36, 0.7773333333333333), (37, 0.7468333333333333), (38, 0.7535), (39, 0.7535), (40, 0.7535), (41, 0.6873333333333334), (42, 0.0935), (43, 0.0935), (44, 0.0935), (45, 0.0935), (46, 0.0935), (47, 0.0935), (48, 0.0935), (49, 0.0935), (50, 0.09916666666666667)]}
+[2024-03-20 14:08:07,272][flwr][INFO] - app_fit: losses_centralized [(0, 0.2887480685710907), (1, 0.04149511118645314), (2, 0.042301472955605275), (3, 0.04203040659506005), (4, 0.04540021322656616), (5, 0.06743894026018361), (6, 0.057006170759083485), (7, 0.06418949679320353), (8, 0.0813249635555588), (9, 0.07017177205935943), (10, 0.07908758592924821), (11, 0.07017189334905258), (12, 0.09052184371971182), (13, 0.0890820433637191), (14, 0.08535081919759338), (15, 0.08638521794319177), (16, 0.07724053474920031), (17, 0.09088101691504441), (18, 0.10854563605079652), (19, 0.09622510230285919), (20, 0.11840196258830968), (21, 0.08325206536031643), (22, 0.11268604231465254), (23, 0.09500990369778521), (24, 0.10036803586864805), (25, 0.09969010041506703), (26, 0.12189829292434347), (27, 0.10013296768519506), (28, 0.10527487733461612), (29, 0.10000587999855383), (30, 0.10781350878895285), (31, 0.10781350878895285), (32, 0.11344454352008543), (33, 0.10399164199169604), (34, 0.10399164199169604), (35, 0.10399164199169604), (36, 0.13476774457455118), (37, 0.13456268170229743), (38, 0.17762538437866504), (39, 0.17762538437866504), (40, 0.17762538437866504), (41, 0.1439780186699726), (42, 0.2879858329772949), (43, 0.287987513923645), (44, 0.2879542736291885), (45, 0.28798293225765226), (46, 0.2879992009162903), (47, 0.2879824282646179), (48, 0.2879702172756195), (49, 0.2879862605571747), (50, 0.28796649351119996)]
+[2024-03-20 14:08:07,272][flwr][INFO] - app_fit: metrics_centralized {'test_accuracy': [(0, 0.0881), (1, 0.8782), (2, 0.8835), (3, 0.8869), (4, 0.8884), (5, 0.8671), (6, 0.8835), (7, 0.8866), (8, 0.8573), (9, 0.8746), (10, 0.8763), (11, 0.885), (12, 0.8686), (13, 0.8737), (14, 0.8643), (15, 0.8758), (16, 0.8692), (17, 0.8629), (18, 0.8621), (19, 0.8567), (20, 0.8228), (21, 0.8553), (22, 0.8469), (23, 0.853), (24, 0.8255), (25, 0.8396), (26, 0.7494), (27, 0.8238), (28, 0.8175), (29, 0.833), (30, 0.7795), (31, 0.7795), (32, 0.7545), (33, 0.7806), (34, 0.7806), (35, 0.7806), (36, 0.7664), (37, 0.7464), (38, 0.7558), (39, 0.7558), (40, 0.7558), (41, 0.6853), (42, 0.1), (43, 0.1), (44, 0.1), (45, 0.1), (46, 0.1), (47, 0.1), (48, 0.1), (49, 0.1), (50, 0.1)]}
+[2024-03-20 14:08:08,898][flwr][INFO] - Cleaned up ray temp session: /tmp/ray/session_2024-03-20_11-01-09_580613_12142 with size: 871423205376
+[2024-03-20 14:08:08,898][flwr][INFO] - Saving ['yaml', 'log', 'wandb']
+[2024-03-20 14:08:08,901][flwr][INFO] - Post-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']

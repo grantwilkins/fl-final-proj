@@ -1,0 +1,149 @@
+[2024-02-15 15:17:41,748][flwr][INFO] - working_dir: null
+to_save_once:
+- yaml
+- log
+- wandb
+to_save_per_round:
+- parameters
+- rng
+- history
+save_frequency: 1
+to_restore: []
+to_clean_once:
+- history
+- parameters
+- yaml
+- log
+- rng
+- history
+use_wandb: false
+debug_clients:
+  all: false
+  one: true
+wandb_resume: false
+wandb_id: null
+wandb:
+  setup:
+    project: template
+    tags:
+    - strategy_${strategy.name}
+    - seed_${fed.seed}
+    entity: null
+    mode: online
+ray_address: null
+ray_redis_password: null
+ray_node_ip_address: null
+file_limit: 250
+task:
+  model_and_data: CIFAR10_RESNET18
+  train_structure: CIFAR10
+  fit_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 4
+    run_config:
+      epochs: 1
+      learning_rate: 0.03
+    extra: {}
+  eval_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  fed_test_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  net_config_initial_parameters: {}
+  fit_metrics:
+  - train_loss
+  - train_accuracy
+  evaluate_metrics:
+  - test_accuracy
+fed:
+  num_rounds: 5
+  num_total_clients: 10
+  num_clients_per_round: 2
+  num_evaluate_clients_per_round: 2
+  enable_resampling: false
+  cpus_per_client: 2
+  gpus_per_client: 0
+  seed: 1337
+  load_saved_state: false
+  server_round: null
+  parameters_folder: null
+  rng_folder: null
+  history_folder: null
+strategy:
+  name: FedAvg
+  init:
+    _target_: flwr.server.strategy.FedAvg
+dataset:
+  dataset_dir: /Users/grantwilkins/fl-final-proj/project/task/cifar10_classification/data/cifar10/data
+  partition_dir: /Users/grantwilkins/fl-final-proj/project/task/cifar10_classification/data/cifar10/partition
+  num_clients: 10
+  val_ratio: 0.1
+  seed: 1337
+  iid: false
+  power_law: true
+  balance: false
+
+[2024-02-15 15:17:41,767][flwr][INFO] - Wandb run initialized with False
+[2024-02-15 15:17:41,768][flwr][INFO] - Pre-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']
+[2024-02-15 15:17:41,768][flwr][INFO] - Loading parameters failed from: /Users/grantwilkins/fl-final-proj/run_scripts/outputs/2024-02-15/15-17-41/results/state/parameters/parameters_0.bin
+[2024-02-15 15:17:41,768][flwr][INFO] - Generating initial parameters with config: {}
+[2024-02-15 15:17:41,768][flwr][INFO] - Generating initial parameters with config: {}
+[2024-02-15 15:17:41,769][flwr][INFO] - Using RNG seed: 1337
+[2024-02-15 15:17:42,980][flwr][INFO] - Fit debug fit: [4547, {}]  and eval: (0.0, 505, {})
+[2024-02-15 15:17:42,983][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=5, round_timeout=None)
+[2024-02-15 15:17:45,542][flwr][INFO] - Flower VCE: Ray initialized with resources: {'memory': 13404125594.0, 'CPU': 10.0, 'node:127.0.0.1': 1.0, 'object_store_memory': 2147483648.0, 'node:__internal_head__': 1.0}
+[2024-02-15 15:17:45,542][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.dev/docs/framework/how-to-run-simulations.html
+[2024-02-15 15:17:45,542][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 2, 'num_gpus': 0.0}
+[2024-02-15 15:17:45,550][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 5 actors
+[2024-02-15 15:17:45,550][flwr][INFO] - Initializing global parameters
+[2024-02-15 15:17:45,550][flwr][INFO] - Using initial parameters provided by strategy
+[2024-02-15 15:17:45,550][flwr][INFO] - Evaluating initial parameters
+[2024-02-15 15:17:45,740][flwr][ERROR] - index 0 is out of bounds for dimension 0 with size 0
+[2024-02-15 15:17:45,745][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/app.py", line 308, in start_simulation
+    hist = run_fl(
+           ^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/server/app.py", line 225, in run_fl
+    hist = server.fit(num_rounds=config.num_rounds, timeout=config.round_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/fed/server/wandb_server.py", line 98, in fit
+    res = self.strategy.evaluate(
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/server/strategy/fedavg.py", line 163, in evaluate
+    eval_res = self.evaluate_fn(server_round, parameters_ndarrays, {})
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/fl-final-proj/project/task/cifar10_classification/train_test.py", line 219, in fed_eval_fn
+    generic_set_parameters(net, parameters)
+  File "/Users/grantwilkins/fl-final-proj/project/fed/utils/utils.py", line 83, in generic_set_parameters
+    net.load_state_dict(state_dict, strict=True)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/nn/modules/module.py", line 2138, in load_state_dict
+    load(self, state_dict)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/nn/modules/module.py", line 2126, in load
+    load(child, child_state_dict, child_prefix)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/nn/modules/module.py", line 2126, in load
+    load(child, child_state_dict, child_prefix)
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/nn/modules/module.py", line 2120, in load
+    module._load_from_state_dict(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/nn/modules/batchnorm.py", line 110, in _load_from_state_dict
+    super()._load_from_state_dict(
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/torch/nn/modules/module.py", line 2015, in _load_from_state_dict
+    input_param = input_param[0]
+                  ~~~~~~~~~~~^^^
+IndexError: index 0 is out of bounds for dimension 0 with size 0
+
+[2024-02-15 15:17:45,745][flwr][ERROR] - Your simulation crashed :(. This could be because of several reasons.The most common are: 
+	 > Your system couldn't fit a single VirtualClient: try lowering `client_resources`.
+	 > All the actors in your pool crashed. This could be because: 
+		 - You clients hit an out-of-memory (OOM) error and actors couldn't recover from it. Try launching your simulation with more generous `client_resources` setting (i.e. it seems {'num_cpus': 2, 'num_gpus': 0.0} is not enough for your workload). Use fewer concurrent actors. 
+		 - You were running a multi-node simulation and all worker nodes disconnected. The head node might still be alive but cannot accommodate any actor with resources: {'num_cpus': 2, 'num_gpus': 0.0}.
+[2024-02-15 15:17:47,269][flwr][INFO] - Cleaned up ray temp session: /tmp/ray/session_2024-02-15_15-17-43_022215_98240 with size: 678866976768
+[2024-02-15 15:17:47,269][flwr][INFO] - Saving ['yaml', 'log', 'wandb']
+[2024-02-15 15:17:47,275][flwr][INFO] - Post-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']
