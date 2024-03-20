@@ -29,15 +29,15 @@ def extract_config_info(log_content: str) -> dict:
         if "alpha:" in line:
             config_info["LDA_ALPHA"] = float(line.split("alpha:")[1].strip())
         elif "optimizer:" in line:
-            config_info["OPTIMIZER"] = line.split("optimizer:")[1].strip()
+            config_info["OPTIMIZER"] = str(line.split("optimizer:")[1].strip())
         elif "learning_rate:" in line:
             config_info["LEARNING_RATE"] = float(
                 line.split("learning_rate:")[1].strip()
             )
         elif "model_and_data:" in line:
             task_info = line.split("model_and_data:")[1].strip().split("_")
-            config_info["TASK"] = task_info[0]
-            config_info["MODEL"] = task_info[1] if len(task_info) > 1 else None
+            config_info["TASK"] = str(task_info[0])
+            config_info["MODEL"] = str(task_info[1]) if len(task_info) > 1 else "None"
         elif "batch_size:" in line:
             config_info["BATCH_SIZE"] = int(line.split("batch_size:")[1].strip())
         elif "num_total_clients:" in line:
