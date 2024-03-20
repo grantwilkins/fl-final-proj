@@ -6,65 +6,11 @@ from functools import reduce
 import re
 from datetime import datetime
 from pathlib import Path
+import yaml
 
 date_time = "/2024-03-20/09-13-37"
 path_to_outputs = "../../outputs" + date_time + "/results/state/histories/history.json"
-
-
-def extract_config_info(log_content: str) -> dict:
-    """
-    Extract configuration information from log content.
-
-    Args:
-        log_content (str): The content of the log file as a string.
-
-    Returns
-    -------
-        dict: A dictionary containing the configuration information.
-    """
-    config_info = {}
-
-    lines = log_content.split("\n")
-    for line in lines:
-        if "alpha:" in line:
-            config_info["LDA_ALPHA"] = float(line.split("alpha:")[1].strip())
-        elif "optimizer:" in line:
-            config_info["OPTIMIZER"] = str(line.split("optimizer:")[1].strip())
-        elif "learning_rate:" in line:
-            config_info["LEARNING_RATE"] = float(
-                line.split("learning_rate:")[1].strip()
-            )
-        elif "model_and_data:" in line:
-            task_info = line.split("model_and_data:")[1].strip().split("_")
-            config_info["TASK"] = str(task_info[0])
-            config_info["MODEL"] = str(task_info[1]) if len(task_info) > 1 else "None"
-        elif "batch_size:" in line:
-            config_info["BATCH_SIZE"] = int(line.split("batch_size:")[1].strip())
-        elif "num_total_clients:" in line:
-            config_info["CLIENTS"] = int(line.split("num_total_clients:")[1].strip())
-        elif "num_clients_per_round:" in line:
-            config_info["SAMPLED_CLIENTS_PER_ROUND"] = int(
-                line.split("num_clients_per_round:")[1].strip()
-            )
-        elif "num_evaluate_clients_per_round:" in line:
-            config_info["EVALUATE_CLIENTS_PER_ROUND"] = int(
-                line.split("num_evaluate_clients_per_round:")[1].strip()
-            )
-        elif "num_rounds:" in line:
-            config_info["MAX_ROUND_NUM"] = int(line.split("num_rounds:")[1].strip())
-
-    if config_info["OPTIMIZER"] == "diag_exact":
-        config_info["BP_EXTENSION"] = "DiagGGNExact"
-    elif config_info["OPTIMIZER"] == "diag_mc":
-        config_info["BP_EXTENSION"] = "DiagGGNMC"
-    elif config_info["OPTIMIZER"] == "block_exact":
-        config_info["BP_EXTENSION"] = "KFLR"
-    elif config_info["OPTIMIZER"] == "block_mc":
-        config_info["BP_EXTENSION"] = "KFAC"
-    else:
-        config_info["BP_EXTENSION"] = "None"
-
-    return config_info
+path_to_yaml = "../../outputs" + date_time + "/.hydra/config.yaml"
 
 
 def extract_runtime_info(log_content: str, max_rounds: int) -> dict:
@@ -151,18 +97,29 @@ def extract_runtime_info(log_content: str, max_rounds: int) -> dict:
 log_file = "../../outputs" + date_time + "/results/main.log"
 log_content = Path(log_file).read_text(encoding="utf-8")
 
-config_info = extract_config_info(log_content)
-LDA_ALPHA = config_info["LDA_ALPHA"]
-OPTIMIZER = config_info["OPTIMIZER"]
-LEARNING_RATE = config_info["LEARNING_RATE"]
-BP_EXTENSION = config_info["BP_EXTENSION"]
-TASK = config_info["TASK"]
-MODEL = config_info["MODEL"]
-BATCH_SIZE = config_info["BATCH_SIZE"]
-CLIENTS = config_info["CLIENTS"]
-SAMPLED_CLIENTS_PER_ROUND = config_info["SAMPLED_CLIENTS_PER_ROUND"]
-EVALUATE_CLIENTS_PER_ROUND = config_info["EVALUATE_CLIENTS_PER_ROUND"]
-MAX_ROUND_NUM = config_info["MAX_ROUND_NUM"]
+config_info = yaml.safe_load(Path(path_to_yaml).read_text())
+
+LDA_ALPHA = float(config_info["dataset"]["alpha"])
+OPTIMIZER = config_info["task"]["fit_config"]["run_config"]["optimizer"]
+LEARNING_RATE = float(config_info["task"]["fit_config"]["run_config"]["learning_rate"])
+TASK = config_info["task"]["train_structure"]
+MODEL = config_info["task"]["model_and_data"].split("_")[0]
+BATCH_SIZE = int(config_info["task"]["fit_config"]["dataloader_config"]["batch_size"])
+CLIENTS = config_info["fed"]["num_total_clients"]
+SAMPLED_CLIENTS_PER_ROUND = config_info["fed"]["num_clients_per_round"]
+EVALUATE_CLIENTS_PER_ROUND = config_info["fed"]["num_evaluate_clients_per_round"]
+MAX_ROUND_NUM = config_info["fed"]["num_rounds"]
+
+if OPTIMIZER == "diag_exact":
+    BP_EXTENSION = "DiagGGNExact"
+elif OPTIMIZER == "diag_mc":
+    BP_EXTENSION = "DiagGGNMC"
+elif OPTIMIZER == "block_exact":
+    BP_EXTENSION = "KFLR"
+elif OPTIMIZER == "block_mc":
+    BP_EXTENSION = "KFAC"
+else:
+    BP_EXTENSION = "None"
 
 rounds_info = extract_runtime_info(log_content, MAX_ROUND_NUM)
 df_rounds_info = pd.DataFrame.from_dict(rounds_info, orient="index")
