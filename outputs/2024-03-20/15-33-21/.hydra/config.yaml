@@ -35,8 +35,8 @@ task:
       batch_size: 4
     run_config:
       epochs: 1
-      learning_rate: 0.01
-      optimizer: diag_exact
+      learning_rate: 0.001
+      optimizer: adam
     extra: {}
   eval_config:
     net_config: {}
@@ -56,11 +56,11 @@ task:
 
 fed:
   num_rounds: 50
-  num_total_clients: 1
-  num_clients_per_round: 1
-  num_evaluate_clients_per_round: 1
+  num_total_clients: 100
+  num_clients_per_round: 20
+  num_evaluate_clients_per_round: 20
   enable_resampling: false
-  cpus_per_client: 10
+  cpus_per_client: 2
   gpus_per_client: 0
   seed: 1337
   load_saved_state: true
@@ -77,11 +77,11 @@ strategy:
 dataset:
   dataset_dir: ./data/fmnist/data
   partition_dir: ./data/fmnist/partition
-  num_clients: 1
+  num_clients: 100
   val_ratio: 0.1
   seed: 1337
   iid: false
   power_law: false
   balance: false
   lda: true
-  alpha: 100.0
+  alpha: 1.0

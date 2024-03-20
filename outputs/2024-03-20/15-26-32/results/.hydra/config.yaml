@@ -77,11 +77,11 @@ strategy:
 dataset:
   dataset_dir: ./data/fmnist/data
   partition_dir: ./data/fmnist/partition
-  num_clients: 1
+  num_clients: 100
   val_ratio: 0.1
   seed: 1337
   iid: false
   power_law: false
   balance: false
   lda: true
-  alpha: 100.0
+  alpha: 1.0
