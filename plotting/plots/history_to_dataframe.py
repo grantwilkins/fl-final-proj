@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 import yaml
 
-date_time = "/2024-03-20/09-13-37"
+date_time = "/2024-03-20/15-41-39"
 path_to_outputs = "../../outputs" + date_time + "/results/state/histories/history.json"
 path_to_yaml = "../../outputs" + date_time + "/.hydra/config.yaml"
 
@@ -55,9 +55,7 @@ def extract_runtime_info(log_content: str, max_rounds: int) -> dict:
     for i in range(len(lines)):
         fit_start_match = fit_start_regex.match(lines[i])
         if fit_start_match:
-            round_num = int(
-                lines[i + 1].split("fit_round ")[1].split(":")[0].split(" ")[0]
-            )
+            round_num = int(lines[i].split("fit_round ")[1].split(":")[0].split(" ")[0])
             if 1 <= round_num <= max_rounds:
                 fit_start_time = datetime.strptime(
                     fit_start_match.group(1), "%Y-%m-%d %H:%M:%S"
