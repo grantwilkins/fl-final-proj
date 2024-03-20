@@ -177,9 +177,12 @@ cython_debug/
 .DS_Store
 manual_gauss_newton.py
 *.pdf
-.hydra
 results/.hydra*
 history_*
 parameters*
 rng*
 working*
+hydra.yaml
+overrides*
+config_*.yaml
+hydra_*
