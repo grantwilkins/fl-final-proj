@@ -7,27 +7,67 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-date_time = "/2024-03-14/15-32-15"
+date_time = "/2024-03-20/09-13-37"
 path_to_outputs = "../../outputs" + date_time + "/results/state/histories/history.json"
 
-# These should be the same as in the config
-LDA_ALPHA = 100
-OPTIMIZER = "SGD"
-LEARNING_RATE = 0.03
-BP_EXTENSION = "None"
-TASK = "CIFAR10"
-MODEL = "ResNet18"
+
+def extract_config_info(log_content: str) -> dict:
+    """
+    Extract configuration information from log content.
+
+    Args:
+        log_content (str): The content of the log file as a string.
+
+    Returns
+    -------
+        dict: A dictionary containing the configuration information.
+    """
+    config_info = {}
+
+    lines = log_content.split("\n")
+    for line in lines:
+        if "alpha:" in line:
+            config_info["LDA_ALPHA"] = float(line.split("alpha:")[1].strip())
+        elif "optimizer:" in line:
+            config_info["OPTIMIZER"] = line.split("optimizer:")[1].strip()
+        elif "learning_rate:" in line:
+            config_info["LEARNING_RATE"] = float(
+                line.split("learning_rate:")[1].strip()
+            )
+        elif "model_and_data:" in line:
+            task_info = line.split("model_and_data:")[1].strip().split("_")
+            config_info["TASK"] = task_info[0]
+            config_info["MODEL"] = task_info[1] if len(task_info) > 1 else None
+        elif "batch_size:" in line:
+            config_info["BATCH_SIZE"] = int(line.split("batch_size:")[1].strip())
+        elif "num_total_clients:" in line:
+            config_info["CLIENTS"] = int(line.split("num_total_clients:")[1].strip())
+        elif "num_clients_per_round:" in line:
+            config_info["SAMPLED_CLIENTS_PER_ROUND"] = int(
+                line.split("num_clients_per_round:")[1].strip()
+            )
+        elif "num_evaluate_clients_per_round:" in line:
+            config_info["EVALUATE_CLIENTS_PER_ROUND"] = int(
+                line.split("num_evaluate_clients_per_round:")[1].strip()
+            )
+        elif "num_rounds:" in line:
+            config_info["MAX_ROUND_NUM"] = int(line.split("num_rounds:")[1].strip())
+
+    if config_info["OPTIMIZER"] == "diag_exact":
+        config_info["BP_EXTENSION"] = "DiagGGNExact"
+    elif config_info["OPTIMIZER"] == "diag_mc":
+        config_info["BP_EXTENSION"] = "DiagGGNMC"
+    elif config_info["OPTIMIZER"] == "block_exact":
+        config_info["BP_EXTENSION"] = "KFLR"
+    elif config_info["OPTIMIZER"] == "block_mc":
+        config_info["BP_EXTENSION"] = "KFAC"
+    else:
+        config_info["BP_EXTENSION"] = "None"
+
+    return config_info
 
 
-# These should stay constant
-BATCH_SIZE = 4
-CLIENTS = 100
-SAMPLED_CLIENTS_PER_ROUND = 20
-EVALUATE_CLIENTS_PER_ROUND = 10
-MAX_ROUND_NUM = 50  # To replace magic number 50
-
-
-def extract_runtime_info(log_content: str) -> dict:
+def extract_runtime_info(log_content: str, max_rounds: int) -> dict:
     """
     Extract runtime information from log content.
 
@@ -72,7 +112,7 @@ def extract_runtime_info(log_content: str) -> dict:
             round_num = int(
                 lines[i + 1].split("fit_round ")[1].split(":")[0].split(" ")[0]
             )
-            if 1 <= round_num <= MAX_ROUND_NUM:
+            if 1 <= round_num <= max_rounds:
                 fit_start_time = datetime.strptime(
                     fit_start_match.group(1), "%Y-%m-%d %H:%M:%S"
                 )
@@ -89,7 +129,7 @@ def extract_runtime_info(log_content: str) -> dict:
         evaluate_start_match = evaluate_start_regex.match(lines[i])
         if evaluate_start_match:
             round_num = int(lines[i].split("evaluate_round ")[1].split(":")[0])
-            if 1 <= round_num <= MAX_ROUND_NUM:
+            if 1 <= round_num <= max_rounds:
                 evaluate_start_time = datetime.strptime(
                     evaluate_start_match.group(1), "%Y-%m-%d %H:%M:%S"
                 )
@@ -111,7 +151,20 @@ def extract_runtime_info(log_content: str) -> dict:
 log_file = "../../outputs" + date_time + "/results/main.log"
 log_content = Path(log_file).read_text(encoding="utf-8")
 
-rounds_info = extract_runtime_info(log_content)
+config_info = extract_config_info(log_content)
+LDA_ALPHA = config_info["LDA_ALPHA"]
+OPTIMIZER = config_info["OPTIMIZER"]
+LEARNING_RATE = config_info["LEARNING_RATE"]
+BP_EXTENSION = config_info["BP_EXTENSION"]
+TASK = config_info["TASK"]
+MODEL = config_info["MODEL"]
+BATCH_SIZE = config_info["BATCH_SIZE"]
+CLIENTS = config_info["CLIENTS"]
+SAMPLED_CLIENTS_PER_ROUND = config_info["SAMPLED_CLIENTS_PER_ROUND"]
+EVALUATE_CLIENTS_PER_ROUND = config_info["EVALUATE_CLIENTS_PER_ROUND"]
+MAX_ROUND_NUM = config_info["MAX_ROUND_NUM"]
+
+rounds_info = extract_runtime_info(log_content, MAX_ROUND_NUM)
 df_rounds_info = pd.DataFrame.from_dict(rounds_info, orient="index")
 df_rounds_info["Epoch"] = df_rounds_info.index
 
@@ -119,28 +172,28 @@ with open(path_to_outputs, encoding="utf-8") as f:  # Specify encoding to fix PL
     data = json.load(f)
 df_losses_distributed = pd.DataFrame(
     data["losses_distributed"], columns=["Epoch", "Distributed Loss"]
-)
+).ffill()
 df_losses_centralized = pd.DataFrame(
     data["losses_centralized"], columns=["Epoch", "Centralized Loss"]
-)
+).ffill()
 
 df_metrics_distributed_fit_train_loss = pd.DataFrame(
     data["metrics_distributed_fit"]["train_loss"],
     columns=["Epoch", "Distributed Train Loss"],
-)
+).ffill()
 df_metrics_distributed_fit_train_accuracy = pd.DataFrame(
     data["metrics_distributed_fit"]["train_accuracy"],
     columns=["Epoch", "Distributed Train Accuracy"],
-)
+).ffill()
 
 df_metrics_distributed = pd.DataFrame(
     data["metrics_distributed"]["test_accuracy"],
     columns=["Epoch", "Distributed Test Accuracy"],
-)
+).ffill()
 df_metrics_centralized = pd.DataFrame(
     data["metrics_centralized"]["test_accuracy"],
     columns=["Epoch", "Centralized Test Accuracy"],
-)
+).ffill()
 
 combined_df = reduce(
     lambda left, right: left.merge(
@@ -173,7 +226,8 @@ combined_df["Date"] = date_time
 
 
 combined_df.to_csv(
-    "full-dataset.csv",
+    f"{TASK}-dataset.csv",
     index=False,
     mode="a",
+    header=False,
 )
