@@ -32,4 +32,4 @@ balance: false
 lda: true
 
 # Alpha parameter for LDA
-alpha: 1.0
+alpha: 0.1
