@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 import yaml
 
-date_time = "/2024-03-21/10-51-29"
+date_time = "/2024-03-22/03-07-38"
 path_to_outputs = "../../outputs" + date_time + "/results/state/histories/history.json"
 path_to_yaml = "../../outputs" + date_time + "/.hydra/config.yaml"
 

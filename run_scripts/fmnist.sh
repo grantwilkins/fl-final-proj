@@ -7,7 +7,7 @@
 
 # poetry run python -m project.main --config-name=fmnist-dgnmc
 
-poetry run python -m project.main --config-name=fmnist-dgnexact
+# poetry run python -m project.main --config-name=fmnist-dgnexact
 
 poetry run python -m project.main --config-name=fmnist-bdgnmc
 
