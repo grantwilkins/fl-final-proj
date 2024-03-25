@@ -1,0 +1,136 @@
+[2024-03-24 12:54:30,914][flwr][INFO] - working_dir: null
+to_save_once:
+- yaml
+- log
+- wandb
+to_save_per_round:
+- parameters
+- rng
+- history
+save_frequency: 1
+to_restore: []
+to_clean_once:
+- history
+- parameters
+- yaml
+- log
+- rng
+- history
+use_wandb: false
+debug_clients:
+  all: false
+  one: true
+wandb_resume: false
+wandb_id: null
+wandb:
+  setup:
+    project: template
+    tags:
+    - strategy_${strategy.name}
+    - seed_${fed.seed}
+    entity: null
+    mode: online
+ray_address: null
+ray_redis_password: null
+ray_node_ip_address: null
+file_limit: 250
+task:
+  model_and_data: FMNIST_CNN
+  train_structure: FMNIST
+  fit_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 4
+    run_config:
+      epochs: 1
+      learning_rate: 0.01
+      optimizer: diag_exact
+    extra: {}
+  eval_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  fed_test_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  net_config_initial_parameters: {}
+  fit_metrics:
+  - train_loss
+  - train_accuracy
+  evaluate_metrics:
+  - test_accuracy
+fed:
+  num_rounds: 5
+  num_total_clients: 100
+  num_clients_per_round: 20
+  num_evaluate_clients_per_round: 20
+  enable_resampling: false
+  cpus_per_client: 2
+  gpus_per_client: 0
+  seed: 1337
+  load_saved_state: true
+  server_round: null
+  parameters_folder: null
+  rng_folder: null
+  history_folder: null
+strategy:
+  name: FedAvg
+  init:
+    _target_: flwr.server.strategy.FedAvg
+dataset:
+  dataset_dir: ./data/fmnist/data
+  partition_dir: ./data/fmnist/partition
+  num_clients: 100
+  val_ratio: 0.1
+  seed: 1337
+  iid: false
+  power_law: false
+  balance: false
+  lda: true
+  alpha: 1.0
+
+[2024-03-24 12:54:30,935][flwr][INFO] - Wandb run initialized with False
+[2024-03-24 12:54:30,935][flwr][INFO] - Pre-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']
+[2024-03-24 12:54:30,935][flwr][INFO] - Loading parameters failed from: /Users/grantwilkins/fl-final-proj/outputs/2024-03-24/12-54-30/results/state/parameters/parameters_0.bin
+[2024-03-24 12:54:30,936][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-24 12:54:30,936][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-24 12:54:30,947][flwr][INFO] - Using RNG seed: 1337
+[2024-03-24 12:54:39,653][flwr][INFO] - Fit debug fit: [515, {'train_loss': 0.3183765054110763, 'train_accuracy': 0.5611650485436893}]  and eval: (0.32852591966327865, 57, {'test_accuracy': 0.017543859649122806})
+[2024-03-24 12:54:39,654][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=5, round_timeout=None)
+[2024-03-24 12:54:42,231][flwr][INFO] - Flower VCE: Ray initialized with resources: {'memory': 16793328026.0, 'node:127.0.0.1': 1.0, 'node:__internal_head__': 1.0, 'object_store_memory': 2147483648.0, 'CPU': 10.0}
+[2024-03-24 12:54:42,231][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.dev/docs/framework/how-to-run-simulations.html
+[2024-03-24 12:54:42,231][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 2, 'num_gpus': 0.0}
+[2024-03-24 12:54:42,238][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 5 actors
+[2024-03-24 12:54:42,238][flwr][INFO] - Initializing global parameters
+[2024-03-24 12:54:42,238][flwr][INFO] - Using initial parameters provided by strategy
+[2024-03-24 12:54:42,238][flwr][INFO] - Evaluating initial parameters
+[2024-03-24 12:54:45,891][flwr][INFO] - initial parameters (loss, other metrics): 0.2889518342256546, {'test_accuracy': 0.0911}
+[2024-03-24 12:54:45,908][flwr][INFO] - FL starting
+[2024-03-24 12:54:45,908][flwr][INFO] - Sampled the following clients: ['18', '62', '29', '0', '45', '56', '26', '93', '96', '76', '83', '92', '99', '54', '43', '3', '84', '27', '37', '59']
+[2024-03-24 12:54:45,908][flwr][DEBUG] - fit_round 1: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:55:50,421][flwr][DEBUG] - fit_round 1 received 20 results and 0 failures
+[2024-03-24 12:55:54,012][flwr][INFO] - fit progress: (1, 0.16811251432299615, {'test_accuracy': 0.6148}, 68.1042340840213)
+[2024-03-24 12:55:54,012][flwr][INFO] - Sampled the following clients: ['41', '72', '1', '61', '47', '80', '99', '97', '54', '10', '58', '93', '89', '30', '23', '14', '31', '68', '96', '66']
+[2024-03-24 12:55:54,012][flwr][DEBUG] - evaluate_round 1: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:55:54,584][flwr][DEBUG] - evaluate_round 1 received 20 results and 0 failures
+[2024-03-24 12:55:54,602][flwr][INFO] - Sampled the following clients: ['0', '59', '24', '71', '20', '33', '69', '36', '73', '9', '61', '14', '37', '84', '42', '27', '79', '31', '46', '53']
+[2024-03-24 12:55:54,602][flwr][DEBUG] - fit_round 2: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:56:59,991][flwr][DEBUG] - fit_round 2 received 20 results and 0 failures
+[2024-03-24 12:57:03,048][flwr][INFO] - fit progress: (2, 0.0976227049663663, {'test_accuracy': 0.7051}, 137.1405205000192)
+[2024-03-24 12:57:03,048][flwr][INFO] - Sampled the following clients: ['18', '80', '54', '3', '75', '57', '0', '27', '22', '23', '99', '78', '37', '2', '51', '55', '58', '4', '44', '74']
+[2024-03-24 12:57:03,048][flwr][DEBUG] - evaluate_round 2: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:57:03,577][flwr][DEBUG] - evaluate_round 2 received 20 results and 0 failures
+[2024-03-24 12:57:03,587][flwr][INFO] - Sampled the following clients: ['40', '96', '0', '76', '54', '73', '31', '66', '72', '32', '74', '12', '75', '55', '15', '83', '56', '19', '9', '90']
+[2024-03-24 12:57:03,588][flwr][DEBUG] - fit_round 3: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:58:09,478][flwr][DEBUG] - fit_round 3 received 20 results and 0 failures
+[2024-03-24 12:58:12,554][flwr][INFO] - fit progress: (3, 0.08244354429543019, {'test_accuracy': 0.7572}, 206.6464430000633)
+[2024-03-24 12:58:12,554][flwr][INFO] - Sampled the following clients: ['21', '94', '43', '95', '75', '77', '53', '41', '11', '67', '28', '84', '7', '57', '4', '91', '6', '76', '2', '25']
+[2024-03-24 12:58:12,554][flwr][DEBUG] - evaluate_round 3: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:58:13,086][flwr][DEBUG] - evaluate_round 3 received 20 results and 0 failures
+[2024-03-24 12:58:13,106][flwr][INFO] - Sampled the following clients: ['96', '98', '53', '49', '10', '18', '42', '63', '37', '88', '94', '81', '31', '56', '74', '50', '86', '25', '15', '28']
+[2024-03-24 12:58:13,106][flwr][DEBUG] - fit_round 4: strategy sampled 20 clients (out of 100)

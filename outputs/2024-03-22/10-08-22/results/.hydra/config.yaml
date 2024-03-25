@@ -1,0 +1,87 @@
+---
+working_dir: null
+to_save_once: [yaml, log, wandb]
+to_save_per_round: [parameters, rng, history]
+save_frequency: 1
+to_restore: []
+to_clean_once: [history, parameters, yaml, log, rng, history]
+use_wandb: false
+
+debug_clients:
+  all: false
+  one: true
+
+wandb_resume: false
+wandb_id: null
+
+wandb:
+  setup:
+    project: template
+    tags: ['strategy_${strategy.name}', 'seed_${fed.seed}']
+    entity: null
+    mode: online
+
+ray_address: null
+ray_redis_password: null
+ray_node_ip_address: null
+file_limit: 250
+
+task:
+  model_and_data: CIFAR10_CNN
+  train_structure: CIFAR10
+  fit_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 4
+    run_config:
+      epochs: 1
+      learning_rate: 0.01
+      optimizer: sgd
+    extra: {}
+  eval_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  fed_test_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  net_config_initial_parameters: {}
+  fit_metrics: [train_loss, train_accuracy]
+  evaluate_metrics: [test_accuracy]
+
+fed:
+  num_rounds: 25
+  num_total_clients: 100
+  num_clients_per_round: 20
+  num_evaluate_clients_per_round: 20
+  enable_resampling: false
+  cpus_per_client: 2
+  gpus_per_client: 0
+  seed: 1337
+  load_saved_state: true
+  server_round: null
+  parameters_folder: null
+  rng_folder: null
+  history_folder: null
+
+strategy:
+  name: FedAvg
+  init:
+    _target_: flwr.server.strategy.FedAvg
+
+dataset:
+  dataset_dir: ./data/cifar10/data
+  partition_dir: ./data/cifar10/partition
+  num_clients: 100
+  val_ratio: 0.1
+  seed: 1337
+  iid: false
+  power_law: false
+  balance: false
+  lda: true
+  alpha: 1.0

@@ -185,6 +185,7 @@ def train(  # pylint: disable=too-many-arguments
             else:
                 optimizer.zero_grad()
                 output = net(data)
+
                 loss = criterion(output, target)
                 final_epoch_per_sample_loss += loss.item()
                 num_correct += (
@@ -196,6 +197,13 @@ def train(  # pylint: disable=too-many-arguments
                 else:
                     loss.backward()
                 optimizer.step()
+                # df = pd.DataFrame()
+                # df["MPS Current Memory"] =
+                # [torch.mps.current_allocated_memory() / 1e9]
+                # df["MPS Memory Reserved"] =
+                # [torch.mps.driver_allocated_memory() / 1e9]
+                # df["Optimization Method"] = [method]
+                # df.to_csv("mps_memory.csv", mode="a", header=False, index=False)
 
     return len(cast(Sized, trainloader.dataset)), {
         "train_loss": final_epoch_per_sample_loss

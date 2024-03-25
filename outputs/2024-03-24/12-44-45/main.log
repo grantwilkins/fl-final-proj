@@ -1,0 +1,157 @@
+[2024-03-24 12:44:45,295][flwr][INFO] - working_dir: null
+to_save_once:
+- yaml
+- log
+- wandb
+to_save_per_round:
+- parameters
+- rng
+- history
+save_frequency: 1
+to_restore: []
+to_clean_once:
+- history
+- parameters
+- yaml
+- log
+- rng
+- history
+use_wandb: false
+debug_clients:
+  all: false
+  one: true
+wandb_resume: false
+wandb_id: null
+wandb:
+  setup:
+    project: template
+    tags:
+    - strategy_${strategy.name}
+    - seed_${fed.seed}
+    entity: null
+    mode: online
+ray_address: null
+ray_redis_password: null
+ray_node_ip_address: null
+file_limit: 250
+task:
+  model_and_data: FMNIST_CNN
+  train_structure: FMNIST
+  fit_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 4
+    run_config:
+      epochs: 1
+      learning_rate: 0.01
+      optimizer: diag_mc
+    extra: {}
+  eval_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  fed_test_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  net_config_initial_parameters: {}
+  fit_metrics:
+  - train_loss
+  - train_accuracy
+  evaluate_metrics:
+  - test_accuracy
+fed:
+  num_rounds: 5
+  num_total_clients: 100
+  num_clients_per_round: 20
+  num_evaluate_clients_per_round: 20
+  enable_resampling: false
+  cpus_per_client: 2
+  gpus_per_client: 0
+  seed: 1337
+  load_saved_state: true
+  server_round: null
+  parameters_folder: null
+  rng_folder: null
+  history_folder: null
+strategy:
+  name: FedAvg
+  init:
+    _target_: flwr.server.strategy.FedAvg
+dataset:
+  dataset_dir: ./data/fmnist/data
+  partition_dir: ./data/fmnist/partition
+  num_clients: 100
+  val_ratio: 0.1
+  seed: 1337
+  iid: false
+  power_law: false
+  balance: false
+  lda: true
+  alpha: 1.0
+
+[2024-03-24 12:44:45,316][flwr][INFO] - Wandb run initialized with False
+[2024-03-24 12:44:45,316][flwr][INFO] - Pre-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']
+[2024-03-24 12:44:45,316][flwr][INFO] - Loading parameters failed from: /Users/grantwilkins/fl-final-proj/outputs/2024-03-24/12-44-45/results/state/parameters/parameters_0.bin
+[2024-03-24 12:44:45,317][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-24 12:44:45,317][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-24 12:44:45,334][flwr][INFO] - Using RNG seed: 1337
+[2024-03-24 12:44:48,841][flwr][INFO] - Fit debug fit: [515, {'train_loss': 0.31206100130978137, 'train_accuracy': 0.5650485436893203}]  and eval: (0.3249109753391199, 57, {'test_accuracy': 0.07017543859649122})
+[2024-03-24 12:44:48,842][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=5, round_timeout=None)
+[2024-03-24 12:44:51,312][flwr][INFO] - Flower VCE: Ray initialized with resources: {'memory': 16081454695.0, 'node:__internal_head__': 1.0, 'CPU': 10.0, 'node:127.0.0.1': 1.0, 'object_store_memory': 2147483648.0}
+[2024-03-24 12:44:51,312][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.dev/docs/framework/how-to-run-simulations.html
+[2024-03-24 12:44:51,312][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 2, 'num_gpus': 0.0}
+[2024-03-24 12:44:51,319][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 5 actors
+[2024-03-24 12:44:51,319][flwr][INFO] - Initializing global parameters
+[2024-03-24 12:44:51,320][flwr][INFO] - Using initial parameters provided by strategy
+[2024-03-24 12:44:51,320][flwr][INFO] - Evaluating initial parameters
+[2024-03-24 12:44:54,797][flwr][INFO] - initial parameters (loss, other metrics): 0.2875842768907547, {'test_accuracy': 0.0948}
+[2024-03-24 12:44:54,803][flwr][INFO] - FL starting
+[2024-03-24 12:44:54,803][flwr][INFO] - Sampled the following clients: ['18', '62', '29', '0', '45', '56', '26', '93', '96', '76', '83', '92', '99', '54', '43', '3', '84', '27', '37', '59']
+[2024-03-24 12:44:54,803][flwr][DEBUG] - fit_round 1: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:45:09,560][flwr][DEBUG] - fit_round 1 received 20 results and 0 failures
+[2024-03-24 12:45:12,726][flwr][INFO] - fit progress: (1, 0.15469980443120002, {'test_accuracy': 0.6304}, 17.923377792118117)
+[2024-03-24 12:45:12,727][flwr][INFO] - Sampled the following clients: ['41', '72', '1', '61', '47', '80', '99', '97', '54', '10', '58', '93', '89', '30', '23', '14', '31', '68', '96', '66']
+[2024-03-24 12:45:12,727][flwr][DEBUG] - evaluate_round 1: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:45:13,347][flwr][DEBUG] - evaluate_round 1 received 20 results and 0 failures
+[2024-03-24 12:45:13,361][flwr][INFO] - Sampled the following clients: ['0', '59', '24', '71', '20', '33', '69', '36', '73', '9', '61', '14', '37', '84', '42', '27', '79', '31', '46', '53']
+[2024-03-24 12:45:13,361][flwr][DEBUG] - fit_round 2: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:45:25,485][flwr][DEBUG] - fit_round 2 received 20 results and 0 failures
+[2024-03-24 12:45:28,718][flwr][INFO] - fit progress: (2, 0.09583265277296305, {'test_accuracy': 0.7113}, 33.915058583021164)
+[2024-03-24 12:45:28,718][flwr][INFO] - Sampled the following clients: ['18', '80', '54', '3', '75', '57', '0', '27', '22', '23', '99', '78', '37', '2', '51', '55', '58', '4', '44', '74']
+[2024-03-24 12:45:28,718][flwr][DEBUG] - evaluate_round 2: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:45:29,237][flwr][DEBUG] - evaluate_round 2 received 20 results and 0 failures
+[2024-03-24 12:45:29,246][flwr][INFO] - Sampled the following clients: ['40', '96', '0', '76', '54', '73', '31', '66', '72', '32', '74', '12', '75', '55', '15', '83', '56', '19', '9', '90']
+[2024-03-24 12:45:29,246][flwr][DEBUG] - fit_round 3: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:45:40,995][flwr][DEBUG] - fit_round 3 received 20 results and 0 failures
+[2024-03-24 12:45:44,528][flwr][INFO] - fit progress: (3, 0.08066286098435521, {'test_accuracy': 0.7623}, 49.72521904204041)
+[2024-03-24 12:45:44,529][flwr][INFO] - Sampled the following clients: ['21', '94', '43', '95', '75', '77', '53', '41', '11', '67', '28', '84', '7', '57', '4', '91', '6', '76', '2', '25']
+[2024-03-24 12:45:44,529][flwr][DEBUG] - evaluate_round 3: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:45:45,046][flwr][DEBUG] - evaluate_round 3 received 20 results and 0 failures
+[2024-03-24 12:45:45,052][flwr][INFO] - Sampled the following clients: ['96', '98', '53', '49', '10', '18', '42', '63', '37', '88', '94', '81', '31', '56', '74', '50', '86', '25', '15', '28']
+[2024-03-24 12:45:45,052][flwr][DEBUG] - fit_round 4: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:45:57,131][flwr][DEBUG] - fit_round 4 received 20 results and 0 failures
+[2024-03-24 12:46:00,379][flwr][INFO] - fit progress: (4, 0.07399276130348444, {'test_accuracy': 0.7803}, 65.57629625010304)
+[2024-03-24 12:46:00,380][flwr][INFO] - Sampled the following clients: ['36', '62', '92', '38', '75', '54', '45', '8', '26', '7', '91', '63', '43', '52', '66', '10', '83', '60', '55', '21']
+[2024-03-24 12:46:00,380][flwr][DEBUG] - evaluate_round 4: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:46:00,971][flwr][DEBUG] - evaluate_round 4 received 20 results and 0 failures
+[2024-03-24 12:46:00,977][flwr][INFO] - Sampled the following clients: ['3', '38', '10', '6', '91', '66', '41', '36', '94', '40', '8', '35', '69', '79', '27', '64', '65', '70', '59', '20']
+[2024-03-24 12:46:00,977][flwr][DEBUG] - fit_round 5: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:46:12,958][flwr][DEBUG] - fit_round 5 received 20 results and 0 failures
+[2024-03-24 12:46:16,177][flwr][INFO] - fit progress: (5, 0.06862737163417042, {'test_accuracy': 0.7954}, 81.37404041714035)
+[2024-03-24 12:46:16,177][flwr][INFO] - Sampled the following clients: ['18', '81', '51', '75', '11', '66', '76', '39', '10', '89', '96', '57', '79', '50', '40', '90', '45', '46', '31', '61']
+[2024-03-24 12:46:16,177][flwr][DEBUG] - evaluate_round 5: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:46:16,708][flwr][DEBUG] - evaluate_round 5 received 20 results and 0 failures
+[2024-03-24 12:46:16,716][flwr][INFO] - FL finished in 81.91256904206239
+[2024-03-24 12:46:16,725][flwr][INFO] - app_fit: losses_distributed [(1, 0.17008295464698617), (2, 0.09652490298879349), (3, 0.08579933391251107), (4, 0.07607212765719948), (5, 0.06929092061851283)]
+[2024-03-24 12:46:16,725][flwr][INFO] - app_fit: metrics_distributed_fit {'train_loss': [(1, 0.30454095157330086), (2, 0.21626711604804236), (3, 0.16568439948956232), (4, 0.1584822951787234), (5, 0.13710197912600272)], 'train_accuracy': [(1, 0.5907851433944523), (2, 0.6928708703212226), (3, 0.7628229127667541), (4, 0.7756827048114434), (5, 0.7951299890150129)]}
+[2024-03-24 12:46:16,725][flwr][INFO] - app_fit: metrics_distributed {'test_accuracy': [(1, 0.6197783461210571), (2, 0.7127118644067797), (3, 0.75251677852349), (4, 0.7901444350042481), (5, 0.809282700421941)]}
+[2024-03-24 12:46:16,725][flwr][INFO] - app_fit: losses_centralized [(0, 0.2875842768907547), (1, 0.15469980443120002), (2, 0.09583265277296305), (3, 0.08066286098435521), (4, 0.07399276130348444), (5, 0.06862737163417042)]
+[2024-03-24 12:46:16,725][flwr][INFO] - app_fit: metrics_centralized {'test_accuracy': [(0, 0.0948), (1, 0.6304), (2, 0.7113), (3, 0.7623), (4, 0.7803), (5, 0.7954)]}
+[2024-03-24 12:46:18,232][flwr][INFO] - Cleaned up ray temp session: /tmp/ray/session_2024-03-24_12-44-48_890674_75752 with size: 911392337920
+[2024-03-24 12:46:18,232][flwr][INFO] - Saving ['yaml', 'log', 'wandb']
+[2024-03-24 12:46:18,236][flwr][INFO] - Post-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']

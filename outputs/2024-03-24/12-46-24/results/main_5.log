@@ -1,0 +1,2028 @@
+[2024-03-24 12:46:24,576][flwr][INFO] - working_dir: null
+to_save_once:
+- yaml
+- log
+- wandb
+to_save_per_round:
+- parameters
+- rng
+- history
+save_frequency: 1
+to_restore: []
+to_clean_once:
+- history
+- parameters
+- yaml
+- log
+- rng
+- history
+use_wandb: false
+debug_clients:
+  all: false
+  one: true
+wandb_resume: false
+wandb_id: null
+wandb:
+  setup:
+    project: template
+    tags:
+    - strategy_${strategy.name}
+    - seed_${fed.seed}
+    entity: null
+    mode: online
+ray_address: null
+ray_redis_password: null
+ray_node_ip_address: null
+file_limit: 250
+task:
+  model_and_data: FMNIST_CNN
+  train_structure: FMNIST
+  fit_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 4
+    run_config:
+      epochs: 1
+      learning_rate: 0.01
+      optimizer: diag_exact
+    extra: {}
+  eval_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  fed_test_config:
+    net_config: {}
+    dataloader_config:
+      batch_size: 8
+    run_config: {}
+    extra: {}
+  net_config_initial_parameters: {}
+  fit_metrics:
+  - train_loss
+  - train_accuracy
+  evaluate_metrics:
+  - test_accuracy
+fed:
+  num_rounds: 5
+  num_total_clients: 100
+  num_clients_per_round: 20
+  num_evaluate_clients_per_round: 20
+  enable_resampling: false
+  cpus_per_client: 2
+  gpus_per_client: 0
+  seed: 1337
+  load_saved_state: true
+  server_round: null
+  parameters_folder: null
+  rng_folder: null
+  history_folder: null
+strategy:
+  name: FedAvg
+  init:
+    _target_: flwr.server.strategy.FedAvg
+dataset:
+  dataset_dir: ./data/fmnist/data
+  partition_dir: ./data/fmnist/partition
+  num_clients: 100
+  val_ratio: 0.1
+  seed: 1337
+  iid: false
+  power_law: false
+  balance: false
+  lda: true
+  alpha: 1.0
+
+[2024-03-24 12:46:24,597][flwr][INFO] - Wandb run initialized with False
+[2024-03-24 12:46:24,597][flwr][INFO] - Pre-cleaning ['history', 'parameters', 'yaml', 'log', 'rng', 'history']
+[2024-03-24 12:46:24,597][flwr][INFO] - Loading parameters failed from: /Users/grantwilkins/fl-final-proj/outputs/2024-03-24/12-46-24/results/state/parameters/parameters_0.bin
+[2024-03-24 12:46:24,597][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-24 12:46:24,597][flwr][INFO] - Generating initial parameters with config: {}
+[2024-03-24 12:46:24,609][flwr][INFO] - Using RNG seed: 1337
+[2024-03-24 12:46:32,972][flwr][INFO] - Fit debug fit: [515, {'train_loss': 0.3151205265677525, 'train_accuracy': 0.566990291262136}]  and eval: (0.3193126352209794, 57, {'test_accuracy': 0.42105263157894735})
+[2024-03-24 12:46:32,972][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=5, round_timeout=None)
+[2024-03-24 12:46:35,606][flwr][INFO] - Flower VCE: Ray initialized with resources: {'memory': 16694149120.0, 'node:__internal_head__': 1.0, 'object_store_memory': 2147483648.0, 'node:127.0.0.1': 1.0, 'CPU': 10.0}
+[2024-03-24 12:46:35,606][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.dev/docs/framework/how-to-run-simulations.html
+[2024-03-24 12:46:35,606][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 2, 'num_gpus': 0.0}
+[2024-03-24 12:46:35,614][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 5 actors
+[2024-03-24 12:46:35,615][flwr][INFO] - Initializing global parameters
+[2024-03-24 12:46:35,615][flwr][INFO] - Using initial parameters provided by strategy
+[2024-03-24 12:46:35,615][flwr][INFO] - Evaluating initial parameters
+[2024-03-24 12:46:39,454][flwr][INFO] - initial parameters (loss, other metrics): 0.2880822898864746, {'test_accuracy': 0.1149}
+[2024-03-24 12:46:39,461][flwr][INFO] - FL starting
+[2024-03-24 12:46:39,461][flwr][INFO] - Sampled the following clients: ['18', '62', '29', '0', '45', '56', '26', '93', '96', '76', '83', '92', '99', '54', '43', '3', '84', '27', '37', '59']
+[2024-03-24 12:46:39,461][flwr][DEBUG] - fit_round 1: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:47:44,396][flwr][DEBUG] - fit_round 1 received 20 results and 0 failures
+[2024-03-24 12:47:48,142][flwr][INFO] - fit progress: (1, 0.16584546850919724, {'test_accuracy': 0.6178}, 68.68157270806842)
+[2024-03-24 12:47:48,142][flwr][INFO] - Sampled the following clients: ['41', '72', '1', '61', '47', '80', '99', '97', '54', '10', '58', '93', '89', '30', '23', '14', '31', '68', '96', '66']
+[2024-03-24 12:47:48,142][flwr][DEBUG] - evaluate_round 1: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:47:48,747][flwr][DEBUG] - evaluate_round 1 received 20 results and 0 failures
+[2024-03-24 12:47:48,761][flwr][INFO] - Sampled the following clients: ['0', '59', '24', '71', '20', '33', '69', '36', '73', '9', '61', '14', '37', '84', '42', '27', '79', '31', '46', '53']
+[2024-03-24 12:47:48,761][flwr][DEBUG] - fit_round 2: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:48:53,501][flwr][DEBUG] - fit_round 2 received 20 results and 0 failures
+[2024-03-24 12:48:56,904][flwr][INFO] - fit progress: (2, 0.09672476329952479, {'test_accuracy': 0.7111}, 137.44346033316106)
+[2024-03-24 12:48:56,904][flwr][INFO] - Sampled the following clients: ['18', '80', '54', '3', '75', '57', '0', '27', '22', '23', '99', '78', '37', '2', '51', '55', '58', '4', '44', '74']
+[2024-03-24 12:48:56,904][flwr][DEBUG] - evaluate_round 2: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:48:57,463][flwr][DEBUG] - evaluate_round 2 received 20 results and 0 failures
+[2024-03-24 12:48:57,477][flwr][INFO] - Sampled the following clients: ['40', '96', '0', '76', '54', '73', '31', '66', '72', '32', '74', '12', '75', '55', '15', '83', '56', '19', '9', '90']
+[2024-03-24 12:48:57,477][flwr][DEBUG] - fit_round 3: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:50:03,663][flwr][DEBUG] - fit_round 3 received 20 results and 0 failures
+[2024-03-24 12:50:06,689][flwr][INFO] - fit progress: (3, 0.08211606875061989, {'test_accuracy': 0.7605}, 207.22876529116184)
+[2024-03-24 12:50:06,689][flwr][INFO] - Sampled the following clients: ['21', '94', '43', '95', '75', '77', '53', '41', '11', '67', '28', '84', '7', '57', '4', '91', '6', '76', '2', '25']
+[2024-03-24 12:50:06,689][flwr][DEBUG] - evaluate_round 3: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:50:07,221][flwr][DEBUG] - evaluate_round 3 received 20 results and 0 failures
+[2024-03-24 12:50:07,227][flwr][INFO] - Sampled the following clients: ['96', '98', '53', '49', '10', '18', '42', '63', '37', '88', '94', '81', '31', '56', '74', '50', '86', '25', '15', '28']
+[2024-03-24 12:50:07,227][flwr][DEBUG] - fit_round 4: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:50:37,919][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: cca57e46077363590dd17a3d01000000
+	pid: 75888
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:37,967][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 4d45eba32505dbbde726e09901000000
+	pid: 75889
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:37,968][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: f0e21e1231602fd3bfd5fa3001000000
+	pid: 75886
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:37,968][flwr][WARNING] - Actor(cca57e46077363590dd17a3d01000000) will be remove from pool.
+[2024-03-24 12:50:37,983][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: cca57e46077363590dd17a3d01000000
+	pid: 75888
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:37,983][flwr][WARNING] - REMOVED actor cca57e46077363590dd17a3d01000000 from pool
+[2024-03-24 12:50:37,983][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: cca57e46077363590dd17a3d01000000
+	pid: 75888
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:37,983][flwr][WARNING] - Pool size: 4
+[2024-03-24 12:50:37,985][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 931f0a687827b7f5baa8f9c201000000
+	pid: 75890
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,000][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: cca57e46077363590dd17a3d01000000
+	pid: 75888
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,017][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 4d45eba32505dbbde726e09901000000
+	pid: 75889
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,017][flwr][WARNING] - Actor(4d45eba32505dbbde726e09901000000) will be remove from pool.
+[2024-03-24 12:50:38,017][flwr][WARNING] - Actor(f0e21e1231602fd3bfd5fa3001000000) will be remove from pool.
+[2024-03-24 12:50:38,018][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: f0e21e1231602fd3bfd5fa3001000000
+	pid: 75886
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,018][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 4d45eba32505dbbde726e09901000000
+	pid: 75889
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,018][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 48a46fb7134f338a1f0bfef801000000
+	pid: 75887
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,018][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: f0e21e1231602fd3bfd5fa3001000000
+	pid: 75886
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,018][flwr][WARNING] - REMOVED actor 4d45eba32505dbbde726e09901000000 from pool
+[2024-03-24 12:50:38,018][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 4d45eba32505dbbde726e09901000000
+	pid: 75889
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,019][flwr][WARNING] - Pool size: 3
+[2024-03-24 12:50:38,019][flwr][WARNING] - Actor(931f0a687827b7f5baa8f9c201000000) will be remove from pool.
+[2024-03-24 12:50:38,019][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 4d45eba32505dbbde726e09901000000
+	pid: 75889
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,019][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 931f0a687827b7f5baa8f9c201000000
+	pid: 75890
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,019][flwr][WARNING] - REMOVED actor f0e21e1231602fd3bfd5fa3001000000 from pool
+[2024-03-24 12:50:38,019][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 931f0a687827b7f5baa8f9c201000000
+	pid: 75890
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,019][flwr][WARNING] - Pool size: 2
+[2024-03-24 12:50:38,020][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 931f0a687827b7f5baa8f9c201000000
+	pid: 75890
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,020][flwr][WARNING] - Actor(cca57e46077363590dd17a3d01000000) will be remove from pool.
+[2024-03-24 12:50:38,020][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: cca57e46077363590dd17a3d01000000
+	pid: 75888
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,020][flwr][WARNING] - Actor(4d45eba32505dbbde726e09901000000) will be remove from pool.
+[2024-03-24 12:50:38,020][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: cca57e46077363590dd17a3d01000000
+	pid: 75888
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,020][flwr][WARNING] - Actor(48a46fb7134f338a1f0bfef801000000) will be remove from pool.
+[2024-03-24 12:50:38,021][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 4d45eba32505dbbde726e09901000000
+	pid: 75889
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,021][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 48a46fb7134f338a1f0bfef801000000
+	pid: 75887
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,021][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 4d45eba32505dbbde726e09901000000
+	pid: 75889
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,021][flwr][WARNING] - REMOVED actor 931f0a687827b7f5baa8f9c201000000 from pool
+[2024-03-24 12:50:38,021][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 48a46fb7134f338a1f0bfef801000000
+	pid: 75887
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,021][flwr][WARNING] - Pool size: 1
+[2024-03-24 12:50:38,022][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: f0e21e1231602fd3bfd5fa3001000000
+	pid: 75886
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,022][flwr][WARNING] - Actor(4d45eba32505dbbde726e09901000000) will be remove from pool.
+[2024-03-24 12:50:38,022][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 4d45eba32505dbbde726e09901000000
+	pid: 75889
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,022][flwr][WARNING] - REMOVED actor 48a46fb7134f338a1f0bfef801000000 from pool
+[2024-03-24 12:50:38,022][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 4d45eba32505dbbde726e09901000000
+	pid: 75889
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,022][flwr][WARNING] - Pool size: 0
+[2024-03-24 12:50:38,023][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 931f0a687827b7f5baa8f9c201000000
+	pid: 75890
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,023][flwr][WARNING] - Actor(931f0a687827b7f5baa8f9c201000000) will be remove from pool.
+[2024-03-24 12:50:38,023][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:38,023][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 48a46fb7134f338a1f0bfef801000000
+	pid: 75887
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,023][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:38,023][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 931f0a687827b7f5baa8f9c201000000
+	pid: 75890
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,023][flwr][WARNING] - Actor(f0e21e1231602fd3bfd5fa3001000000) will be remove from pool.
+[2024-03-24 12:50:38,023][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:38,024][flwr][WARNING] - Actor(931f0a687827b7f5baa8f9c201000000) will be remove from pool.
+[2024-03-24 12:50:38,024][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:38,023][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 931f0a687827b7f5baa8f9c201000000
+	pid: 75890
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,024][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:38,024][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:38,024][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: f0e21e1231602fd3bfd5fa3001000000
+	pid: 75886
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,024][flwr][WARNING] - Actor(48a46fb7134f338a1f0bfef801000000) will be remove from pool.
+[2024-03-24 12:50:38,024][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: f0e21e1231602fd3bfd5fa3001000000
+	pid: 75886
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,024][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:38,024][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 931f0a687827b7f5baa8f9c201000000
+	pid: 75890
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,025][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 307, in _fetch_future_result
+    raise ex
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2526, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 48a46fb7134f338a1f0bfef801000000
+	pid: 75887
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+
+[2024-03-24 12:50:38,025][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 931f0a687827b7f5baa8f9c201000000
+	pid: 75890
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,025][flwr][ERROR] - The actor died unexpectedly before finishing this task.
+	class_name: DefaultActor
+	actor_id: 48a46fb7134f338a1f0bfef801000000
+	pid: 75887
+	namespace: 524857a9-9df0-425d-9415-b5aea5dfe004
+	ip: 127.0.0.1
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. There are some potential root causes. (1) The process is killed by SIGKILL by OOM killer due to high memory usage. (2) ray stop --force is called. (3) The worker is crashed unexpectedly due to SIGSEGV or other unexpected errors.
+[2024-03-24 12:50:38,026][flwr][DEBUG] - fit_round 4 received 7 results and 13 failures
+[2024-03-24 12:50:41,010][flwr][INFO] - fit progress: (4, 0.08211606875061989, {'test_accuracy': 0.7605}, 241.54923716606572)
+[2024-03-24 12:50:41,010][flwr][INFO] - Sampled the following clients: ['36', '62', '92', '38', '75', '54', '45', '8', '26', '7', '91', '63', '43', '52', '66', '10', '83', '60', '55', '21']
+[2024-03-24 12:50:41,010][flwr][DEBUG] - evaluate_round 4: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:50:41,010][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,010][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,010][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,010][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,011][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,011][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,011][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,011][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,011][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,011][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,012][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,012][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,012][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,012][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,012][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,012][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,012][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,012][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,013][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,013][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,013][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,013][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,013][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,013][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,013][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,013][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,013][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,014][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,014][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,016][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,014][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,014][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,014][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,015][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,015][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,015][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,015][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,015][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,015][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,015][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,015][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,015][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,014][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,016][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,016][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,016][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,016][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,016][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,016][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,016][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,017][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,017][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,017][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,017][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,017][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,017][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,018][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,018][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,018][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,018][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,018][flwr][DEBUG] - evaluate_round 4 received 0 results and 20 failures
+[2024-03-24 12:50:41,030][flwr][INFO] - Sampled the following clients: ['3', '38', '10', '6', '91', '66', '41', '36', '94', '40', '8', '35', '69', '79', '27', '64', '65', '70', '59', '20']
+[2024-03-24 12:50:41,030][flwr][DEBUG] - fit_round 5: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:50:41,030][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,030][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,030][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,030][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,030][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,031][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,031][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,031][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,031][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,031][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,031][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,031][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,032][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,032][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,032][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,032][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,032][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,032][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,032][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,033][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,032][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,032][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,033][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,033][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,033][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,032][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,033][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,033][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,034][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,034][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,034][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,034][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,036][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,035][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,035][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,035][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,035][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,035][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,035][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,035][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,035][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,036][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,036][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,036][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,036][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,034][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,036][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,036][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:41,036][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,036][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,036][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,037][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,037][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,037][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,037][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,037][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:41,038][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,038][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,038][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,038][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:41,038][flwr][DEBUG] - fit_round 5 received 0 results and 20 failures
+[2024-03-24 12:50:44,103][flwr][INFO] - fit progress: (5, 0.08211606875061989, {'test_accuracy': 0.7605}, 244.64287737500854)
+[2024-03-24 12:50:44,103][flwr][INFO] - Sampled the following clients: ['18', '81', '51', '75', '11', '66', '76', '39', '10', '89', '96', '57', '79', '50', '40', '90', '45', '46', '31', '61']
+[2024-03-24 12:50:44,103][flwr][DEBUG] - evaluate_round 5: strategy sampled 20 clients (out of 100)
+[2024-03-24 12:50:44,104][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,104][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,104][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,104][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,104][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,105][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,105][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,105][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,105][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,105][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,105][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,105][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,105][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,106][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,106][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,106][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,106][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,106][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,106][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,106][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,106][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,107][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,107][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,107][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,107][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,107][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,107][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,107][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,107][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,107][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,108][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,108][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,108][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,108][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,108][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,108][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,108][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,110][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,109][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,109][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,109][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,109][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,109][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,110][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,110][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,110][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,109][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,110][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,110][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,110][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,109][flwr][ERROR] - ActorPool is empty!!!
+[2024-03-24 12:50:44,110][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,110][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,111][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,111][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,111][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,112][flwr][ERROR] - Traceback (most recent call last):
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 138, in _submit_job
+    res = self.actor_pool.get_client_result(self.cid, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 414, in get_client_result
+    return self._fetch_future_result(cid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 300, in _fetch_future_result
+    res_cid, res = ray.get(future)  # type: (str, ClientRes)
+                   ^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/auto_init_hook.py", line 24, in auto_init_wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/grantwilkins/Library/Caches/pypoetry/virtualenvs/project-Jljfmi29-py3.11/lib/python3.11/site-packages/ray/_private/worker.py", line 2513, in get
+    raise ValueError(
+ValueError: 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+
+[2024-03-24 12:50:44,112][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,112][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,112][flwr][ERROR] - 'object_refs' must either be an ObjectRef or a list of ObjectRefs.
+[2024-03-24 12:50:44,113][flwr][DEBUG] - evaluate_round 5 received 0 results and 20 failures
+[2024-03-24 12:50:44,123][flwr][INFO] - FL finished in 244.6631574581843
+[2024-03-24 12:50:44,124][flwr][INFO] - app_fit: losses_distributed [(1, 0.18301314115524292), (2, 0.09755484158078492), (3, 0.0868786285700114)]
+[2024-03-24 12:50:44,124][flwr][INFO] - app_fit: metrics_distributed_fit {'train_loss': [(1, 0.3168518191742915), (2, 0.22137428832671802), (3, 0.1679680892457127)], 'train_accuracy': [(1, 0.5755524212505877), (2, 0.6895762789420701), (3, 0.76048296518158)]}
+[2024-03-24 12:50:44,124][flwr][INFO] - app_fit: metrics_distributed {'test_accuracy': [(1, 0.6155157715260017), (2, 0.7084745762711865), (3, 0.7441275167785235)]}
+[2024-03-24 12:50:44,124][flwr][INFO] - app_fit: losses_centralized [(0, 0.2880822898864746), (1, 0.16584546850919724), (2, 0.09672476329952479), (3, 0.08211606875061989), (4, 0.08211606875061989), (5, 0.08211606875061989)]
+[2024-03-24 12:50:44,124][flwr][INFO] - app_fit: metrics_centralized {'test_accuracy': [(0, 0.1149), (1, 0.6178), (2, 0.7111), (3, 0.7605), (4, 0.7605), (5, 0.7605)]}
+[2024-03-24 12:50:45,537][flwr][INFO] - Cleaned up ray temp session: /tmp/ray/session_2024-03-24_12-46-33_009235_75850 with size: 911399563264
+[2024-03-24 12:50:45,538][flwr][INFO] - Saving ['yaml', 'log', 'wandb']

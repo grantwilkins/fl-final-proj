@@ -24,6 +24,17 @@ class DGN(torch.optim.Optimizer):
             for p in group["params"]:
                 ggn = getattr(p, self.ggn_field)
                 step_direction = p.grad / (ggn + group["damping"])
+                # df = pd.DataFrame()
+                # df["MPS Current Memory"] =
+                # [torch.mps.current_allocated_memory() / 1e9]
+                # df["MPS Memory Reserved"] =
+                # [torch.mps.driver_allocated_memory() / 1e9]
+                # df["Optimization Method"] = (
+                #     ["GGNDiagMC"]
+                #     if self.ggn_field == "diag_ggn_mc"
+                #     else ["GGNDiagExact"]
+                # )
+                # df.to_csv("mps_memory.csv", mode="a", header=False, index=False)
                 p.data.add_(step_direction, alpha=-group["step_size"])
                 # print(p.diag_ggn_mc.shape)
                 # print(p.grad.shape)
@@ -82,6 +93,19 @@ class BDGN(torch.optim.Optimizer):
                     right = torch.inverse((g + (w**-1 * np.sqrt(k) * ig)).cpu()).to(
                         device="mps"
                     )
+                    # df = pd.DataFrame()
+                    # df["MPS Current Memory"] = [
+                    #     torch.mps.current_allocated_memory() / 1e9
+                    # ]
+                    # df["MPS Memory Reserved"] = [
+                    #     torch.mps.driver_allocated_memory() / 1e9
+                    # ]
+                    # df["Optimization Method"] = (
+                    #     ["GGNBlockMC"]
+                    #     if self.ggn_field == "kfac"
+                    #     else ["GGNBlockExact"]
+                    # )
+                    # df.to_csv("mps_memory.csv", mode="a", header=False, index=False)
                     if len(p.grad.shape) == 4:  # noqa: PLR2004
                         step_direction = left @ p.grad.flatten(1) @ right
                     elif len(p.grad.shape) in {1, 2}:
@@ -99,6 +123,19 @@ class BDGN(torch.optim.Optimizer):
                         torch.inverse(c + (k * torch.eye(c.shape[0], device=c.device)))
                         @ p.grad
                     )
+                    # df = pd.DataFrame()
+                    # df["MPS Current Memory"] = [
+                    #     torch.mps.current_allocated_memory() / 1e9
+                    # ]
+                    # df["MPS Memory Reserved"] = [
+                    #     torch.mps.driver_allocated_memory() / 1e9
+                    # ]
+                    # df["Optimization Method"] = (
+                    #     ["GGNDiagMC"]
+                    #     if self.ggn_field == "diag_ggn_mc"
+                    #     else ["GGNDiagExact"]
+                    # )
+                    # df.to_csv("mps_memory.csv", mode="a", header=False, index=False)
                     p.data.add_(
                         step_direction,
                         alpha=-group["step_size"],

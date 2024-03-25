@@ -122,7 +122,10 @@ def dispatch_data(cfg: DictConfig) -> DataStructure | None:
         )
 
         # Case insensitive matches
-        if client_model_and_data.upper() == "CIFAR10_RESNET18":
+        if (
+            client_model_and_data.upper() == "CIFAR10_RESNET18"
+            or client_model_and_data.upper() == "CIFAR10_CNN"
+        ):
             return (
                 get_net,
                 client_dataloader_gen,
