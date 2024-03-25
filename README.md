@@ -1,6 +1,17 @@
 ## About this project
 
 This is a project experimenting with a Gauss Newton Optimiser for Federated Learning.
+The project utilises Backpack in order to propagate the required gradient information through backward passes.
+You can find our modified Backpack repo here - https://github.com/satnavpt/backpack.
+You will need to clone this repo and the Backpack repo in the following directory structure.
+
+```
+.
+├── backpack
+├── fl-final-proj
+```
+
+The modified setup.sh in fl-final-proj will install the custom Backpack module.
 
 # [CaMLSys](https://mlsys.cst.cam.ac.uk/) Federated Learning Research Template using [Flower](https://github.com/adap/flower), [Hydra](https://github.com/facebookresearch/hydra), and [Wandb](https://wandb.ai/site)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/camlsys/fl-project-template/main.svg)](https://results.pre-commit.ci/latest/github/camlsys/fl-project-template/main)
